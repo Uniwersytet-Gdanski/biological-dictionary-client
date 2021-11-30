@@ -1,0 +1,5 @@
+@import '../../colors.css';
+
+.home {
+  color: var(--cool-color);
+}
