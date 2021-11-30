@@ -15,11 +15,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeRoute />} />
-          <Route path="term/:term" element={<TermRoute />} />
+          <Route path="term/:termCode" element={<TermRoute />} />
           <Route path="dashboard" element={<DashboardRoute />}>
             <Route index element={<DashboardHomeRoute />} />
             <Route path="terms/add" element={<AddTermRoute />} />
-            <Route path="terms/:termId" element={<EditTermRoute />} />
+            <Route path="terms/:termCode" element={<EditTermRoute />} />
           </Route>
           <Route path="*" element={<NotFoundRoute />} />
         </Routes>

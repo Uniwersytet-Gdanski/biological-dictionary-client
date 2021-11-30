@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 
 const TermRoute = () => {
-  const { term } = useParams();
+  const { termCode } = useParams();
 
-  return "term " + term;
+  return "term " + termCode;
 };
 
 export default TermRoute;
