@@ -3,11 +3,11 @@
 .bar {
   display: flex;
   justify-content: flex-end;
-  padding: 24px;
+  padding: 1.5em;
 }
 
 .bar > *:not(:first-child) {
-  margin-left: 24px;
+  margin-left: 1.5em;
 }
 
 .bar a {

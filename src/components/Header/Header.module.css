@@ -8,9 +8,9 @@
 }
 
 .logoContainer {
-  margin: 0 auto 20px;
-  width: 172px;
-  height: 172px;
+  margin: 0 auto 1em;
+  width: 10em;
+  height: 10em;
   border-radius: 50%;
   background: var(--white-color);
   display: flex;
