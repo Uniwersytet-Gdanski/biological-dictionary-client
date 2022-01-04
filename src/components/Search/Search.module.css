@@ -30,5 +30,6 @@
   cursor: pointer;
   height: 4em;
   width: 4em;
-  border-radius: 2em / 2em;
+  border-bottom-right-radius: 2em;
+  border-top-right-radius: 2em;
 }
