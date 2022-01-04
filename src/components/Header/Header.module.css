@@ -18,6 +18,13 @@
   align-items: center;
 }
 
+.logoContainer img {
+  /* TODO: set the dimensions here so Lighthouse is satisfied but the logo needs to be a square, */
+  /* TODO: but the temporary one is not a square */
+  /*width: 12em;*/
+  /*height: 12em;*/
+}
+
 .searchContainer {
   margin: auto;
 }
