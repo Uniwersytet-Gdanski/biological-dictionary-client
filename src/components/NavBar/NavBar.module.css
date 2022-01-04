@@ -1,0 +1,21 @@
+@import '../../colors.css';
+
+.bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.bar > *:not(:first-child) {
+  margin-left: 24px;
+}
+
+.bar a {
+  color: var(--white-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.bar a:hover {
+  text-decoration: underline;
+}

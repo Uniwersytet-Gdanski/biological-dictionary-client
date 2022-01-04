@@ -1,5 +1,6 @@
 @import '../../colors.css';
 
 .home {
-  color: var(--cool-color);
+  background: var(--blue-color);
+  min-height: 100vh;
 }

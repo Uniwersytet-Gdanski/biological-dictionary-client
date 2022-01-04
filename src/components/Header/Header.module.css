@@ -1,0 +1,23 @@
+@import '../../colors.css';
+
+.title {
+  color: var(--white-color);
+  text-align: center;
+  font-weight: lighter;
+  font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+.logoContainer {
+  margin: 0 auto 20px;
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  background: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchContainer {
+  margin: auto;
+}
