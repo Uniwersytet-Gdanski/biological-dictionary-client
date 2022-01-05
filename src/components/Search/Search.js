@@ -1,12 +1,14 @@
 import styles from './Search.module.css';
 import classNames from 'classnames';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
 const Search = () => {
-  const suggestions = ['akupunktura', 'analfabetyzm', 'antropologia'];
+  const [suggestions, setSuggestions] = useState([]);
 
   const [isExpandAllowed, setIsExpandAllowed] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [keyboardSelectedIndex, setKeyboardSelectedIndex] = useState(-1);
   const [queryText, setQueryText] = useState('');
 
   // a toggle for development purposes
@@ -14,16 +16,34 @@ const Search = () => {
 
   const isExpanded = (isExpandAllowed && suggestions.length) || forceExpanded;
 
-  const displayedQueryText = selectedIndex >= 0
-      ? suggestions[selectedIndex]
+  const displayedQueryText = keyboardSelectedIndex >= 0
+      ? suggestions[keyboardSelectedIndex]
       : queryText;
 
   const submitText = (text) => {
     if (queryText !== text) {
       setQueryText(text);
     }
-    setTimeout(() => alert(text), 0);
   };
+
+  useEffect(() => {
+    const suggestionsReceived = (newSuggestionsRaw) => {
+      const newSuggestions = newSuggestionsRaw.map(it => it.name);
+      setSuggestions(newSuggestions);
+    }
+
+    if (queryText) {
+      axios.get(`${process.env.REACT_APP_BASE_API_URL}/search-entries?query=${encodeURI(queryText)}`)
+          .then(response => {
+            suggestionsReceived(response.data);
+          })
+          .catch(ex => {
+            console.log(ex)
+          });
+    } else {
+      suggestionsReceived([]);
+    }
+  }, [queryText]);
 
   const handleFormSubmit = (event) => {
     if (selectedIndex >= 0) {
@@ -48,6 +68,14 @@ const Search = () => {
     setIsExpandAllowed(true);
   };
 
+
+  const updateSelectedIndex = (newIndex, isKeyboard) => {
+    setSelectedIndex(newIndex);
+    if (isKeyboard) {
+      setKeyboardSelectedIndex(newIndex);
+    }
+  }
+
   // handle arrow navigation in suggestion dropdown
   const handleKeyDown = (event) => {
     const updateIndex = (modifier) => {
@@ -68,7 +96,7 @@ const Search = () => {
         return newIndex;
       };
       const finalIndex = getFinalIndex();
-      setSelectedIndex(finalIndex);
+      updateSelectedIndex(finalIndex, true);
     };
 
     if (event.key === 'ArrowDown') {
@@ -80,12 +108,12 @@ const Search = () => {
 
   const onQueryChange = (event) => {
     setQueryText(event.target.value);
-    setSelectedIndex(-1);
+    updateSelectedIndex(-1, true);
   };
 
   const handleMouseOverSuggestion = (event) => {
     const hoveredIndex = parseInt(event.target.dataset.index);
-    setSelectedIndex(hoveredIndex);
+    updateSelectedIndex(hoveredIndex, false);
   };
 
   return (
