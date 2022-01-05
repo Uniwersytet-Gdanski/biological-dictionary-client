@@ -8,7 +8,7 @@
 
 .queryInput {
   display: block;
-  border-radius: 2em / 2em;
+  border-radius: 1.5em;
   border: none;
   background: var(--almost-white-color);
   width: 100%;
@@ -16,20 +16,72 @@
   font-size: 1rem;
 }
 
+.queryInput.queryInputExpanded {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .queryInput:focus {
   outline: 0.125em solid var(--orange-color);
 }
 
 .runButton {
+  font-size: 1rem;
   position: absolute;
   vertical-align: middle;
   top: 0;
   right: 0;
+  bottom: 0;
   background: none;
   border: none;
   cursor: pointer;
-  height: 4em;
-  width: 4em;
-  border-bottom-right-radius: 2em;
-  border-top-right-radius: 2em;
+  width: 3em;
+  border-bottom-right-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+}
+
+.runButton::before {
+  content: '';
+  position: absolute;
+  width: 0.125em;
+  height: 2em;
+  margin: auto;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  background: var(--blue-color);
+}
+
+.runButton.runButtonExpanded {
+  border-bottom-right-radius: 0;
+}
+
+.suggestions {
+  width: 100%;
+  position: absolute;
+  visibility: hidden;
+  border-top: 0.125em solid var(--orange-color);
+  background: var(--almost-white-color);
+  border-bottom-right-radius: 1.5em;
+  border-bottom-left-radius: 1.5em;
+  padding-top: 0.25em;
+}
+
+.suggestions.suggestionsExpanded {
+  visibility: visible;
+}
+
+.suggestions div {
+  cursor: pointer;
+  padding: 0.25em 1.5em;
+}
+
+.suggestions div:last-child {
+  border-bottom-right-radius: 1.5em;
+  border-bottom-left-radius: 1.5em;
+  padding-bottom: 0.5em;
+}
+
+.suggestions div:hover {
+  background: var(--orange-color);
 }

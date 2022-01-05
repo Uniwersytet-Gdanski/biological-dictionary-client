@@ -6,7 +6,7 @@
   padding: 1.5em;
 }
 
-.bar > *:not(:first-child) {
+.bar > * + * {
   margin-left: 1.5em;
 }
 

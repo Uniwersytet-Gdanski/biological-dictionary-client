@@ -3,10 +3,16 @@ import NavBar from '../NavBar/NavBar';
 
 import logo from '../../logo.png'
 import Search from '../Search/Search';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
-const Header = () => {
+const Header = ({ currentLetter }) => {
+  const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+  const currentUppercaseLetter = currentLetter.toUpperCase()
+
   return (
-    <header>
+    <header className={styles.header}>
       <NavBar />
       <h1 className={styles.title}>Polsko-Angielski Słownik Biologiczny</h1>
       <div className={styles.logoContainer}>
@@ -15,6 +21,19 @@ const Header = () => {
       <div className={styles.searchContainer}>
         <Search />
       </div>
+      <section className={styles.letters}>
+        {letters.map(letter => (
+          <Link
+            to="#"
+            key={letter}
+            className={
+              classNames({ [styles.activeLetter]: letter === currentUppercaseLetter })
+            }
+          >
+            {letter}
+          </Link>
+        ))}
+      </section>
     </header>
   )
 }
