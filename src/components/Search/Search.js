@@ -30,16 +30,21 @@ const Search = () => {
     const suggestionsReceived = (newSuggestionsRaw) => {
       const newSuggestions = newSuggestionsRaw.map(it => it.name);
       setSuggestions(newSuggestions);
-    }
+    };
 
     if (queryText) {
-      axios.get(`${process.env.REACT_APP_BASE_API_URL}/search-entries?query=${encodeURI(queryText)}`)
-          .then(response => {
-            suggestionsReceived(response.data);
-          })
-          .catch(ex => {
-            console.log(ex)
-          });
+      axios.get(`${process.env.REACT_APP_BASE_API_URL}/search-entries`, {
+        params: {
+          query: queryText,
+        },
+      }).then(response => {
+        suggestionsReceived(response.data);
+      }).catch(ex => {
+        // looking at other search engines (i.e. Google)
+        // errors related to search suggestions don't need to be
+        // displayed to the user
+        console.log(ex);
+      });
     } else {
       suggestionsReceived([]);
     }
@@ -68,13 +73,12 @@ const Search = () => {
     setIsExpandAllowed(true);
   };
 
-
   const updateSelectedIndex = (newIndex, isKeyboard) => {
     setSelectedIndex(newIndex);
     if (isKeyboard) {
       setKeyboardSelectedIndex(newIndex);
     }
-  }
+  };
 
   // handle arrow navigation in suggestion dropdown
   const handleKeyDown = (event) => {
