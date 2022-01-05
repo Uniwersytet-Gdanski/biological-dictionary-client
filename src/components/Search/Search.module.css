@@ -71,17 +71,38 @@
   visibility: visible;
 }
 
-.suggestions div {
+.suggestions button {
+  position: relative;
+  text-align: start;
   cursor: pointer;
-  padding: 0.25em 1.5em;
+  padding: .5em 1.5em .5em 1.5em;
+  width: 100%;
+  display: inherit;
+  border: inherit;
+  font: inherit;
+  background: inherit;
 }
 
-.suggestions div:last-child {
+.suggestions button:last-child {
   border-bottom-right-radius: 1.5em;
   border-bottom-left-radius: 1.5em;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.75em;
 }
 
-.suggestions div:hover {
+.suggestions .hovered {
   background: var(--orange-color);
+}
+
+.suggestions button::after {
+  position: absolute;
+  content: '📗'; /* green book emoji */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 3em;
 }
