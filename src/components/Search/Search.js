@@ -2,11 +2,19 @@ import styles from './Search.module.css';
 import classNames from 'classnames';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const Search = () => {
+  const navigate = useNavigate();
+
   const [suggestions, setSuggestions] = useState([]);
 
-  const [isExpandAllowed, setIsExpandAllowed] = useState(true);
+  const [isExpandAllowed, setIsExpandAllowed] = useState(false);
+  // whether to temporarily hide the suggestion dropdown
+  // until any new user interaction with the query text input.
+  // used when submitting - the user only has a chance to really use this
+  // when they are on a bad connection.
+  const [isExpandPaused, setIsExpandPaused] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [keyboardSelectedIndex, setKeyboardSelectedIndex] = useState(-1);
   const [queryText, setQueryText] = useState('');
@@ -14,22 +22,18 @@ const Search = () => {
   // a toggle for development purposes
   const forceExpanded = false;
 
-  const isExpanded = (isExpandAllowed && suggestions.length) || forceExpanded;
+  const isExpanded = (isExpandAllowed && suggestions.length && !isExpandPaused) || forceExpanded;
 
   const displayedQueryText = keyboardSelectedIndex >= 0
-      ? suggestions[keyboardSelectedIndex]
+      ? suggestions[keyboardSelectedIndex].name
       : queryText;
 
-  const submitText = (text) => {
-    if (queryText !== text) {
-      setQueryText(text);
-    }
-  };
-
   useEffect(() => {
-    const suggestionsReceived = (newSuggestionsRaw) => {
-      const newSuggestions = newSuggestionsRaw.map(it => it.name);
-      setSuggestions(newSuggestions);
+    const suggestionsReceived = (newSuggestions) => {
+      const suggestionsWithKeys = newSuggestions.map(suggestion => {
+        return {...suggestion, key: `${suggestion.id}|${suggestion.name}`};
+      })
+      setSuggestions(suggestionsWithKeys);
     };
 
     if (queryText) {
@@ -51,9 +55,28 @@ const Search = () => {
   }, [queryText]);
 
   const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    const submitText = (text, suggestionId) => {
+      // graphically update the text in the query box;
+      // but it doesn't use 'queryText' below because it's not updated yet,
+      // it uses 'text' instead
+      if (queryText !== text) {
+        setQueryText(text);
+      }
+      updateSelectedIndex(-1, true);
+      setIsExpandPaused(true);
+      if (suggestionId) {
+        navigate(`/term/${suggestionId}`);
+      } else {
+        // TODO decide with team
+        alert("hi");
+      }
+    };
+
     if (selectedIndex >= 0) {
       const selectedSuggestion = suggestions[selectedIndex];
-      submitText(selectedSuggestion);
+      submitText(selectedSuggestion.text, selectedSuggestion.id);
     } else {
       submitText(queryText);
     }
@@ -75,6 +98,7 @@ const Search = () => {
 
   const updateSelectedIndex = (newIndex, isKeyboard) => {
     setSelectedIndex(newIndex);
+    setIsExpandPaused(false);
     if (isKeyboard) {
       setKeyboardSelectedIndex(newIndex);
     }
@@ -156,12 +180,13 @@ const Search = () => {
                 <button
                     className={classNames({[styles.hovered]: selectedIndex === i})}
                     type="submit"
-                    key={suggestion}
-                    data-text={suggestion}
+                    key={suggestion.key}
+                    data-id={suggestion.id}
+                    data-name={suggestion.name}
                     data-index={i}
                     onMouseOver={handleMouseOverSuggestion}
                 >
-                  {suggestion}
+                  {suggestion.name}
                 </button>
             ))}
           </section>
