@@ -36,6 +36,9 @@ const Search = () => {
 
   // hide suggestion dropdown when form focus is lost
   const handleFormBlur = (event) => {
+    // check if the focus is lost to an item inside the form,
+    // or outside the form. only hide dropdown if to outside.
+    // source/reference: https://reactjs.org/docs/events.html#focus-events
     if (!event.currentTarget.contains(event.relatedTarget)) {
       setIsExpandAllowed(false);
     }
