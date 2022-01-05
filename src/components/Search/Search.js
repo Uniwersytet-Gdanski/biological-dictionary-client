@@ -120,6 +120,10 @@ const Search = () => {
     updateSelectedIndex(hoveredIndex, false);
   };
 
+  const handleMouseOutSuggestionList = (event) => {
+    updateSelectedIndex(-1, false);
+  }
+
   return (
       <form
           className={styles.queryForm}
@@ -147,7 +151,7 @@ const Search = () => {
             className={classNames(styles.suggestions,
                 {[styles.suggestionsExpanded]: isExpanded})}
         >
-          <section>
+          <section onMouseOut={handleMouseOutSuggestionList}>
             {suggestions.map((suggestion, i) => (
                 <button
                     className={classNames({[styles.hovered]: selectedIndex === i})}
