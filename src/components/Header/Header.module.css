@@ -22,10 +22,10 @@
 }
 
 .logoContainer img {
-  /* TODO: set the dimensions here so Lighthouse is satisfied but the logo needs to be a square, */
-  /* TODO: but the temporary one is not a square */
-  /*width: 12em;*/
-  /*height: 12em;*/
+  /* The dimensions need to be set here precisely so that Lighthouse is satisfied */
+  width: 8em;
+  height: 8em;
+  border-radius: 4em;
 }
 
 .searchContainer {
