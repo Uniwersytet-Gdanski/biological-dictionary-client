@@ -1,15 +1,15 @@
 import styles from './Header.module.css'
 import NavBar from '../NavBar/NavBar';
 
-import logo from '../../logo.png'
+import logo from '../../logo.jpg'
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 const Header = ({ currentLetter }) => {
-  const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+  const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
-  const currentUppercaseLetter = currentLetter?.toUpperCase()
+  const currentUppercaseLetter = currentLetter?.toUpperCase();
 
   return (
     <header className={styles.header}>
@@ -24,7 +24,7 @@ const Header = ({ currentLetter }) => {
       <section className={styles.letters}>
         {letters.map(letter => (
           <Link
-            to="#"
+            to={`/index/${letter.toLowerCase()}`}
             key={letter}
             className={
               classNames({ [styles.activeLetter]: letter === currentUppercaseLetter })
