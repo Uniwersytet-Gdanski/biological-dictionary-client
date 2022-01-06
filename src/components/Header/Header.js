@@ -15,9 +15,9 @@ const Header = ({ currentLetter }) => {
     <header className={styles.header}>
       <NavBar />
       <h1 className={styles.title}>Polsko-Angielski Słownik Biologiczny</h1>
-      <div className={styles.logoContainer}>
+      <Link to="/" className={styles.logoContainer}>
         <img src={logo} alt="Logo" />
-      </div>
+      </Link>
       <div className={styles.searchContainer}>
         <Search />
       </div>
