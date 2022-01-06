@@ -1,11 +1,12 @@
 import styles from './Search.module.css';
 import classNames from 'classnames';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
 const Search = () => {
   const navigate = useNavigate();
+  const queryInputRef = useRef();
 
   const [suggestions, setSuggestions] = useState([]);
 
@@ -59,8 +60,8 @@ const Search = () => {
 
     const submitText = (text, suggestionId) => {
       // graphically update the text in the query box;
-      // but it doesn't use 'queryText' below because it's not updated yet,
-      // it uses 'text' instead
+      // but we don't use 'queryText' below because it's not updated yet,
+      // we use 'text' instead
       if (queryText !== text) {
         setQueryText(text);
       }
@@ -81,6 +82,11 @@ const Search = () => {
       submitText(queryText);
     }
   };
+
+  const handleFormReset = () => {
+    setQueryText("");
+    queryInputRef.current.focus();
+  }
 
   // hide suggestion dropdown when form focus is lost
   const handleFormBlur = (event) => {
@@ -164,9 +170,17 @@ const Search = () => {
             value={displayedQueryText}
             onChange={onQueryChange}
             onKeyDown={handleKeyDown}
+            ref={queryInputRef}
         />
         <button
-            className={classNames(styles.runButton, {[styles.runButtonExpanded]: isExpanded})}
+            className={styles.clearButton}
+            type="reset" // this doesn't reset automatically though :/
+            onClick={handleFormReset}
+        >
+          ❌{/* cross mark (X) */}
+        </button>
+        <button
+            className={classNames(styles.searchButton, {[styles.runButtonExpanded]: isExpanded})}
             type="submit"
         >
           🔎{/*magnifying glass*/}
