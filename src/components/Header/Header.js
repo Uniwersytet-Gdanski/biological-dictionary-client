@@ -9,7 +9,7 @@ import classNames from 'classnames';
 const Header = ({ currentLetter }) => {
   const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-  const currentUppercaseLetter = currentLetter.toUpperCase()
+  const currentUppercaseLetter = currentLetter?.toUpperCase()
 
   return (
     <header className={styles.header}>
