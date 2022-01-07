@@ -86,7 +86,7 @@ const Search = () => {
   const handleFormReset = () => {
     setQueryText("");
     queryInputRef.current.focus();
-  }
+  };
 
   // hide suggestion dropdown when form focus is lost
   const handleFormBlur = (event) => {
@@ -152,7 +152,7 @@ const Search = () => {
 
   const handleMouseOutSuggestionList = (event) => {
     updateSelectedIndex(-1, false);
-  }
+  };
 
   return (
       <form
