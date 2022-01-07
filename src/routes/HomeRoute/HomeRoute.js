@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header';
 const HomeRoute = () => {
   return (
     <div className={styles.home}>
-      <Header currentLetter="b" />
+      <Header />
     </div>
   );
 };

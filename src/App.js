@@ -8,6 +8,7 @@ import AddTermRoute from './routes/dashboard/AddTermRoute/AddTermRoute';
 import EditTermRoute from './routes/dashboard/EditTermRoute/EditTermRoute';
 import DashboardHomeRoute from './routes/dashboard/DashboardHomeRoute/DashboardHomeRoute';
 import NotFoundRoute from './routes/NotFoundRoute/NotFoundRoute';
+import IndexRoute from './routes/IndexRoute/IndexRoute';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeRoute />} />
+          <Route path="index/:letter" element={<IndexRoute />} />
           <Route path="term/:termCode" element={<TermRoute />} />
           <Route path="dashboard" element={<DashboardRoute />}>
             <Route index element={<DashboardHomeRoute />} />

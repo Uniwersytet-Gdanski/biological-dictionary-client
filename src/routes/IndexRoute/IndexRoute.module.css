@@ -1,0 +1,31 @@
+@import '../../colors.css';
+
+.index {
+    min-height: 100vh;
+}
+
+.mainContainer {
+    padding: 0.5em;
+}
+
+.main {
+    max-width: 50em;
+    background: var(--almost-white-color);
+    border-radius: 1em;
+    margin: 0 auto;
+    border-top: 1px transparent solid;
+    padding: 0 1.5em 1em;
+    color: var(--dark-gray-color);
+}
+
+.main a {
+    color: var(--white-color);
+    background: var(--orange-color);
+    text-decoration: none;
+    padding: 0.5em;
+    border-radius: 0.75em / 0.75em;
+}
+
+.main p {
+    line-height: 2em;
+}
