@@ -1,7 +1,7 @@
 import styles from './NotFoundRoute.module.css';
 import Header from '../../components/Header/Header';
 import {Link, useLocation} from 'react-router-dom';
-import {Helmet} from 'react-helmet';
+import {Helmet} from 'react-helmet-async';
 
 const NotFoundRoute = () => {
   const location = useLocation();
