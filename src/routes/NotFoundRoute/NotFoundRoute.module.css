@@ -1,7 +1,6 @@
 @import '../../colors.css';
 
-.notFound {
-    background: var(--blue-color);
+.index {
     min-height: 100vh;
 }
 
@@ -25,4 +24,8 @@
     text-decoration: none;
     padding: 0.5em;
     border-radius: 0.75em / 0.75em;
+}
+
+.main p {
+    line-height: 2em;
 }
