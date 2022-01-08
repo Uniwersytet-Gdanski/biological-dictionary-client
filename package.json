@@ -22,7 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "zip": "yarn build && zip -r build.zip build"
+    "zip": "yarn build && zip -r build.zip build",
+    "deploy": "yarn build && node deploy.js build"
   },
   "eslintConfig": {
     "extends": "react-app"
