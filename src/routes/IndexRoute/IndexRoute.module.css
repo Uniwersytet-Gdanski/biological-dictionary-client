@@ -18,12 +18,11 @@
     color: var(--dark-gray-color);
 }
 
+
+
 .main a {
-    color: var(--white-color);
-    background: var(--orange-color);
+    color: var(--dark-gray-color);
     text-decoration: none;
-    padding: 0.5em;
-    border-radius: 0.75em / 0.75em;
 }
 
 .main p {

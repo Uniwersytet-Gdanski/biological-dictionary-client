@@ -2,6 +2,7 @@ import styles from './IndexRoute.module.css';
 import Header from '../../components/Header/Header';
 import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
+import Index from '../../components/Index/Index';
 
 const IndexRoute = () => {
   const location = useLocation();
@@ -24,11 +25,7 @@ const IndexRoute = () => {
         <div className={styles.mainContainer}>
           <main className={styles.main}>
             <h1>Hasła na literę {letter}</h1>
-            <p>
-              <Link to="/">
-                Przejdź do strony głównej
-              </Link> lub wyszukaj w polu wyżej
-            </p>
+            <Index letter={letter}/>
           </main>
         </div>
       </div>

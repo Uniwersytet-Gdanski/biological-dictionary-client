@@ -1,0 +1,18 @@
+@import '../../colors.css';
+
+.sectionTitle {
+    color: var(--white-color);
+    display: inline-block;
+    background: var(--orange-color);
+    text-decoration: none;
+    padding: 0.5em;
+    border-radius: 0.75em / 0.75em;
+}
+
+.sectionGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(var(--row-count-two-columns), auto);
+    grid-gap: 1.5em;
+    grid-auto-flow: column;
+}
