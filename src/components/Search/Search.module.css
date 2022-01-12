@@ -99,7 +99,6 @@
   border: inherit;
   font: inherit;
   background: inherit;
-  word-break: break-all;
 }
 
 .suggestions button:last-child {
