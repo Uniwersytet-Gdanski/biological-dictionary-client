@@ -10,9 +10,21 @@
 }
 
 .sectionGrid {
+    /** this needs to be declared here so that the IDE knows about it,
+       but the value is set in JS */
+    --row-count-two-columns: '';
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(var(--row-count-two-columns), auto);
     grid-gap: 1.5em;
     grid-auto-flow: column;
+}
+
+
+@media screen and (max-width: 35em) {
+    .sectionGrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: initial;
+        grid-auto-flow: row;
+    }
 }
