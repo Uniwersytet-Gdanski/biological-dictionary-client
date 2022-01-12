@@ -33,11 +33,11 @@ const Index = ({letter}) => {
       output[secondLetter] = [...(output[secondLetter] || []), entry];
     });
     return Object.entries(output).
-        sort((a, b) => a[0] > b[0] ? 1 : -1).
+        sort((a, b) => a[0].localeCompare(b[0])).
         map(([secondLetter, entries]) =>
             [
               secondLetter,
-              entries.sort((a, b) => a[0] > b[0] ? 1 : -1),
+              entries/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
             ],
         );
   }, [entryPage]);
@@ -55,8 +55,8 @@ const Index = ({letter}) => {
                     '--row-count-three-columns': Math.ceil(entries.length / 3),
                   }}>
                     {entries.map(entry => (
-                        <Link to={`/term/${secondLetter}`}
-                              key={entry.id}>{entry.name}</Link>
+                        <Link to={`/term/${entry.id}`}
+                              key={entry.name}>{entry.name}</Link>
                     ))}
                   </main>
                 </section>
