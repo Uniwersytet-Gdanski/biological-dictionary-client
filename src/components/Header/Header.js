@@ -5,11 +5,22 @@ import logo from '../../logo.png'
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const Header = ({ currentLetter }) => {
-  const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-
-  const currentUppercaseLetter = currentLetter?.toUpperCase();
+  const [letters, setLetters] = useState(null);
+  const [, setAreLettersLoading] = useState(true);
+  const [, setLettersLoadingError] = useState(null);
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_API_URL}/entries-first-letters`).then(response => {
+        setLetters(response.data);
+    }).catch(ex => {
+        setLettersLoadingError(ex);
+    }).finally(() => {
+        setAreLettersLoading(false);
+    });
+  }, []);
 
   return (
     <header className={styles.header}>
@@ -22,16 +33,18 @@ const Header = ({ currentLetter }) => {
         <Search />
       </div>
       <section className={styles.letters}>
-        {letters.map(letter => (
+        {letters?.map(letter => (
           <Link
-            to={`/index/${letter.toLowerCase()}`}
+            to={`/index/${letter}`}
             key={letter}
             className={
-              classNames({ [styles.activeLetter]: letter === currentUppercaseLetter })
+              classNames({[styles.letter]: true, [styles.activeLetter]: letter === currentLetter })
             }
           >
-            {letter}
+            {letter.toUpperCase()}
           </Link>
+        )) || Array(30).fill().map((_, i) => (
+          <div key={i} className={classNames({[styles.letter]: true })}>&nbsp;</div>
         ))}
       </section>
     </header>
