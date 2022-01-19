@@ -42,7 +42,7 @@
   text-align: center;
 }
 
-.letters a {
+.letters .letter {
   text-decoration: none;
   color: var(--white-color);
   font-weight: bold;
