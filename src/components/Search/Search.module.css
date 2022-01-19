@@ -124,3 +124,7 @@
   margin: auto;
   width: 3em;
 }
+
+.suggestions button.commandSuggestion::after {
+  content: '🔧'; /* green book emoji */
+}

@@ -1,8 +1,11 @@
 import styles from './Search.module.css';
 import classNames from 'classnames';
 import {useEffect, useRef, useState} from 'react';
-import axios from 'axios';
+import axiosClient from '../../axiosClient';
 import {useNavigate} from 'react-router-dom';
+
+const COMMAND_PREFIX = "/";
+const LOGIN_COMMAND_PREFIX = "/login ";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -23,11 +26,20 @@ const Search = () => {
   // a toggle for development purposes
   const forceExpanded = false;
 
+  const [login, setLogin] = useState(null);
+
+  const isTypingPassword = login !== null;
+  const isCommand = queryText.startsWith(COMMAND_PREFIX) && !isTypingPassword;
+
   const isExpanded = (isExpandAllowed && suggestions.length && !isExpandPaused) || forceExpanded;
 
   const displayedQueryText = keyboardSelectedIndex >= 0
       ? suggestions[keyboardSelectedIndex].name
       : queryText;
+
+  const getFakeSuggestion = (text) => {
+    return {id: text, name: text}
+  }
 
   useEffect(() => {
     const suggestionsReceived = (newSuggestions) => {
@@ -37,23 +49,33 @@ const Search = () => {
       setSuggestions(suggestionsWithKeys);
     };
 
-    if (queryText) {
-      axios.get(`${process.env.REACT_APP_BASE_API_URL}/search-entries`, {
-        params: {
-          query: queryText,
-        },
-      }).then(response => {
-        suggestionsReceived(response.data);
-      }).catch(ex => {
-        // looking at other search engines (i.e. Google)
-        // errors related to search suggestions don't need to be
-        // displayed to the user
-        console.log(ex);
-      });
+    if (queryText && !isTypingPassword) {
+      if (isCommand) {
+        if (LOGIN_COMMAND_PREFIX.startsWith(queryText) || queryText.startsWith(LOGIN_COMMAND_PREFIX)) {
+          if (queryText.length > LOGIN_COMMAND_PREFIX.length) {
+            suggestionsReceived([getFakeSuggestion(queryText)]);
+          } else {
+            suggestionsReceived([getFakeSuggestion(LOGIN_COMMAND_PREFIX)]);
+          }
+        }
+      } else {
+        axiosClient.get(`/search-entries`, {
+          params: {
+            query: queryText,
+          },
+        }).then(response => {
+          suggestionsReceived(response.data.data);
+        }).catch(ex => {
+          // looking at other search engines (i.e. Google)
+          // errors related to search suggestions don't need to be
+          // displayed to the user
+          console.log(ex);
+        });
+      }
     } else {
       suggestionsReceived([]);
     }
-  }, [queryText]);
+  }, [queryText, isCommand, isTypingPassword]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -65,19 +87,31 @@ const Search = () => {
       if (queryText !== text) {
         setQueryText(text);
       }
+      if (isCommand) {
+        if (text.startsWith(LOGIN_COMMAND_PREFIX)) {
+          setQueryText("");
+          setLogin(text.slice(LOGIN_COMMAND_PREFIX.length));
+        }
+      }
+      // password got submitted, perform login
+      if (isTypingPassword) {
+        alert(`login: '${login}', hasło: '${queryText}'`)
+      }
       updateSelectedIndex(-1, true);
       setIsExpandPaused(true);
-      if (suggestionId) {
-        navigate(`/term/${suggestionId}`);
-      } else {
-        // TODO decide with team
-        alert("hi");
+      if (!isCommand && !isTypingPassword) {
+        if (suggestionId) {
+          navigate(`/term/${suggestionId}`);
+        } else {
+          // TODO decide with team
+          alert("hi");
+        }
       }
     };
 
     if (selectedIndex >= 0) {
       const selectedSuggestion = suggestions[selectedIndex];
-      submitText(selectedSuggestion.text, selectedSuggestion.id);
+      submitText(selectedSuggestion.name, selectedSuggestion.id);
     } else {
       submitText(queryText);
     }
@@ -164,8 +198,8 @@ const Search = () => {
         <input
             className={classNames(styles.queryInput, {[styles.queryInputExpanded]: isExpanded})}
             autoComplete="off"
-            type="text"
-            placeholder="Wpisz szukane słowo"
+            type={isTypingPassword ? "password" : "text"}
+            placeholder={isTypingPassword ? "Podaj swoje hasło" : "Wpisz szukane słowo"}
             autoFocus
             value={displayedQueryText}
             onChange={onQueryChange}
@@ -183,7 +217,7 @@ const Search = () => {
             className={classNames(styles.searchButton, {[styles.runButtonExpanded]: isExpanded})}
             type="submit"
         >
-          🔎{/*magnifying glass*/}
+          {isCommand ? '🏠' : isTypingPassword ? '🔑' : '🔎'}{/*magnifying glass*/}
         </button>
         <div
             className={classNames(styles.suggestions,
@@ -192,7 +226,10 @@ const Search = () => {
           <section onMouseOut={handleMouseOutSuggestionList}>
             {suggestions.map((suggestion, i) => (
                 <button
-                    className={classNames({[styles.hovered]: selectedIndex === i})}
+                    className={classNames({
+                      [styles.hovered]: selectedIndex === i,
+                      [styles.commandSuggestion]: isCommand
+                    })}
                     type="submit"
                     key={suggestion.key}
                     data-id={suggestion.id}

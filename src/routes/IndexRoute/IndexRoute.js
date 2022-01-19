@@ -1,6 +1,6 @@
 import styles from './IndexRoute.module.css';
 import Header from '../../components/Header/Header';
-import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Index from '../../components/Index/Index';
 

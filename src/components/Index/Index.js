@@ -1,15 +1,16 @@
 import styles from './Index.module.css';
 import {useEffect, useMemo, useRef, useState} from 'react';
-import axios from 'axios';
+import axiosClient from '../../axiosClient';
 import {Link} from 'react-router-dom';
 
 const Index = ({letter}) => {
   const [entryPage, setEntryPage] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_API_URL}/entries-by-prefix`, {
+    axiosClient.get(`/entries-by-prefix`, {
       params: {
         prefix: letter,
+        pageSize: 30
       },
     }).then(response => {
       setEntryPage(response.data);
@@ -48,9 +49,9 @@ const Index = ({letter}) => {
       <div>
         {entriesBySecondLetter &&
             entriesBySecondLetter.map(([secondLetter, entries]) => (
-                <section key={secondLetter}>
+                <section key={secondLetter} aria-label={`Words starting with ${letter}${secondLetter}`}>
                   <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>
-                  <main className={styles.sectionGrid} style={{
+                  <div className={styles.sectionGrid} style={{
                     '--row-count-two-columns': Math.ceil(entries.length / 2),
                     '--row-count-three-columns': Math.ceil(entries.length / 3),
                   }}>
@@ -58,9 +59,10 @@ const Index = ({letter}) => {
                         <Link to={`/term/${entry.id}`}
                               key={entry.name}>{entry.name}</Link>
                     ))}
-                  </main>
+                  </div>
                 </section>
             ))}
+        {!entriesBySecondLetter && "Wczytywanie..."}
       </div>
   );
 };
