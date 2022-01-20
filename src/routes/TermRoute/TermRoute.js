@@ -6,22 +6,49 @@ import Header from '../../components/Header/Header';
 import styles from './TermRoute.module.css';
 import poland from '../../poland.png';
 import uk from '../../uk.png';
+import {useSelector} from 'react-redux';
+import {getEntryById} from '../../ducks/entries/selectors';
+import {connect} from 'react-redux';
+import entryOperations from '../../ducks/entries/operations.js';
 
-const TermRoute = () => {
+
+
+const TermRoute = ({addEntry, markEntryIdAsNonexisting}) => {
   const {termCode} = useParams();
 
-  const [term, setTerm] = useState(null);
+  const term = useSelector((state) => (getEntryById(state, termCode)));
+  const [error, setError] = useState(undefined);
 
-  useEffect(() => {
-    axiosClient.get(`/entries/${termCode}`).then(response => {
-      setTerm(response.data);
-    }).catch(ex => {
-      if (ex.isAxiosError) {
-        // TODO
-      }
-        console.log(ex);
-    });
-  }, [termCode]);
+//   useEffect(() => {
+//     axiosClient.get(`/entries/${termCode}`).then(response => {
+//       setTerm(response.data);
+//     }).catch(ex => {
+//       if (ex.isAxiosError) {
+//         // TODO
+//       }
+//         console.log(ex);
+//     });
+//   }, [termCode]);
+	console.log(term);
+
+	useEffect(() => {
+		
+		if (term === undefined) {
+			axiosClient.get(`/entries/${termCode}`).then((response) => {
+				addEntry(response.data);
+				setError(null);
+			}).catch((error) => {
+				if (error.isAxiosError && error.response.status === 404) {
+					setError(null);
+					markEntryIdAsNonexisting(termCode);
+					console.log('entry not found');
+					return;
+				}
+				setError(error);
+				
+			});
+		}
+	}, [term, addEntry, termCode]);
 
   return (
       <div className={styles.route}>
@@ -71,11 +98,19 @@ const TermRoute = () => {
                   </div>
                 </>
             )}
-            {!term && 'Ładowanie...'}
+			{term === null && !error && 'Nie ma takiego słówka'}
+            {term === undefined && !error && 'Ładowanie...'}
+			{error && 'Błąd'}
           </main>
         </div>
       </div>
   );
 };
 
-export default TermRoute;
+const mapDispatchToProps = (dispatch) => ({
+	  addEntry: (entry) => dispatch(entryOperations.addEntry(entry)),
+	  markEntryIdAsNonexisting: (entryId) => dispatch(entryOperations.markEntryIdAsNonexisting(entryId)),
+});
+
+
+export default connect(null, mapDispatchToProps)(TermRoute);

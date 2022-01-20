@@ -1,1 +1,1 @@
-export const getMovieById = (state, id) => (state.entries[id]);
+export const getEntryById = (state, id) => (state.entries[id]);

@@ -1,10 +1,24 @@
 import actions from "./actions.js";
 
 
-export const addEntry = (entry) => (dispatch) => {
-	dispatch(actions.addEntry(entry));
+
+
+const addEntry = (entry) => (dispatch) => (
+	dispatch(actions.addEntry(entry))
+);
+
+const addEntries = (entries) => (dispatch) => (
+	dispatch(actions.addEntries(entries))
+);
+
+const markEntryIdAsNonexisting = (entryId) => (dispatch) => (
+	dispatch(actions.markEntryIdAsNonexisting(entryId))
+);
+
+const operations = {
+	addEntry,
+	addEntries,
+	markEntryIdAsNonexisting,
 };
 
-export const addEntries = (entries) => (dispatch) => {
-	dispatch(actions.addEntries(entries));
-};
+export default operations;

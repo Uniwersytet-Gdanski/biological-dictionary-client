@@ -1,5 +1,5 @@
 const reducerCreator = (initState, reducerByActionType) => (
-	(state=initState, action) => (
+	(state = initState, action) => (
 		reducerByActionType[action.type]?.(state, action.payload) ?? state
 	)
 );
