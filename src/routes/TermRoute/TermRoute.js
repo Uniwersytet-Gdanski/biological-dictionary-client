@@ -48,7 +48,7 @@ const TermRoute = ({addEntry, markEntryIdAsNonexisting}) => {
 				
 			});
 		}
-	}, [term, addEntry, termCode]);
+	}, [term, addEntry, termCode, markEntryIdAsNonexisting]);
 
   return (
       <div className={styles.route}>
