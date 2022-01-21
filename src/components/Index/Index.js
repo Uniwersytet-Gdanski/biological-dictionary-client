@@ -4,16 +4,16 @@ import axiosClient from '../../axiosClient';
 import {Link} from 'react-router-dom';
 
 const Index = ({letter}) => {
-  const [entryPage, setEntryPage] = useState(null);
+  const [termPage, setTermPage] = useState(null);
 
   useEffect(() => {
-    axiosClient.get(`/entries-by-prefix`, {
+    axiosClient.get(`/terms-by-prefix`, {
       params: {
         prefix: letter,
         pageSize: 30
       },
     }).then(response => {
-      setEntryPage(response.data);
+      setTermPage(response.data);
     }).catch(ex => {
       // looking at other search engines (i.e. Google)
       // errors related to search suggestions don't need to be
@@ -23,46 +23,46 @@ const Index = ({letter}) => {
   }, [letter]);
 
   // TODO what if there is only one letter?
-  const entriesBySecondLetter = useMemo(() => {
-    if (!entryPage) {
+  const termsBySecondLetter = useMemo(() => {
+    if (!termPage) {
       return;
     }
 
     const output = {};
-    entryPage.data.map(entry => {
-      const secondLetter = entry.name.slice(1, 2);
-      output[secondLetter] = [...(output[secondLetter] || []), entry];
+    termPage.data.map(term => {
+      const secondLetter = term.name.slice(1, 2);
+      output[secondLetter] = [...(output[secondLetter] || []), term];
     });
     return Object.entries(output).
         sort((a, b) => a[0].localeCompare(b[0])).
-        map(([secondLetter, entries]) =>
+        map(([secondLetter, terms]) =>
             [
               secondLetter,
-              entries/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
+              terms/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
             ],
         );
-  }, [entryPage]);
+  }, [termPage]);
 
-  console.log(entriesBySecondLetter)
+  console.log(termsBySecondLetter)
 
   return (
       <div>
-        {entriesBySecondLetter &&
-            entriesBySecondLetter.map(([secondLetter, entries]) => (
+        {termsBySecondLetter &&
+            termsBySecondLetter.map(([secondLetter, terms]) => (
                 <section key={secondLetter} aria-label={`Words starting with ${letter}${secondLetter}`}>
                   <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>
                   <div className={styles.sectionGrid} style={{
-                    '--row-count-two-columns': Math.ceil(entries.length / 2),
-                    '--row-count-three-columns': Math.ceil(entries.length / 3),
+                    '--row-count-two-columns': Math.ceil(terms.length / 2),
+                    '--row-count-three-columns': Math.ceil(terms.length / 3),
                   }}>
-                    {entries.map(entry => (
-                        <Link to={`/term/${entry.id}`}
-                              key={entry.name}>{entry.name}</Link>
+                    {terms.map(term => (
+                        <Link to={`/term/${term.id}`}
+                              key={term.name}>{term.name}</Link>
                     ))}
                   </div>
                 </section>
             ))}
-        {!entriesBySecondLetter && "Wczytywanie..."}
+        {!termsBySecondLetter && "Wczytywanie..."}
       </div>
   );
 };

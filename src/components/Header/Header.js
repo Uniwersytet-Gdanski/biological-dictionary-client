@@ -13,7 +13,7 @@ const Header = ({ currentLetter }) => {
   const [, setAreLettersLoading] = useState(true);
   const [, setLettersLoadingError] = useState(null);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_API_URL}/entries-first-letters`).then(response => {
+    axios.get(`${process.env.REACT_APP_BASE_API_URL}/terms-first-letters`).then(response => {
         setLetters(response.data);
     }).catch(ex => {
         setLettersLoadingError(ex);

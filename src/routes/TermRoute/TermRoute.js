@@ -6,22 +6,41 @@ import Header from '../../components/Header/Header';
 import styles from './TermRoute.module.css';
 import poland from '../../poland.png';
 import uk from '../../uk.png';
+import {useSelector, useDispatch} from 'react-redux';
+import {addTerm, markTermIdAsNonexisting, getTermById} from '../../slices/terms';
+
+
 
 const TermRoute = () => {
+  const dispatch = useDispatch();
   const {termCode} = useParams();
 
-  const [term, setTerm] = useState(null);
+  const term = useSelector(getTermById(termCode));
+  // undefined - not yet loaded
+  // null - does not exist in the database
+  // object - loaded
 
-  useEffect(() => {
-    axiosClient.get(`/entries/${termCode}`).then(response => {
-      setTerm(response.data);
-    }).catch(ex => {
-      if (ex.isAxiosError) {
-        // TODO
-      }
-        console.log(ex);
-    });
-  }, [termCode]);
+  const [error, setError] = useState(undefined);
+
+
+	useEffect(() => {
+		
+		if (term === undefined) {
+			axiosClient.get(`/terms/${termCode}`).then((response) => {
+				dispatch(addTerm(response.data));
+				setError(null);
+			}).catch((error) => {
+				if (error.isAxiosError && error.response.status === 404) {
+					setError(null);
+					dispatch(markTermIdAsNonexisting(termCode));
+					console.log('term not found');
+					return;
+				}
+				setError(error);
+				
+			});
+		}
+	}, [term, addTerm, dispatch, termCode, markTermIdAsNonexisting]);
 
   return (
       <div className={styles.route}>
@@ -50,17 +69,17 @@ const TermRoute = () => {
                     </div>
                     <img src={uk} alt={'angielskie tłumaczenia'} />
                     <div className={styles.englishSection}>
-                      {term.englishTerms.map((englishTerm, i) => (
-                          <Fragment key={englishTerm.singular}>
+                      {term.englishTranslations.map((englishTranslation, i) => (
+                          <Fragment key={englishTranslation.singular}>
                             <div
                                 className={styles.termSingularText}
                             >
-                              {englishTerm.singular}
+                              {englishTranslation.singular}
                             </div>
                             <div
                                 className={styles.termPluralText}
                             >
-                                  lm. {englishTerm.plural || "–"}
+                                  lm. {englishTranslation.plural || "–"}
                             </div>
                           </Fragment>
                       ))}
@@ -71,11 +90,14 @@ const TermRoute = () => {
                   </div>
                 </>
             )}
-            {!term && 'Ładowanie...'}
+			{term === null && !error && 'Nie ma takiego słówka'}
+            {term === undefined && !error && 'Ładowanie...'}
+			{error && 'Błąd:' + error}
           </main>
         </div>
       </div>
   );
 };
+
 
 export default TermRoute;
