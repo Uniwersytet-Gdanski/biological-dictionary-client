@@ -1,6 +1,6 @@
 // import { configureStore } from '@reduxjs/toolkit';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import entriesReducer from '../ducks/entries/reducer.js';
+import termsReducer from '../slices/terms.js';
 import thunk from 'redux-thunk';
 
 // export const store = configureStore({
@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 
 export const store = createStore(
 	combineReducers({
-		entries: entriesReducer,
+		terms: termsReducer,
 	}),
 	applyMiddleware(thunk),
 );

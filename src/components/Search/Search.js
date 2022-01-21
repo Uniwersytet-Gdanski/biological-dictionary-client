@@ -59,7 +59,7 @@ const Search = () => {
           }
         }
       } else {
-        axiosClient.get(`/search-entries`, {
+        axiosClient.get(`/search-terms`, {
           params: {
             query: queryText,
           },
