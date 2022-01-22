@@ -7,7 +7,7 @@ import userReducer from './slices/user.js';
 export const store = configureStore({
   reducer: {
     terms: termsReducer,
-	termsFirstLetters: termsFirstLettersReducer,
-	user: userReducer,
+    termsFirstLetters: termsFirstLettersReducer,
+    user: userReducer,
   },
 });

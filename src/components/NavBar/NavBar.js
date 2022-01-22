@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
 import styles from './NavBar.module.css'
-import {getUser} from '../../redux/slices/user';
-import {useSelector} from 'react-redux';
+import { getUser } from '../../redux/slices/user';
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const user = useSelector(getUser);  // todo: logout button and going to dashboard
@@ -18,6 +18,6 @@ const NavBar = () => {
       <NavLink to="/contact">Kontakt</NavLink>
     </nav>
   )
-}
+};
 
 export default NavBar;

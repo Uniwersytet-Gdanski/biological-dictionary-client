@@ -1,49 +1,49 @@
 .languageGrid {
-    display: grid;
-    grid-template-columns: min-content auto;
-    padding: 0 1.5em 1em;
+  display: grid;
+  grid-template-columns: min-content auto;
+  padding: 0 1.5em 1em;
 }
 
 .termSingularText {
-    text-transform: uppercase;
-    margin: 0.25em 0;
-    font-size: 1.25em;
-    font-weight: bold;
+  text-transform: uppercase;
+  margin: 0.25em 0;
+  font-size: 1.25em;
+  font-weight: bold;
 }
 
 .languageSection {
-    margin-top: 0.75em;
-    display: grid;
+  margin-top: 0.75em;
+  display: grid;
 }
 
 .polishSection {
-    composes: languageSection;
-    grid-template-columns: 1fr;
+  composes: languageSection;
+  grid-template-columns: 1fr;
 }
 
 .englishSection {
-    composes: languageSection;
-    grid-template-columns: 1fr 1fr;
+  composes: languageSection;
+  grid-template-columns: 1fr 1fr;
 }
 
 .termPluralText {
-    margin: 0.25em 0;
-    font-size: 1.25em;
+  margin: 0.25em 0;
+  font-size: 1.25em;
 }
 
 .languageGrid img {
-    margin: 1em 1em 1em 0;
+  margin: 1em 1em 1em 0;
 }
 
 .definition {
-    background: var(--white-color);
-    border-radius: 1em;
-    color: var(--black-color);
-    padding: 2em 1.5em;
+  background: var(--white-color);
+  border-radius: 1em;
+  color: var(--black-color);
+  padding: 2em 1.5em;
 }
 
 @media screen and (max-width: 35em) {
-    .englishSection {
-        grid-template-columns: 1fr;
-    }
+  .englishSection {
+    grid-template-columns: 1fr;
+  }
 }

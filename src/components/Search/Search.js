@@ -1,10 +1,10 @@
 import styles from './Search.module.css';
 import classNames from 'classnames';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axiosClient from '../../axiosClient';
-import {useNavigate} from 'react-router-dom';
-import {setUser} from '../../redux/slices/user';
-import {useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../redux/slices/user';
+import { useDispatch } from 'react-redux';
 
 const COMMAND_PREFIX = "/";
 const LOGIN_COMMAND_PREFIX = "/login ";
@@ -37,18 +37,18 @@ const Search = () => {
   const isExpanded = (isExpandAllowed && suggestions.length && !isExpandPaused) || forceExpanded;
 
   const displayedQueryText = keyboardSelectedIndex >= 0
-      ? suggestions[keyboardSelectedIndex].name
-      : queryText;
+    ? suggestions[keyboardSelectedIndex].name
+    : queryText;
 
   const getFakeSuggestion = (text) => {
-    return {id: text, name: text}
-  }
+    return { id: text, name: text }
+  };
 
   useEffect(() => {
     const suggestionsReceived = (newSuggestions) => {
       const suggestionsWithKeys = newSuggestions.map(suggestion => {
-        return {...suggestion, key: `${suggestion.id}|${suggestion.name}`};
-      })
+        return { ...suggestion, key: `${suggestion.id}|${suggestion.name}` };
+      });
       setSuggestions(suggestionsWithKeys);
     };
 
@@ -98,7 +98,7 @@ const Search = () => {
       }
       // password got submitted, perform login
       if (isTypingPassword) {
-        dispatch(setUser({username: login}));
+        dispatch(setUser({ username: login }));
         // axiosClient.post(`/login`, {
         //   login: login,
         //   password: text,
@@ -204,60 +204,65 @@ const Search = () => {
   };
 
   return (
-      <form
-          className={styles.queryForm}
-          onSubmit={handleFormSubmit}
-          onFocus={handleFormFocus}
-          onBlur={handleFormBlur}
+    <form
+      className={styles.queryForm}
+      onSubmit={handleFormSubmit}
+      onFocus={handleFormFocus}
+      onBlur={handleFormBlur}
+    >
+      <input
+        className={classNames(styles.queryInput, { [styles.queryInputExpanded]: isExpanded })}
+        autoComplete="off"
+        type={isTypingPassword ? "password" : "text"}
+        placeholder={isTypingPassword ? "Podaj swoje hasło" : "Wpisz szukane słowo"}
+        autoFocus
+        value={displayedQueryText}
+        onChange={onQueryChange}
+        onKeyDown={handleKeyDown}
+        ref={queryInputRef}
+      />
+      <button
+        className={styles.clearButton}
+        type="reset" // this doesn't reset automatically though :/
+        onClick={handleFormReset}
       >
-        <input
-            className={classNames(styles.queryInput, {[styles.queryInputExpanded]: isExpanded})}
-            autoComplete="off"
-            type={isTypingPassword ? "password" : "text"}
-            placeholder={isTypingPassword ? "Podaj swoje hasło" : "Wpisz szukane słowo"}
-            autoFocus
-            value={displayedQueryText}
-            onChange={onQueryChange}
-            onKeyDown={handleKeyDown}
-            ref={queryInputRef}
-        />
-        <button
-            className={styles.clearButton}
-            type="reset" // this doesn't reset automatically though :/
-            onClick={handleFormReset}
-        >
-          ❌{/* cross mark (X) */}
-        </button>
-        <button
-            className={classNames(styles.searchButton, {[styles.runButtonExpanded]: isExpanded})}
-            type="submit"
-        >
-          {isCommand ? '🏠' : isTypingPassword ? '🔑' : '🔎'}{/*magnifying glass*/}
-        </button>
-        <div
-            className={classNames(styles.suggestions,
-                {[styles.suggestionsExpanded]: isExpanded})}
-        >
-          <section onMouseOut={handleMouseOutSuggestionList}>
-            {suggestions.map((suggestion, i) => (
-                <button
-                    className={classNames({
-                      [styles.hovered]: selectedIndex === i,
-                      [styles.commandSuggestion]: isCommand
-                    })}
-                    type="submit"
-                    key={suggestion.key}
-                    data-id={suggestion.id}
-                    data-name={suggestion.name}
-                    data-index={i}
-                    onMouseOver={handleMouseOverSuggestion}
-                >
-                  {suggestion.name}
-                </button>
-            ))}
-          </section>
-        </div>
-      </form>
+        ❌{/* cross mark emoji (X) */}
+      </button>
+      <button
+        className={classNames(styles.searchButton, { [styles.runButtonExpanded]: isExpanded })}
+        type="submit"
+      >
+        {isCommand ?
+          '🏠' /* home emoji */ :
+          isTypingPassword ?
+            '🔑' /* key emoji */ :
+            '🔎' /* magnifying glass emoji */
+        }
+      </button>
+      <div
+        className={classNames(styles.suggestions,
+          { [styles.suggestionsExpanded]: isExpanded })}
+      >
+        <section onMouseOut={handleMouseOutSuggestionList}>
+          {suggestions.map((suggestion, i) => (
+            <button
+              className={classNames({
+                [styles.hovered]: selectedIndex === i,
+                [styles.commandSuggestion]: isCommand
+              })}
+              type="submit"
+              key={suggestion.key}
+              data-id={suggestion.id}
+              data-name={suggestion.name}
+              data-index={i}
+              onMouseOver={handleMouseOverSuggestion}
+            >
+              {suggestion.name}
+            </button>
+          ))}
+        </section>
+      </div>
+    </form>
   );
 };
 

@@ -1,9 +1,9 @@
-import styles from './Index.module.css';
-import {useEffect, useMemo, useState} from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
-import {Link} from 'react-router-dom';
+import styles from './Index.module.css';
 
-const Index = ({letter}) => {
+const Index = ({ letter }) => {
   const [termPage, setTermPage] = useState(null);
 
   useEffect(() => {
@@ -33,37 +33,36 @@ const Index = ({letter}) => {
       const secondLetter = term.name.slice(1, 2);
       output[secondLetter] = [...(output[secondLetter] || []), term];
     });
-    return Object.entries(output)
-        .sort((a, b) => a[0].localeCompare(b[0]))
-        .map(([secondLetter, terms]) =>
-            [
-              secondLetter,
-              terms/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
-            ],
-        );
+    return Object.entries(output).sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([secondLetter, terms]) =>
+      [
+        secondLetter,
+        terms/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
+      ],
+    );
   }, [termPage]);
 
-  console.log(termsBySecondLetter)
+  console.log(termsBySecondLetter);
 
   return (
-      <div>
-        {termsBySecondLetter &&
-            termsBySecondLetter.map(([secondLetter, terms]) => (
-                <section key={secondLetter} aria-label={`Words starting with ${letter}${secondLetter}`}>
-                  <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>
-                  <div className={styles.sectionGrid} style={{
-                    '--row-count-two-columns': Math.ceil(terms.length / 2),
-                    '--row-count-three-columns': Math.ceil(terms.length / 3),
-                  }}>
-                    {terms.map(term => (
-                        <Link to={`/term/${term.id}`}
-                              key={term.name}>{term.name}</Link>
-                    ))}
-                  </div>
-                </section>
-            ))}
-        {!termsBySecondLetter && "Wczytywanie..."}
-      </div>
+    <div>
+      {termsBySecondLetter &&
+        termsBySecondLetter.map(([secondLetter, terms]) => (
+          <section key={secondLetter} aria-label={`Words starting with ${letter}${secondLetter}`}>
+            <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>
+            <div className={styles.sectionGrid} style={{
+              '--row-count-two-columns': Math.ceil(terms.length / 2),
+              '--row-count-three-columns': Math.ceil(terms.length / 3),
+            }}>
+              {terms.map(term => (
+                <Link to={`/term/${term.id}`}
+                      key={term.name}>{term.name}</Link>
+              ))}
+            </div>
+          </section>
+        ))}
+      {!termsBySecondLetter && "Wczytywanie..."}
+    </div>
   );
 };
 

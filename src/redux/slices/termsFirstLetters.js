@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	data: undefined,
+  data: undefined,
   error: undefined,
   isLoading: true,
 };
@@ -10,18 +10,18 @@ export const termsFirstLettersSlice = createSlice({
   name: 'termsFirstLetters',
   initialState,
   reducers: {
-    setTermsFirstLetters: (state, {payload}) => {
+    setTermsFirstLetters: (state, { payload }) => {
       state.data = payload;
       state.isLoading = false;
     },
-    setErrorTermsFirstLetters: (state, {payload}) => {
+    setErrorTermsFirstLetters: (state, { payload }) => {
       state.error = payload;
       state.isLoading = false;
     }
   },
 });
 
-export const {setTermsFirstLetters, setErrorTermsFirstLetters} = termsFirstLettersSlice.actions;
+export const { setTermsFirstLetters, setErrorTermsFirstLetters } = termsFirstLettersSlice.actions;
 
 export const getTermsFirstLettersState = (state) => (state.termsFirstLetters);
 

@@ -6,8 +6,12 @@ import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect } from 'react';
-import {setTermsFirstLetters, setErrorTermsFirstLetters, getTermsFirstLettersState} from '../../redux/slices/termsFirstLetters';
-import {useDispatch, useSelector} from 'react-redux';
+import {
+  getTermsFirstLettersState,
+  setErrorTermsFirstLetters,
+  setTermsFirstLetters
+} from '../../redux/slices/termsFirstLetters';
+import { useDispatch, useSelector } from 'react-redux';
 import axiosClient from '../../axiosClient';
 
 const Header = ({ currentLetter = null }) => {
@@ -41,17 +45,17 @@ const Header = ({ currentLetter = null }) => {
             to={`/index/${letter}`}
             key={letter}
             className={
-              classNames({[styles.letter]: true, [styles.activeLetter]: letter === currentLetter })
+              classNames({ [styles.letter]: true, [styles.activeLetter]: letter === currentLetter })
             }
           >
             {letter.toUpperCase()}
           </Link>
         )) || Array(30).fill().map((_, i) => (
-          <div key={i} className={classNames({[styles.letter]: true })}>&nbsp;</div>
+          <div key={i} className={classNames({ [styles.letter]: true })}>&nbsp;</div>
         ))}
       </section>
     </header>
   )
-}
+};
 
 export default Header;

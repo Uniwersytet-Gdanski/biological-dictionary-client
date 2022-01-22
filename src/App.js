@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<HomeRoute />} />
           <Route path="index/:letter" element={<IndexRoute />} />
           <Route path="term/:termId" element={<TermRoute />} />
-          <Route path="search" element={<SearchRoute />}/>
+          <Route path="search" element={<SearchRoute />} />
           <Route path="dashboard" element={<DashboardRoute />}>
             <Route index element={<DashboardHomeRoute />} />
             <Route path="terms/add" element={<AddTermRoute />} />
