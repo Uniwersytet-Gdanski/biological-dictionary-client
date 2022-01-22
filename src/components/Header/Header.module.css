@@ -5,20 +5,20 @@
 }
 
 .title {
-  color: var(--white-color);
-  text-align: center;
-  font-weight: lighter;
   font-family: 'Ubuntu Condensed', sans-serif;
+  font-weight: lighter;
+  text-align: center;
+  color: var(--white-color);
 }
 
 .logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 10em;
   height: 10em;
   border-radius: 50%;
   background: var(--white-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .logoContainer img {
@@ -28,30 +28,30 @@
 }
 
 .searchContainer {
-  padding: 0 0.5em;
   margin: auto;
+  padding: 0 0.5em;
 }
 
 .letters {
-  padding: 0 0.5em;
-  display: flex;
   font-size: 1.5rem;
-  max-width: 26em;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 26em;
+  padding: 0 0.5em;
   text-align: center;
 }
 
 .letters .letter {
+  font-weight: bold;
+  margin: 0 0.25em;
+  padding: 0 0.375em;
+  vertical-align: center;
   text-decoration: none;
   color: var(--white-color);
-  font-weight: bold;
-  padding: 0 0.375em;
-  margin: 0 0.25em;
-  vertical-align: center;
 }
 
 .activeLetter {
-  background: var(--orange-color);
   border-radius: 0.375em;
+  background: var(--orange-color);
 }

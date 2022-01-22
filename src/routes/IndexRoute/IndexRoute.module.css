@@ -1,28 +1,28 @@
 @import '../../colors.css';
 
 .index {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .mainContainer {
-    padding: 0.5em;
+  padding: 0.5em;
 }
 
 .main {
-    max-width: 50em;
-    background: var(--almost-white-color);
-    border-radius: 1em;
-    margin: 0 auto;
-    border-top: 1px transparent solid;
-    padding: 0 1.5em 1em;
-    color: var(--dark-gray-color);
+  max-width: 50em;
+  margin: 0 auto;
+  padding: 0 1.5em 1em;
+  color: var(--dark-gray-color);
+  border-top: 1px transparent solid;
+  border-radius: 1em;
+  background: var(--almost-white-color);
 }
 
 .main a {
-    color: var(--dark-gray-color);
-    text-decoration: none;
+  text-decoration: none;
+  color: var(--dark-gray-color);
 }
 
 .main p {
-    line-height: 2em;
+  line-height: 2em;
 }

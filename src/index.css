@@ -8,15 +8,15 @@
 body {
   box-sizing: border-box;
   margin: 0;
+  background: var(--blue-color);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   /* we need to define the background color for body specifically somewhere, not for its bodies,
      because browsers treat it specifically in many ways, for instance on Microsoft Edge
      when using touchpad you can kind of scroll out of the page for a brief moment until you release
      your fingers, and if you don't specify a background color for the body element,
      that extra space would be white, and it looks very bad.
    */
-  background: var(--blue-color);
+  -moz-osx-font-smoothing: grayscale;
 }
 
 input, body {
