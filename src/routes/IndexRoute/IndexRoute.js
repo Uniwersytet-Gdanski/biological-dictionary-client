@@ -1,9 +1,9 @@
-import styles from './IndexRoute.module.css';
-import Header from '../../components/Header/Header';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import Index from '../../components/Index/Index';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate, useParams } from 'react-router-dom';
+import Header from '../../components/Header/Header';
+import Index from '../../components/Index/Index';
+import styles from './IndexRoute.module.css';
 
 const IndexRoute = () => {
   const navigate = useNavigate();

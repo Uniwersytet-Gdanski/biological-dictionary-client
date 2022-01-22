@@ -1,12 +1,12 @@
-import { useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
-import styles from './TermRoute.module.css';
 import Term from '../../components/Term/Term';
-import { useDispatch, useSelector } from 'react-redux';
 import { addTerm, getTermById, markTermIdAsNonexisting } from '../../redux/slices/terms';
+import styles from './TermRoute.module.css';
 
 const TermRoute = () => {
   const dispatch = useDispatch();

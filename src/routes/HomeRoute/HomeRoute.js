@@ -1,6 +1,6 @@
-import styles from './HomeRoute.module.css'
-import Header from '../../components/Header/Header';
 import { Helmet } from 'react-helmet-async';
+import Header from '../../components/Header/Header';
+import styles from './HomeRoute.module.css'
 
 const HomeRoute = () => {
   return (

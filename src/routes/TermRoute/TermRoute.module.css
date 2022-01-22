@@ -10,9 +10,9 @@
 
 .main {
   max-width: 50em;
-  background: var(--dark-blue-color);
-  border-radius: 1em;
   margin: 0 auto;
-  border-top: 1px transparent solid;
   color: var(--white-color);
+  border-top: 1px transparent solid;
+  border-radius: 1em;
+  background: var(--dark-blue-color);
 }

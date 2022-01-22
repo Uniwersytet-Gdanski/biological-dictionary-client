@@ -1,12 +1,12 @@
-import { useSearchParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
-import styles from './SearchRoute.module.css';
 import Term from '../../components/Term/Term';
 import { addTerm } from '../../redux/slices/terms';
-import { useDispatch } from 'react-redux';
+import styles from './SearchRoute.module.css';
 
 const SearchRoute = () => {
   // TODO Redux is weird

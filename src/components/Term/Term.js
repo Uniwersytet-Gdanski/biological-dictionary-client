@@ -1,7 +1,7 @@
-import styles from './Term.module.css'
+import { Fragment } from 'react';
 import poland from '../../img/poland.png';
 import uk from '../../img/uk.png';
-import { Fragment } from 'react';
+import styles from './Term.module.css'
 
 const Term = ({ term }) => {
   return (

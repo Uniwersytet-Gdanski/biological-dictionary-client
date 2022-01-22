@@ -1,10 +1,10 @@
-import styles from './Search.module.css';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import axiosClient from '../../axiosClient';
-import { useNavigate } from 'react-router-dom';
-import { setUser } from '../../redux/slices/user';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axiosClient from '../../axiosClient';
+import { setUser } from '../../redux/slices/user';
+import styles from './Search.module.css';
 
 const COMMAND_PREFIX = "/";
 const LOGIN_COMMAND_PREFIX = "/login ";

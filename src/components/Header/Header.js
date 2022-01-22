@@ -1,18 +1,17 @@
-import styles from './Header.module.css'
-import NavBar from '../NavBar/NavBar';
-
-import logo from '../../img/logo.png'
-import Search from '../Search/Search';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import axiosClient from '../../axiosClient';
+import logo from '../../img/logo.png'
 import {
   getTermsFirstLettersState,
   setErrorTermsFirstLetters,
   setTermsFirstLetters
 } from '../../redux/slices/termsFirstLetters';
-import { useDispatch, useSelector } from 'react-redux';
-import axiosClient from '../../axiosClient';
+import NavBar from '../NavBar/NavBar';
+import Search from '../Search/Search';
+import styles from './Header.module.css'
 
 const Header = ({ currentLetter = null }) => {
   const dispatch = useDispatch();
