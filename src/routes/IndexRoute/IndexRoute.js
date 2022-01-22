@@ -1,17 +1,25 @@
 import styles from './IndexRoute.module.css';
 import Header from '../../components/Header/Header';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Index from '../../components/Index/Index';
+import {useEffect} from 'react';
 
 const IndexRoute = () => {
-  // TODO define what happens if someone uses a capital letter in the url
-  const {letter} = useParams();
+  const navigate = useNavigate();
 
-  // if (letter.length !== 1) {
-  //   navigate("/"); // not worth making a custom error for a 404 like this
-  //   return;
-  // }
+  const {letter} = useParams();
+  useEffect(() => {
+    if (letter.length !== 1) {
+      navigate("/", true);
+      return;
+    }
+    if (letter.toLowerCase() !== letter) {
+		  navigate(`/index/${letter.toLowerCase()}`, true);
+    }
+  }, [letter, navigate]);
+
+
 
   return (
       <div className={styles.index}>
