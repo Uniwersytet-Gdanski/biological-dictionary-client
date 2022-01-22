@@ -17,11 +17,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeRoute />} />
           <Route path="index/:letter" element={<IndexRoute />} />
-          <Route path="term/:termCode" element={<TermRoute />} />
+          <Route path="term/:termId" element={<TermRoute />} />
           <Route path="dashboard" element={<DashboardRoute />}>
             <Route index element={<DashboardHomeRoute />} />
             <Route path="terms/add" element={<AddTermRoute />} />
-            <Route path="terms/:termCode" element={<EditTermRoute />} />
+            <Route path="terms/:termId" element={<EditTermRoute />} />
           </Route>
           <Route path="*" element={<NotFoundRoute />} />
         </Routes>

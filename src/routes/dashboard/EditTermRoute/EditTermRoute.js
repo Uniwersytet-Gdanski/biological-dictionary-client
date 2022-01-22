@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 
 const EditTermRoute = () => {
-  const { termCode } = useParams();
+  const { termId } = useParams();
 
-  return "edit term " + termCode;
+  return "edit term " + termId;
 };
 
 export default EditTermRoute;

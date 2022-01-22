@@ -13,9 +13,9 @@ import {addTerm, markTermIdAsNonexisting, getTermById} from '../../redux/slices/
 
 const TermRoute = () => {
   const dispatch = useDispatch();
-  const {termCode} = useParams();
+  const {termId} = useParams();
 
-  const term = useSelector(getTermById(termCode));
+  const term = useSelector(getTermById(termId));
   // undefined - not yet loaded
   // null - does not exist in the database
   // object - loaded
@@ -24,29 +24,29 @@ const TermRoute = () => {
 
 
 	useEffect(() => {
-		
+
 		if (term === undefined) {
-			axiosClient.get(`/terms/${termCode}`).then((response) => {
+			axiosClient.get(`/terms/${termId}`).then((response) => {
 				dispatch(addTerm(response.data));
 				setError(null);
 			}).catch((error) => {
 				if (error.isAxiosError && error.response.status === 404) {
 					setError(null);
-					dispatch(markTermIdAsNonexisting(termCode));
+					dispatch(markTermIdAsNonexisting(termId));
 					console.log('term not found');
 					return;
 				}
 				setError(error);
-				
+
 			});
 		}
-	}, [term, dispatch, termCode]);
+	}, [term, dispatch, termId]);
 
   return (
       <div className={styles.route}>
         <Helmet>
           <title>
-            {term?.names[0] || termCode} - Słownik Biologiczny
+            {term?.names[0] || termId} - Słownik Biologiczny
           </title>
         </Helmet>
         <Header />
