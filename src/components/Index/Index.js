@@ -1,5 +1,5 @@
 import styles from './Index.module.css';
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import axiosClient from '../../axiosClient';
 import {Link} from 'react-router-dom';
 

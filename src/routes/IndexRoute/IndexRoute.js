@@ -1,13 +1,10 @@
 import styles from './IndexRoute.module.css';
 import Header from '../../components/Header/Header';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import Index from '../../components/Index/Index';
 
 const IndexRoute = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
   // TODO define what happens if someone uses a capital letter in the url
   const {letter} = useParams();
 
