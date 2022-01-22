@@ -29,7 +29,7 @@ const Index = ({letter}) => {
     }
 
     const output = {};
-    termPage.data.map(term => {
+    termPage.data.forEach(term => {  // todo: fix bad usage of forEach
       const secondLetter = term.name.slice(1, 2);
       output[secondLetter] = [...(output[secondLetter] || []), term];
     });
