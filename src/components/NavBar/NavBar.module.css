@@ -19,3 +19,11 @@
 .bar a:hover {
   text-decoration: underline;
 }
+
+.bar .icon {
+  width: 1.3em;
+  height: 1.3em;
+  fill: var(--white-color);
+  vertical-align: middle;
+  margin-left: 1.5em;
+}
