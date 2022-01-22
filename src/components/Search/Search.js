@@ -3,11 +3,14 @@ import classNames from 'classnames';
 import {useEffect, useRef, useState} from 'react';
 import axiosClient from '../../axiosClient';
 import {useNavigate} from 'react-router-dom';
+import {setUser} from '../../redux/slices/user';
+import {useDispatch} from 'react-redux';
 
 const COMMAND_PREFIX = "/";
 const LOGIN_COMMAND_PREFIX = "/login ";
 
 const Search = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryInputRef = useRef();
 
@@ -95,7 +98,18 @@ const Search = () => {
       }
       // password got submitted, perform login
       if (isTypingPassword) {
-        alert(`login: '${login}', hasło: '${queryText}'`)
+        dispatch(setUser({username: login}));
+        // axiosClient.post(`/login`, {
+        //   login: login,
+        //   password: text,
+        // }).then(_ => {
+        //   console.log("login successful");
+        //   dispatch(setUser({username: login}));
+        // }).catch(ex => {
+        //   console.error(ex);
+        //   alert("Login failed");  // TODO: better error handling
+        // });
+
       }
       updateSelectedIndex(-1, true);
       setIsExpandPaused(true);
