@@ -6,21 +6,24 @@ import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import {setTermsFirstLetters, setErrorTermsFirstLetters, getTermsFirstLettersState} from '../../redux/slices/termsFirstLetters';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Header = ({ currentLetter = null }) => {
-  const [letters, setLetters] = useState(null);
-  const [, setAreLettersLoading] = useState(true);
-  const [, setLettersLoadingError] = useState(null);
+  const dispatch = useDispatch();
+  const {
+    data: letters,
+    // error,  // todo: error handling
+    // isLoading,  // todo: loading indicator
+  } = useSelector(getTermsFirstLettersState);
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_API_URL}/terms-first-letters`).then(response => {
-        setLetters(response.data);
+      dispatch(setTermsFirstLetters(response.data));
     }).catch(ex => {
-        setLettersLoadingError(ex);
-    }).finally(() => {
-        setAreLettersLoading(false);
+      dispatch(setErrorTermsFirstLetters(ex));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <header className={styles.header}>
