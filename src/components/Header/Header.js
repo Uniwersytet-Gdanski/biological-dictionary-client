@@ -5,10 +5,10 @@ import logo from '../../img/logo.png'
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import axios from 'axios';
 import { useEffect } from 'react';
 import {setTermsFirstLetters, setErrorTermsFirstLetters, getTermsFirstLettersState} from '../../redux/slices/termsFirstLetters';
 import {useDispatch, useSelector} from 'react-redux';
+import axiosClient from '../../axiosClient';
 
 const Header = ({ currentLetter = null }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Header = ({ currentLetter = null }) => {
     // isLoading,  // todo: loading indicator
   } = useSelector(getTermsFirstLettersState);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BASE_API_URL}/terms-first-letters`).then(response => {
+    axiosClient.get(`/terms-first-letters`).then(response => {
       dispatch(setTermsFirstLetters(response.data));
     }).catch(ex => {
       dispatch(setErrorTermsFirstLetters(ex));
