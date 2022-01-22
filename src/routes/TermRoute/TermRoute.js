@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
 import Term from '../../components/Term/Term';
-import { addTerm, getTermById, markTermIdAsNonexisting } from '../../redux/slices/terms';
+import { addTerm, getTermById, markTermIdAsNonexistent } from '../../redux/slices/terms';
 import styles from './TermRoute.module.css';
 
 const TermRoute = () => {
@@ -28,7 +28,7 @@ const TermRoute = () => {
       }).catch((error) => {
         if (error.isAxiosError && error.response.status === 404) {
           setError(null);
-          dispatch(markTermIdAsNonexisting(termId));
+          dispatch(markTermIdAsNonexistent(termId));
           console.log('term not found');
           return;
         }

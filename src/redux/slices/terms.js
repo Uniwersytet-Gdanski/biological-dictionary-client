@@ -14,13 +14,13 @@ export const termsSlice = createSlice({
         state[term.id] = term;
       }
     },
-    markTermIdAsNonexisting: (state, { payload }) => {
+    markTermIdAsNonexistent: (state, { payload }) => {
       state.set(payload, null);
     },
   },
 });
 
-export const { addTerm, addTerms, markTermIdAsNonexisting } = termsSlice.actions;
+export const { addTerm, addTerms, markTermIdAsNonexistent } = termsSlice.actions;
 
 export const getTermById = (id) => (state) => (state.terms[id]);
 
