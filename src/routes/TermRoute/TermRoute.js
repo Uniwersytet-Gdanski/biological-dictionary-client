@@ -30,6 +30,8 @@ const TermRoute = () => {
         dispatch(markTermIdAsNonexistent(termId));
         console.log('term not found');
         return;
+      } else {
+        console.log(error);
       }
       setError(error);
     });

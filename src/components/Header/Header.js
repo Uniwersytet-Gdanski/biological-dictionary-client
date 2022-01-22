@@ -24,6 +24,7 @@ const Header = ({ currentLetter = null }) => {
     axiosClient.get(`/terms-first-letters`).then(response => {
       dispatch(setTermsFirstLetters(response.data));
     }).catch(ex => {
+      console.log(ex);
       dispatch(setErrorTermsFirstLetters(ex));
     });
   }, [dispatch]);
