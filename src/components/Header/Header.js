@@ -1,7 +1,7 @@
 import styles from './Header.module.css'
 import NavBar from '../NavBar/NavBar';
 
-import logo from '../../logo.png'
+import logo from '../../img/logo.png'
 import Search from '../Search/Search';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';

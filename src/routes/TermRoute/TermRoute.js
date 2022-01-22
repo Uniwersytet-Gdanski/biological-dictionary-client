@@ -4,8 +4,8 @@ import {Fragment, useEffect, useState} from 'react';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
 import styles from './TermRoute.module.css';
-import poland from '../../poland.png';
-import uk from '../../uk.png';
+import poland from '../../img/poland.png';
+import uk from '../../img/uk.png';
 import {useSelector, useDispatch} from 'react-redux';
 import {addTerm, markTermIdAsNonexisting, getTermById} from '../../redux/slices/terms';
 
