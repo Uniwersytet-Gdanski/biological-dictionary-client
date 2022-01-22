@@ -118,7 +118,7 @@ const Search = () => {
           navigate(`/term/${suggestionId}`);
         } else {
           // TODO decide with team
-          alert("hi");
+          navigate(`/search?q=${encodeURIComponent(queryText)}`)
         }
       }
     };
@@ -133,6 +133,7 @@ const Search = () => {
 
   const handleFormReset = () => {
     setQueryText("");
+    setLogin(null);
     queryInputRef.current.focus();
   };
 
