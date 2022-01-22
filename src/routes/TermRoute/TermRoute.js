@@ -7,7 +7,7 @@ import styles from './TermRoute.module.css';
 import poland from '../../poland.png';
 import uk from '../../uk.png';
 import {useSelector, useDispatch} from 'react-redux';
-import {addTerm, markTermIdAsNonexisting, getTermById} from '../../slices/terms';
+import {addTerm, markTermIdAsNonexisting, getTermById} from '../../redux/slices/terms';
 
 
 
