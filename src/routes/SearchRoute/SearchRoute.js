@@ -37,7 +37,7 @@ const SearchRoute = () => {
           }
           console.log(ex);
         });
-  }, [query]);
+  }, [query, dispatch]);
 
   return (
       <div className={styles.route}>
