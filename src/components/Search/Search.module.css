@@ -50,6 +50,17 @@
   vertical-align: middle;
 }
 
+.clearButton .icon {
+  fill: var(--orange-color);
+}
+
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  fill: var(--dark-blue-color);
+}
+
 .searchButton {
   position: absolute;
   z-index: 1; /* see .queryInput */
@@ -59,6 +70,12 @@
   vertical-align: middle;
   border-top-right-radius: 1.5em;
   border-bottom-right-radius: 1.5em;
+}
+
+.searchButton img {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
 }
 
 .searchButton::before {

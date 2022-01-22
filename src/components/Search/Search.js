@@ -2,8 +2,12 @@ import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { VscChromeClose } from 'react-icons/vsc';
+import { IoHome } from 'react-icons/io5';
+import { ImKey } from 'react-icons/im';
 import axiosClient from '../../axiosClient';
 import { setUser } from '../../redux/slices/user';
+import magnifyingGlass from '../../img/magnifying-glass.png'
 import styles from './Search.module.css';
 
 const COMMAND_PREFIX = "/";
@@ -235,17 +239,17 @@ const Search = ({ initialQuery }) => {
         type="reset" // this doesn't reset automatically though :/
         onClick={handleFormReset}
       >
-        ❌{/* cross mark emoji (X) */}
+        <VscChromeClose className={styles.icon} /> {/* cross mark (X) */}
       </button>
       <button
         className={classNames(styles.searchButton, { [styles.runButtonExpanded]: isExpanded })}
         type="submit"
       >
         {isCommand ?
-          '🏠' /* home emoji */ :
+          < IoHome className={styles.icon} /> /* home */ :
           isTypingPassword ?
-            '🔑' /* key emoji */ :
-            '🔎' /* magnifying glass emoji */
+            < ImKey className={styles.icon} /> /* key */ :
+            <img src={magnifyingGlass} alt='' />
         }
       </button>
       <div
