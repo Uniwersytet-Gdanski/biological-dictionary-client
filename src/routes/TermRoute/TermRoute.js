@@ -40,7 +40,7 @@ const TermRoute = () => {
 				
 			});
 		}
-	}, [term, addTerm, dispatch, termCode, markTermIdAsNonexisting]);
+	}, [term, dispatch, termCode]);
 
   return (
       <div className={styles.route}>
