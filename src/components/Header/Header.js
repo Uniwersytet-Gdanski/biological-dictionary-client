@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const Header = ({ currentLetter }) => {
+const Header = ({ currentLetter = null }) => {
   const [letters, setLetters] = useState(null);
   const [, setAreLettersLoading] = useState(true);
   const [, setLettersLoadingError] = useState(null);
