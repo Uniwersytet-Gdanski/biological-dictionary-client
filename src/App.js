@@ -12,7 +12,7 @@ import IndexRoute from './routes/IndexRoute/IndexRoute';
 
 function App() {
   return (
-    <div>
+    <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeRoute />} />
@@ -26,7 +26,7 @@ function App() {
           <Route path="*" element={<NotFoundRoute />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </>
   );
 }
 
