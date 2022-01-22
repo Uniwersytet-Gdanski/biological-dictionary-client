@@ -21,21 +21,19 @@ const TermRoute = () => {
 
 
   useEffect(() => {
-    if (term === undefined) {
-      axiosClient.get(`/terms/${termId}`).then((response) => {
-        dispatch(addTerm(response.data));
+    axiosClient.get(`/terms/${termId}`).then((response) => {
+      dispatch(addTerm(response.data));
+      setError(null);
+    }).catch((error) => {
+      if (error.isAxiosError && error.response.status === 404) {
         setError(null);
-      }).catch((error) => {
-        if (error.isAxiosError && error.response.status === 404) {
-          setError(null);
-          dispatch(markTermIdAsNonexistent(termId));
-          console.log('term not found');
-          return;
-        }
-        setError(error);
-      });
-    }
-  }, [term, dispatch, termId]);
+        dispatch(markTermIdAsNonexistent(termId));
+        console.log('term not found');
+        return;
+      }
+      setError(error);
+    });
+  }, [dispatch, termId]);
 
   return (
     <div className={styles.route}>
