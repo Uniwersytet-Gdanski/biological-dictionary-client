@@ -142,10 +142,17 @@
   justify-content: center;
   width: 3em;
   margin: auto;
-  content: '📗'; /* green book emoji */
   vertical-align: middle;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f02d"; /* book */
+  color: var(--dark-blue-color);
 }
 
 .suggestions button.commandSuggestion::after {
-  content: '🔧'; /* green book emoji */
+  vertical-align: middle;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0ad"; /* wrench */
+  color: var(--dark-blue-color);
 }
