@@ -33,9 +33,9 @@ const Index = ({letter}) => {
       const secondLetter = term.name.slice(1, 2);
       output[secondLetter] = [...(output[secondLetter] || []), term];
     });
-    return Object.entries(output).
-        sort((a, b) => a[0].localeCompare(b[0])).
-        map(([secondLetter, terms]) =>
+    return Object.entries(output)
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([secondLetter, terms]) =>
             [
               secondLetter,
               terms/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
