@@ -30,7 +30,7 @@ const TermRoute = () => {
     } else if (!savedQuery && term) {
       setSavedQuery(term.names[0]);
     }
-  }, [queryParam, term]);
+  }, [queryParam, term, navigate, savedQuery]);
 
   const [error, setError] = useState(undefined);
 
