@@ -13,7 +13,7 @@ import NavBar from '../NavBar/NavBar';
 import Search from '../Search/Search';
 import styles from './Header.module.css'
 
-const Header = ({ currentLetter = null }) => {
+const Header = ({ currentLetter, initialQuery }) => {
   const dispatch = useDispatch();
   const {
     data: letters,
@@ -37,7 +37,7 @@ const Header = ({ currentLetter = null }) => {
         <img src={logo} alt="Logo" />
       </Link>
       <div className={styles.searchContainer}>
-        <Search />
+        <Search initialQuery={initialQuery} />
       </div>
       <section className={styles.letters}>
         {letters?.map(letter => (

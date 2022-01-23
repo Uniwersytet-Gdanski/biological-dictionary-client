@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
 import Term from '../../components/Term/Term';
@@ -11,6 +11,10 @@ import styles from './TermRoute.module.css';
 const TermRoute = () => {
   const dispatch = useDispatch();
   const { termId } = useParams();
+
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get('q');
 
   const term = useSelector(getTermById(termId));
   // undefined - not yet loaded
@@ -41,10 +45,10 @@ const TermRoute = () => {
     <div className={styles.route}>
       <Helmet>
         <title>
-          {term?.names[0] || termId} - Słownik Biologiczny
+          {term?.names[0] || query || termId} - Słownik Biologiczny
         </title>
       </Helmet>
-      <Header />
+      <Header initialQuery={query} />
       <div className={styles.mainContainer}>
         <main className={styles.main}>
           {term && (

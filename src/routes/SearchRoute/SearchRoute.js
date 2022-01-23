@@ -69,7 +69,7 @@ const SearchRoute = () => {
           123 - wyszukaj - Słownik Biologiczny
         </title>
       </Helmet>
-      <Header />
+      <Header initialQuery={query} />
       <div className={styles.mainContainer}>
         <main className={styles.main}>
           <h1>"{query}" po angielsku</h1>

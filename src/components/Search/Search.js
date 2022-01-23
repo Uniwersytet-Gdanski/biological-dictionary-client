@@ -9,7 +9,7 @@ import styles from './Search.module.css';
 const COMMAND_PREFIX = "/";
 const LOGIN_COMMAND_PREFIX = "/login ";
 
-const Search = () => {
+const Search = ({ initialQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryInputRef = useRef();
@@ -21,10 +21,10 @@ const Search = () => {
   // until any new user interaction with the query text input.
   // used when submitting - the user only has a chance to really use this
   // when they are on a bad connection.
-  const [isExpandPaused, setIsExpandPaused] = useState(false);
+  const [isExpandPaused, setIsExpandPaused] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [keyboardSelectedIndex, setKeyboardSelectedIndex] = useState(-1);
-  const [queryText, setQueryText] = useState('');
+  const [queryText, setQueryText] = useState(initialQuery || '');
 
   // a toggle for development purposes
   const forceExpanded = false;
@@ -43,6 +43,10 @@ const Search = () => {
   const getFakeSuggestion = (text) => {
     return { id: text, name: text }
   };
+
+  useEffect(() => {
+    queryInputRef.current.select();
+  }, [initialQuery]);
 
   useEffect(() => {
     const suggestionsReceived = (newSuggestions) => {
@@ -115,7 +119,7 @@ const Search = () => {
       setIsExpandPaused(true);
       if (!isCommand && !isTypingPassword) {
         if (suggestionId) {
-          navigate(`/term/${suggestionId}`);
+          navigate(`/term/${suggestionId}?q=${encodeURIComponent(text)}`);
         } else {
           // TODO decide with team
           navigate(`/search?q=${encodeURIComponent(queryText)}`)

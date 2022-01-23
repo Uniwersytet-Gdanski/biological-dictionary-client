@@ -29,6 +29,10 @@
   outline: 0.125em solid var(--orange-color);
 }
 
+.queryInput::selection {
+  background: var(--blue-color);
+}
+
 .queryForm button {
   font-size: 1rem;
   width: 3em;
