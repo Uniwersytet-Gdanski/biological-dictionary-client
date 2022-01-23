@@ -32,8 +32,9 @@ const Index = ({ letter }) => {
         const terms = termsWithDetails.map(it => ({ ...it, uuid: uuidv4() }));
         setTermsWithDetails(value => [...(value || []), ...terms]);
         setNextPageNumber(value => value + 1);
-        setHasMoreTerms(parseInt(page.pageNumber) < parseInt(page.pagesCount));
-        if (termsWithDetails.every(it => it.name[1] === termsWithDetails[0].name[1])) {
+        const moreTerms = parseInt(page.pageNumber) < parseInt(page.pagesCount);
+        setHasMoreTerms(moreTerms);
+        if (moreTerms && termsWithDetails.every(it => it.name[1] === termsWithDetails[0].name[1])) {
           fetchMoreTerms(pageNumberToFetch + 1);
         }
       }).catch(ex => {
