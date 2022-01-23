@@ -21,7 +21,7 @@ const Term = ({ term }) => {
         </div>
         <img src={uk} alt={'angielskie tłumaczenia'} />
         <div className={styles.englishSection}>
-          {term.englishTranslations.map((englishTranslation, i) => (
+          {term.englishTranslations.map(englishTranslation => (
             <Fragment key={englishTranslation.singular + "|" + englishTranslation.plural}>
               <div
                 className={styles.termSingularText}

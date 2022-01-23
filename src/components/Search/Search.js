@@ -45,7 +45,12 @@ const Search = ({ initialQuery }) => {
   };
 
   useEffect(() => {
+    setQueryText(initialQuery || '');
     queryInputRef.current.select();
+    // doesn't work without setTimeout on page reload, so we'll do it twice
+    setTimeout(() => {
+      queryInputRef.current.select();
+    }, 0);
   }, [initialQuery]);
 
   useEffect(() => {

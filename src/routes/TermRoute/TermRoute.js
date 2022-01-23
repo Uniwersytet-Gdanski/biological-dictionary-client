@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
 import Term from '../../components/Term/Term';
@@ -10,16 +10,27 @@ import styles from './TermRoute.module.css';
 
 const TermRoute = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { termId } = useParams();
 
   const [searchParams] = useSearchParams();
 
-  const query = searchParams.get('q');
+  const queryParam = searchParams.get('q');
+  const [savedQuery, setSavedQuery] = useState();
 
   const term = useSelector(getTermById(termId));
   // undefined - not yet loaded
   // null - does not exist in the database
   // object - loaded
+
+  useEffect(() => {
+    if (queryParam) {
+      setSavedQuery(queryParam);
+      navigate(document.location.pathname); // navigate to the same URL without the query ?q=...
+    } else if (!savedQuery && term) {
+      setSavedQuery(term.names[0]);
+    }
+  }, [queryParam, term]);
 
   const [error, setError] = useState(undefined);
 
@@ -45,10 +56,10 @@ const TermRoute = () => {
     <div className={styles.route}>
       <Helmet>
         <title>
-          {term?.names[0] || query || termId} - Słownik Biologiczny
+          {term?.names[0] || savedQuery || termId} - Słownik Biologiczny
         </title>
       </Helmet>
-      <Header initialQuery={query} />
+      <Header initialQuery={savedQuery} />
       <div className={styles.mainContainer}>
         <main className={styles.main}>
           {term && (

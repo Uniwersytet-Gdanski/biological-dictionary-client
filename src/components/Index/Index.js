@@ -111,7 +111,7 @@ const Index = ({ letter }) => {
               '--row-count-three-columns': Math.ceil(terms.length / 3),
             }}>
               {terms.map(term => (
-                <Link to={`/term/${term.id}`}
+                <Link to={`/term/${term.id}?q=${encodeURIComponent(term.name)}`}
                       key={term.name}>{term.name}</Link>
               ))}
             </div>
