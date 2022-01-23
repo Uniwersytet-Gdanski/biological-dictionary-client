@@ -2,7 +2,7 @@
 
 *, *::after, *::before {
   box-sizing: inherit;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 body {
