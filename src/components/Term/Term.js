@@ -26,7 +26,7 @@ const Term = ({ term }) => {
               <div
                 className={styles.termSingularText}
               >
-                {englishTranslation.singular}
+                {englishTranslation.singular || "–"}
               </div>
               <div
                 className={styles.termPluralText}
