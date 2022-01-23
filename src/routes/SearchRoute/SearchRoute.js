@@ -82,7 +82,7 @@ const SearchRoute = () => {
               </p>
             }
             endMessage={
-              <p className={classNames(styles.end, {[styles.empty]: foundTerms.length})}>
+              <p className={classNames(styles.end, {[styles.empty]: !foundTerms.length})}>
                 {foundTerms.length ? "To już koniec wyników." : "Brak wyników."} Jeśli uważasz,
                 że twoje wyrażenie powinno się tu
                 znaleźć, <Link to="/contact">daj nam o tym znać!</Link>

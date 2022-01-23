@@ -29,7 +29,7 @@
   margin: 0;
 }
 
-.end.empty {
+.end:not(.empty) {
   margin: 1em 0;
 }
 
