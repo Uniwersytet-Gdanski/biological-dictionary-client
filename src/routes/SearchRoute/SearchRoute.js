@@ -29,6 +29,7 @@ const SearchRoute = () => {
         params: {
           query: query,
           withFullTerms: true,
+          withoutDuplicates: true,
           pageNumber: nextPageNumber
         },
       }).then(response => {
