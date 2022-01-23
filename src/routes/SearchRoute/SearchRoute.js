@@ -78,12 +78,12 @@ const SearchRoute = () => {
             next={fetchMoreTerms}
             hasMore={hasMoreTerms}
             loader={
-              <p className={classNames(styles.end, {[styles.empty]: !foundTerms.length})}>
+              <p className={classNames(styles.end, { [styles.empty]: !foundTerms.length })}>
                 Wczytywanie...
               </p>
             }
             endMessage={
-              <p className={classNames(styles.end, {[styles.empty]: !foundTerms.length})}>
+              <p className={classNames(styles.end, { [styles.empty]: !foundTerms.length })}>
                 {foundTerms.length ? "To już koniec wyników." : "Brak wyników."} Jeśli uważasz,
                 że twoje wyrażenie powinno się tu
                 znaleźć, <Link to="/contact">daj nam o tym znać!</Link>
@@ -91,9 +91,9 @@ const SearchRoute = () => {
             }
           >
             {foundTerms.map(term => (
-              <div className={styles.termContainer}>
+              <div key={term.uuid} className={styles.termContainer}>
                 {/* note: .id is not unique, .uuid is */}
-                <Term key={term.uuid} term={term} />
+                <Term term={term} />
               </div>
             ))}
           </InfiniteScroll>
