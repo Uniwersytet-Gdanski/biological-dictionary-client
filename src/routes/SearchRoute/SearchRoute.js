@@ -77,7 +77,7 @@ const SearchRoute = () => {
             next={fetchMoreTerms}
             hasMore={hasMoreTerms}
             loader={
-              <p className={styles.end}>
+              <p className={classNames(styles.end, {[styles.empty]: !foundTerms.length})}>
                 Wczytywanie...
               </p>
             }
