@@ -1,39 +1,63 @@
-import { useEffect, useMemo, useState } from 'react';
+import classNames from 'classnames/bind';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import axiosClient from '../../axiosClient';
+import { addTerms } from '../../redux/slices/terms';
 import styles from './Index.module.css';
 
 const Index = ({ letter }) => {
-  const [termPage, setTermPage] = useState(null);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    axiosClient.get(`/terms-by-prefix`, {
-      params: {
-        prefix: letter,
-        pageSize: 30
-      },
-    }).then(response => {
-      setTermPage(response.data);
-    }).catch(ex => {
-      // looking at other search engines (i.e. Google)
-      // errors related to search suggestions don't need to be
-      // displayed to the user
-      console.log(ex);
-    });
-  }, [letter]);
+  const [termsWithDetails, setTermsWithDetails] = useState([]);
+  const [hasMoreTerms, setHasMoreTerms] = useState(true);
+  const [nextPageNumber, setNextPageNumber] = useState(1);
+
+  const fetchMoreTerms = useCallback(
+    (pageNumberToFetch) => {
+      axiosClient.get(`/terms-by-prefix`, {
+        params: {
+          prefix: letter,
+          pageNumber: pageNumberToFetch,
+          withFullTerms: true,
+          pageSize: 50
+        },
+      }).then(response => {
+        const page = response.data;
+        const termsWithDetails = page.data;
+        const termDetails = page.data.map(it => it.term);
+        dispatch(addTerms(termDetails));
+        const terms = termsWithDetails.map(it => ({ ...it, uuid: uuidv4() }));
+        setTermsWithDetails(value => [...(value || []), ...terms]);
+        setNextPageNumber(value => value + 1);
+        setHasMoreTerms(parseInt(page.pageNumber) < parseInt(page.pagesCount));
+        if (termsWithDetails.every(it => it.name[1] === termsWithDetails[0].name[1])) {
+          fetchMoreTerms(pageNumberToFetch + 1);
+        }
+      }).catch(ex => {
+        if (ex.isAxiosError) {
+          // TODO
+        }
+        console.log(ex);
+      });
+    },
+    [dispatch, letter]
+  );
 
   // TODO what if there is only one letter?
   const termsBySecondLetter = useMemo(() => {
-    if (!termPage) {
+    if (!termsWithDetails) {
       return;
     }
 
     const output = {};
-    termPage.data.forEach(term => {  // todo: fix bad usage of forEach
+    termsWithDetails.forEach(term => {  // TODO: fix bad usage of forEach
       const secondLetter = term.name.slice(1, 2);
       output[secondLetter] = [...(output[secondLetter] || []), term];
     });
-    return Object.entries(output)
+    const grouped = Object.entries(output)
       .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([secondLetter, terms]) =>
         [
@@ -41,14 +65,45 @@ const Index = ({ letter }) => {
           terms/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
         ],
       );
-  }, [termPage]);
+    if (hasMoreTerms) {
+      return grouped.slice(0, grouped.length - 1)
+    } else {
+      return grouped;
+    }
+  }, [termsWithDetails, hasMoreTerms]);
 
-  console.log(termsBySecondLetter);
+  useEffect(() => {
+    setTermsWithDetails([]);
+    setHasMoreTerms(true);
+    setNextPageNumber(1);
+  }, [letter]);
+
+  useEffect(() => {
+    if (nextPageNumber === 1) {
+      fetchMoreTerms(nextPageNumber);
+    }
+  }, [nextPageNumber, fetchMoreTerms]);
 
   return (
     <div>
-      {termsBySecondLetter &&
-        termsBySecondLetter.map(([secondLetter, terms]) => (
+      <InfiniteScroll
+        dataLength={termsBySecondLetter.length}
+        next={() => fetchMoreTerms(nextPageNumber)}
+        hasMore={hasMoreTerms}
+        loader={
+          <p className={classNames(styles.end, styles.loading)}>
+            Wczytywanie...
+          </p>
+        }
+        endMessage={
+          <p className={styles.end}>
+            To już koniec wyników. Jeśli uważasz,
+            że twoje wyrażenie powinno się tu
+            znaleźć, <Link to="/contact">daj nam o tym znać!</Link>
+          </p>
+        }
+      >
+        {termsBySecondLetter.map(([secondLetter, terms]) => (
           <section key={secondLetter} aria-label={`Words starting with ${letter}${secondLetter}`}>
             <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>
             <div className={styles.sectionGrid} style={{
@@ -62,7 +117,7 @@ const Index = ({ letter }) => {
             </div>
           </section>
         ))}
-      {!termsBySecondLetter && "Wczytywanie..."}
+      </InfiniteScroll>
     </div>
   );
 };

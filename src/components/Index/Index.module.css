@@ -20,6 +20,13 @@
   grid-auto-flow: column;
 }
 
+.loading {
+  min-height: 100vh;
+}
+
+.end {
+  /* I guess we'll add something here */
+}
 
 @media screen and (max-width: 35em) {
   .sectionGrid {
