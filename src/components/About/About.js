@@ -3,7 +3,7 @@ import logo from '../../img/logo.png'
 import NavBar from '../NavBar/NavBar';
 import styles from './About.module.css'
 
-const About = ({ currentLetter = null }) => {
+const About = () => {
 
   return (
     <header className={styles.about}>

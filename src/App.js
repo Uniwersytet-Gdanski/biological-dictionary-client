@@ -8,6 +8,8 @@ import NotFoundRoute from './routes/NotFoundRoute/NotFoundRoute';
 import SearchRoute from './routes/SearchRoute/SearchRoute';
 import TermRoute from './routes/TermRoute/TermRoute';
 import AboutRoute from './routes/AboutRoute/AboutRoute';
+import AuthorsRoute from './routes/AuthorsRoute/AuthorsRoute';
+import ContactRoute from './routes/ContactRoute/ContactRoute';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="search" element={<SearchRoute />} />
           <Route path="terms/add" element={<AddTermRoute />} />
           <Route path="about" element={<AboutRoute />} />
+          <Route path="authors" element={<AuthorsRoute />} />
+          <Route path="contact" element={<ContactRoute />} />
           <Route path="*" element={<NotFoundRoute />} />
         </Routes>
       </BrowserRouter>
