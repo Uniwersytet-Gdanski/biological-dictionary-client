@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AddTermRoute from './routes/dashboard/AddTermRoute/AddTermRoute';
-import DashboardHomeRoute from './routes/dashboard/DashboardHomeRoute/DashboardHomeRoute';
-import EditTermRoute from './routes/dashboard/EditTermRoute/EditTermRoute';
-import DashboardRoute from './routes/DashboardRoute/DashboardRoute';
+import AddTermRoute from './routes/AddTermRoute/AddTermRoute';
 import HomeRoute from './routes/HomeRoute/HomeRoute';
 import IndexRoute from './routes/IndexRoute/IndexRoute';
 import NotFoundRoute from './routes/NotFoundRoute/NotFoundRoute';
@@ -20,11 +17,7 @@ function App() {
           <Route path="index/:letter" element={<IndexRoute />} />
           <Route path="term/:termId" element={<TermRoute />} />
           <Route path="search" element={<SearchRoute />} />
-          <Route path="dashboard" element={<DashboardRoute />}>
-            <Route index element={<DashboardHomeRoute />} />
-            <Route path="terms/add" element={<AddTermRoute />} />
-            <Route path="terms/:termId" element={<EditTermRoute />} />
-          </Route>
+          <Route path="terms/add" element={<AddTermRoute />} />
           <Route path="*" element={<NotFoundRoute />} />
         </Routes>
       </BrowserRouter>
