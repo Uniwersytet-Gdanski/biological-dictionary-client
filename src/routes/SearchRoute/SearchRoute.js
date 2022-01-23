@@ -33,7 +33,7 @@ const SearchRoute = () => {
       }).then(response => {
         const page = response.data;
         const termsRaw = page.data.map(it => it.term);
-        addTerms(termsRaw);
+        dispatch(addTerms(termsRaw));
         const terms = termsRaw.map(it => ({ ...it, uuid: uuidv4() }));
         setFoundTerms(value => [...(value || []), ...terms]);
         setNextPageNumber(value => value + 1);
@@ -45,20 +45,20 @@ const SearchRoute = () => {
         console.log(ex);
       });
     },
-    [dispatch, foundTerms, nextPageNumber, query]
+    [dispatch, nextPageNumber, query]
   );
 
   useEffect(() => {
     setFoundTerms([]);
     setHasMoreTerms(true);
     setNextPageNumber(1);
-  }, [query, dispatch]);
+  }, [query]);
 
   useEffect(() => {
     if (nextPageNumber === 1) {
       fetchMoreTerms();
     }
-  }, [nextPageNumber]);
+  }, [nextPageNumber, fetchMoreTerms]);
 
   return (
     <div className={styles.route}>
