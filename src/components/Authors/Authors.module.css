@@ -41,8 +41,7 @@
 }
 
 .main p {
-  font-size: 1.25em;
-  font-weight: bold;
+  font-size: 1.3em;
   padding: 0em 1.5em 0.5em;
   text-align: center;
   color: var(--white-color);
@@ -50,5 +49,7 @@
 }
 
 ul{
-  list-style-type: none;
+  padding: 0em;
+  list-style-position: inside;
+  font-weight: bold;
 }

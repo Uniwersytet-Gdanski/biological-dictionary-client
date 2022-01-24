@@ -21,12 +21,12 @@ const Authors = () => {
             Polsko-angielski słownik terminów biologicznych, pierwszy tego typu słownik w Polsce, został przygotowany przez 
             następujących studentów Genetyki i Biologii Eksperymentalnej z Wydziału Biologii Uniwersytetu Gdańskiego:
             <ul>
-              <li>Marcina Banackiego</li>
-              <li>Annę Barczak</li>
-              <li>Katarzynę Bryszkowską</li>
               <li>Kacpra Boguszewskiego</li>
-              <li>Huberta Czyża</li>
+              <li>Katarzynę Bryszkowską</li>
               <li>Aleksandrę Kujałowicz</li>
+              <li>Marcina Banackiego</li>
+              <li>Huberta Czyża</li>
+              <li>Annę Barczak</li>
             </ul>
             Pod opieką mgr Barbary Kubicy-Daniel z Centrum Języków Obcych Uniwersytetu Gdańskiego.
           </p>

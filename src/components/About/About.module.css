@@ -41,8 +41,7 @@
 }
 
 .main p {
-  font-size: 1.25em;
-  font-weight: bold;
+  font-size: 1.3em;
   padding: 0 1.5em 1em;
   text-align: center;
   color: var(--white-color);
