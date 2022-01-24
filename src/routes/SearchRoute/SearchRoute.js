@@ -73,6 +73,7 @@ const SearchRoute = () => {
             </div>
           ))}
         </InfiniteScroll>
+        {error}
       </main>
     </div>
   );

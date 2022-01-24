@@ -98,6 +98,7 @@ const Index = ({ letter }) => {
           </section>
         ))}
       </InfiniteScroll>
+      {error}
     </div>
   );
 };
