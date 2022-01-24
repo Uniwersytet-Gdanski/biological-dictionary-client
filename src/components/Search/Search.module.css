@@ -29,6 +29,10 @@
   outline: 0.125em solid var(--orange-color);
 }
 
+.queryInput::selection {
+  background: var(--blue-color);
+}
+
 .queryForm button {
   font-size: 1rem;
   width: 3em;
@@ -46,6 +50,17 @@
   vertical-align: middle;
 }
 
+.clearButton .icon {
+  fill: var(--orange-color);
+}
+
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  fill: var(--dark-blue-color);
+}
+
 .searchButton {
   position: absolute;
   z-index: 1; /* see .queryInput */
@@ -55,6 +70,12 @@
   vertical-align: middle;
   border-top-right-radius: 1.5em;
   border-bottom-right-radius: 1.5em;
+}
+
+.searchButton img {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
 }
 
 .searchButton::before {
@@ -112,6 +133,8 @@
 }
 
 .suggestions button::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   position: absolute;
   top: 0;
   right: 0;
@@ -121,10 +144,15 @@
   justify-content: center;
   width: 3em;
   margin: auto;
-  content: '📗'; /* green book emoji */
+  content: "\f02d"; /* book */
   vertical-align: middle;
+  color: var(--dark-blue-color);
 }
 
 .suggestions button.commandSuggestion::after {
-  content: '🔧'; /* green book emoji */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0ad"; /* wrench */
+  vertical-align: middle;
+  color: var(--dark-blue-color);
 }

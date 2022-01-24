@@ -1,8 +1,9 @@
+import classNames from 'classnames/bind';
 import { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import axiosClient from '../../axiosClient';
 import Header from '../../components/Header/Header';
@@ -28,6 +29,7 @@ const SearchRoute = () => {
         params: {
           query: query,
           withFullTerms: true,
+          withoutDuplicates: true,
           pageNumber: nextPageNumber
         },
       }).then(response => {
@@ -67,22 +69,32 @@ const SearchRoute = () => {
           123 - wyszukaj - Słownik Biologiczny
         </title>
       </Helmet>
-      <Header />
+      <Header initialQuery={query} />
       <div className={styles.mainContainer}>
         <main className={styles.main}>
-          <h1>Wyniki wyszukiwania {query}</h1>
+          <h1>"{query}" po angielsku</h1>
           <InfiniteScroll
             dataLength={foundTerms.length}
             next={fetchMoreTerms}
             hasMore={hasMoreTerms}
-            loader={<p>Wczytywanie...</p>}
+            loader={
+              <p className={classNames(styles.end, { [styles.empty]: !foundTerms.length })}>
+                Wczytywanie...
+              </p>
+            }
             endMessage={
-              <p>Koniec</p>
+              <p className={classNames(styles.end, { [styles.empty]: !foundTerms.length })}>
+                {foundTerms.length ? "To już koniec wyników." : "Brak wyników."} Jeśli uważasz,
+                że twoje wyrażenie powinno się tu
+                znaleźć, <Link to="/contact">daj nam o tym znać!</Link>
+              </p>
             }
           >
             {foundTerms.map(term => (
-              // note: .id is not unique, .uuid is
-              <Term key={term.uuid} term={term} />
+              <div key={term.uuid} className={styles.termContainer}>
+                {/* note: .id is not unique, .uuid is */}
+                <Term term={term} />
+              </div>
             ))}
           </InfiniteScroll>
           {!foundTerms && 'Ładowanie...'}

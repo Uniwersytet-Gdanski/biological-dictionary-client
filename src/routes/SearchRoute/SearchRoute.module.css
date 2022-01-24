@@ -12,7 +12,37 @@
   max-width: 50em;
   margin: 0 auto;
   color: var(--white-color);
+}
+
+.main > h1 {
+  padding: 0.5em 1em;
+  border-top: 1px transparent solid;
+}
+
+.main > h1, .termContainer, .end {
+  border-radius: 1em;
+  background: var(--dark-blue-color);
+}
+
+.end {
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
+.end:not(.empty) {
+  margin: 1em 0;
+}
+
+.end a {
+  color: var(--white-color);
+}
+
+.termContainer {
   border-top: 1px transparent solid;
   border-radius: 1em;
   background: var(--dark-blue-color);
+}
+
+.termContainer + .termContainer {
+  margin-top: 1em;
 }

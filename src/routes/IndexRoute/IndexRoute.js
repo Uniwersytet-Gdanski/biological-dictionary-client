@@ -19,7 +19,6 @@ const IndexRoute = () => {
     }
   }, [letter, navigate]);
 
-
   return (
     <div className={styles.index}>
       <Helmet>

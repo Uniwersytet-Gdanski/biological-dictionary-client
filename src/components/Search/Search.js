@@ -1,15 +1,19 @@
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
+import { ImKey } from 'react-icons/im';
+import { IoHome } from 'react-icons/io5';
+import { VscChromeClose } from 'react-icons/vsc';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
+import magnifyingGlass from '../../img/magnifying-glass.png'
 import { setUser } from '../../redux/slices/user';
 import styles from './Search.module.css';
 
 const COMMAND_PREFIX = "/";
 const LOGIN_COMMAND_PREFIX = "/login ";
 
-const Search = () => {
+const Search = ({ initialQuery }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryInputRef = useRef();
@@ -21,10 +25,10 @@ const Search = () => {
   // until any new user interaction with the query text input.
   // used when submitting - the user only has a chance to really use this
   // when they are on a bad connection.
-  const [isExpandPaused, setIsExpandPaused] = useState(false);
+  const [isExpandPaused, setIsExpandPaused] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [keyboardSelectedIndex, setKeyboardSelectedIndex] = useState(-1);
-  const [queryText, setQueryText] = useState('');
+  const [queryText, setQueryText] = useState(initialQuery || '');
 
   // a toggle for development purposes
   const forceExpanded = false;
@@ -43,6 +47,15 @@ const Search = () => {
   const getFakeSuggestion = (text) => {
     return { id: text, name: text }
   };
+
+  useEffect(() => {
+    setQueryText(initialQuery || '');
+    queryInputRef.current.select();
+    // doesn't work without setTimeout on page reload, so we'll do it twice
+    setTimeout(() => {
+      queryInputRef.current.select();
+    }, 0);
+  }, [initialQuery]);
 
   useEffect(() => {
     const suggestionsReceived = (newSuggestions) => {
@@ -115,7 +128,7 @@ const Search = () => {
       setIsExpandPaused(true);
       if (!isCommand && !isTypingPassword) {
         if (suggestionId) {
-          navigate(`/term/${suggestionId}`);
+          navigate(`/term/${suggestionId}?q=${encodeURIComponent(text)}`);
         } else {
           // TODO decide with team
           navigate(`/search?q=${encodeURIComponent(queryText)}`)
@@ -226,17 +239,17 @@ const Search = () => {
         type="reset" // this doesn't reset automatically though :/
         onClick={handleFormReset}
       >
-        ❌{/* cross mark emoji (X) */}
+        <VscChromeClose className={styles.icon} /> {/* cross mark (X) */}
       </button>
       <button
         className={classNames(styles.searchButton, { [styles.runButtonExpanded]: isExpanded })}
         type="submit"
       >
         {isCommand ?
-          '🏠' /* home emoji */ :
+          < IoHome className={styles.icon} /> /* home */ :
           isTypingPassword ?
-            '🔑' /* key emoji */ :
-            '🔎' /* magnifying glass emoji */
+            < ImKey className={styles.icon} /> /* key */ :
+            <img src={magnifyingGlass} alt='' />
         }
       </button>
       <div
