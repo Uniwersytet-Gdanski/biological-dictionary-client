@@ -10,9 +10,16 @@ import styles from './Index.module.css';
 const Index = ({ letter }) => {
   const dispatch = useDispatch();
 
-  const { items, hasMoreItems, nextPageNumber, fetchMoreItems, error } = useInfiniteScroll(
+  const {
+    items,
+    hasMoreItems,
+    nextPageNumber,
+    fetchMoreItems,
+    lastElementRef,
+    error
+  } = useInfiniteScroll(
     '/terms-by-prefix',
-    { prefix: letter, withFullTerms: true, pageSize: 50 },
+    { prefix: letter, withFullTerms: true, pageSize: 20 },
     (page) => {
       const termsForRedux = page.data.map(it => it.term);
       dispatch(addTerms(termsForRedux));
@@ -73,7 +80,11 @@ const Index = ({ letter }) => {
         }
       >
         {termsBySecondLetter.map(([secondLetter, terms]) => (
-          <section key={secondLetter} aria-label={`Words starting with ${letter}${secondLetter}`}>
+          <section
+            key={secondLetter}
+            aria-label={`Words starting with ${letter}${secondLetter}`}
+            ref={lastElementRef}
+          >
             <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>
             <div className={styles.sectionGrid} style={{
               '--row-count-two-columns': Math.ceil(terms.length / 2),

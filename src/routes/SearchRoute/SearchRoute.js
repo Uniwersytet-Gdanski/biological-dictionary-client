@@ -10,14 +10,20 @@ import { addTerms } from '../../redux/slices/terms';
 import styles from './SearchRoute.module.css';
 
 const SearchRoute = () => {
-  // TODO Redux is weird
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get('q');
 
   const dispatch = useDispatch();
 
-  const { items, hasMoreItems, nextPageNumber, fetchMoreItems, error } = useInfiniteScroll(
+  const {
+    items,
+    hasMoreItems,
+    nextPageNumber,
+    fetchMoreItems,
+    lastElementRef,
+    error
+  } = useInfiniteScroll(
     '/terms-by-prefix',
     { query, withFullTerms: true, withoutDuplicates: true, pageSize: 10 },
     (page) => {
@@ -57,7 +63,11 @@ const SearchRoute = () => {
           }
         >
           {terms.map(term => (
-            <div key={term.uuid} className={styles.termContainer}>
+            <div
+              key={term.uuid}
+              ref={lastElementRef}
+              className={styles.termContainer}
+            >
               {/* note: .id is not unique, .uuid is */}
               <Term term={term} />
             </div>
