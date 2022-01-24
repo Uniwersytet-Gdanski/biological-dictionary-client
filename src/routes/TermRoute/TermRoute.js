@@ -33,7 +33,7 @@ const TermRoute = () => {
     }
   }, [queryParam, term, navigate, savedQuery]);
 
-  const [error, setError] = useState(undefined);
+  const [error, setError] = useState(null);
 
 
   useEffect(() => {

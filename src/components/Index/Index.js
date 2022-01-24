@@ -1,60 +1,40 @@
 import classNames from 'classnames/bind';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import axiosClient from '../../axiosClient';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addTerms } from '../../redux/slices/terms';
 import styles from './Index.module.css';
 
 const Index = ({ letter }) => {
   const dispatch = useDispatch();
 
-  const [termsWithDetails, setTermsWithDetails] = useState([]);
-  const [hasMoreTerms, setHasMoreTerms] = useState(true);
-  const [nextPageNumber, setNextPageNumber] = useState(1);
-
-  const fetchMoreTerms = useCallback(
-    (pageNumberToFetch) => {
-      axiosClient.get(`/terms-by-prefix`, {
-        params: {
-          prefix: letter,
-          pageNumber: pageNumberToFetch,
-          withFullTerms: true,
-          pageSize: 50
-        },
-      }).then(response => {
-        const page = response.data;
-        const termsWithDetails = page.data;
-        const termDetails = page.data.map(it => it.term);
-        dispatch(addTerms(termDetails));
-        const terms = termsWithDetails.map(it => ({ ...it, uuid: uuidv4() }));
-        setTermsWithDetails(value => [...(value || []), ...terms]);
-        setNextPageNumber(value => value + 1);
-        const moreTerms = parseInt(page.pageNumber) < parseInt(page.pagesCount);
-        setHasMoreTerms(moreTerms);
-        if (moreTerms && termsWithDetails.every(it => it.name[1] === termsWithDetails[0].name[1])) {
-          fetchMoreTerms(pageNumberToFetch + 1);
-        }
-      }).catch(ex => {
-        if (ex.isAxiosError) {
-          // TODO
-        }
-        console.log(ex);
-      });
+  const { items, hasMoreItems, nextPageNumber, fetchMoreItems, error } = useInfiniteScroll(
+    '/terms-by-prefix',
+    { prefix: letter, withFullTerms: true, pageSize: 50 },
+    (page) => {
+      const termsForRedux = page.data.map(it => it.term);
+      dispatch(addTerms(termsForRedux));
     },
-    [dispatch, letter]
-  );
+    [letter],
+    (items, pageItems) => {
+      if (items.length) {
+        return pageItems.every(it => it.name[1] === items[items.length - 1].name[1]);
+      } else {
+        return pageItems.every(it => it.name[1] === pageItems[0].name[1]);
+      }
+    });
 
-  // TODO what if there is only one letter?
+  // when there is only one letter in a word it SOMEHOW works
+  // hopefully it continues working!
   const termsBySecondLetter = useMemo(() => {
-    if (!termsWithDetails) {
+    if (!items) {
       return;
     }
 
     const output = {};
-    termsWithDetails.forEach(term => {  // TODO: fix bad usage of forEach
+    items.forEach(term => {  // TODO: fix bad usage of forEach
       const secondLetter = term.name.slice(1, 2);
       output[secondLetter] = [...(output[secondLetter] || []), term];
     });
@@ -66,31 +46,19 @@ const Index = ({ letter }) => {
           terms/*.sort((a, b) => a.name > b.name ? 1 : -1)*/,
         ],
       );
-    if (hasMoreTerms) {
+    if (hasMoreItems) {
       return grouped.slice(0, grouped.length - 1)
     } else {
       return grouped;
     }
-  }, [termsWithDetails, hasMoreTerms]);
-
-  useEffect(() => {
-    setTermsWithDetails([]);
-    setHasMoreTerms(true);
-    setNextPageNumber(1);
-  }, [letter]);
-
-  useEffect(() => {
-    if (nextPageNumber === 1) {
-      fetchMoreTerms(nextPageNumber);
-    }
-  }, [nextPageNumber, fetchMoreTerms]);
+  }, [items, hasMoreItems]);
 
   return (
     <div>
       <InfiniteScroll
         dataLength={termsBySecondLetter.length}
-        next={() => fetchMoreTerms(nextPageNumber)}
-        hasMore={hasMoreTerms}
+        next={() => fetchMoreItems(nextPageNumber, items)}
+        hasMore={hasMoreItems}
         loader={
           <p className={classNames(styles.end, styles.loading)}>
             Wczytywanie...
