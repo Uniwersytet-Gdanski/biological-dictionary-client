@@ -66,7 +66,7 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
         console.log(ex);
       });
     },
-    resetDeps
+    [pathToGet, axiosParams, onPageFetch, shouldFetchMore, ...resetDeps]
   );
 
   // if any of resetDeps resets then reset everything to default values and start from scratch
@@ -74,7 +74,7 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
     setItems([]);
     setHasMoreItems(true);
     setNextPageNumber(1);
-  }, resetDeps);
+  }, [...resetDeps]);
 
   // if nextPageNumber is 1 (due to first load or due to reset via the useEffect above),
   // then fetch the first page
