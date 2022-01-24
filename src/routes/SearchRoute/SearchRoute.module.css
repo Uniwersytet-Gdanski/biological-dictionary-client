@@ -15,18 +15,18 @@
 }
 
 .main > h1 {
-  border-top: 1px transparent solid;
   padding: 0.5em 1em;
+  border-top: 1px transparent solid;
 }
 
 .main > h1, .termContainer, .end {
-  background: var(--dark-blue-color);
   border-radius: 1em;
+  background: var(--dark-blue-color);
 }
 
 .end {
-  padding: 0.5em 1em;
   margin: 0;
+  padding: 0.5em 1em;
 }
 
 .end:not(.empty) {
@@ -38,9 +38,9 @@
 }
 
 .termContainer {
-  background: var(--dark-blue-color);
   border-top: 1px transparent solid;
   border-radius: 1em;
+  background: var(--dark-blue-color);
 }
 
 .termContainer + .termContainer {

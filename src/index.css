@@ -9,8 +9,8 @@ body {
   box-sizing: border-box;
   margin: 0;
   background-image: url('/src/img/background.svg');
-  background-size: 100% 150em;
   background-repeat: repeat-y;
+  background-size: 100% 150em;
   -webkit-font-smoothing: antialiased;
   /* we need to define the background color for body specifically somewhere, not for its bodies,
      because browsers treat it specifically in many ways, for instance on Microsoft Edge
