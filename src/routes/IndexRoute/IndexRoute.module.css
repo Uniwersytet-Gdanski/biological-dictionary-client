@@ -23,6 +23,10 @@
   color: var(--dark-gray-color);
 }
 
+.main a:hover {
+  color: var(--darker-gray-color);
+}
+
 .main p {
   line-height: 2em;
 }

@@ -37,6 +37,10 @@
   color: var(--white-color);
 }
 
+.end a:hover {
+  color: var(--light-gray-color);
+}
+
 .termContainer {
   border-top: 1px transparent solid;
   border-radius: 1em;

@@ -55,13 +55,9 @@
   padding: 0 1.5em 1em;
   text-align: center;
   color: var(--white-color);
-  text-decoration: none;
-}
-
-.main a:hover {
   text-decoration: underline;
 }
 
-.main a:visited {
-  color: var(--white-color);
+.main a:hover {
+  color: var(--light-gray-color);
 }

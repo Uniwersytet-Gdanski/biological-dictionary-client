@@ -42,6 +42,10 @@
   text-align: center;
 }
 
+.letters a:hover {
+  color: var(--light-gray-color);
+}
+
 .letters .letter {
   font-weight: bold;
   margin: 0 0.25em;
