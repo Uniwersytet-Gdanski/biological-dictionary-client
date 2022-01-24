@@ -18,7 +18,8 @@ const Contact = () => {
       <div className={styles.mainContainer}>
         <main className={styles.main}>
           <p>
-            Kontakt z autorami dostępny mailowo: slownikbiologia@gmail.com
+            Kontakt z autorami dostępny mailowo: 
+            <a className={styles.email} href='mailto:slownikbiologia@gmail.com'>slownikbiologia@gmail.com</a>
           </p>
           <p>
             <a href='https://forms.gle/ZFwLMs7FxL1RBT9A8'>Zgłoś błąd / zaproponuj nowy termin </a>

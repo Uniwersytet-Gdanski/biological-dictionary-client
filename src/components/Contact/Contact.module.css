@@ -49,11 +49,22 @@
   text-decoration: none;
 }
 
+.main .email {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 0.5em 1em;
+  text-align: left;
+  color: var(--white-color);
+  text-decoration: none;
+}
+
+.main .email:hover {
+  color: var(--light-gray-color);
+}
+
+
 .main a {
   font-size: 1.25em;
-  font-weight: bold;
-  padding: 0 1.5em 1em;
-  text-align: center;
   color: var(--white-color);
   text-decoration: underline;
 }
