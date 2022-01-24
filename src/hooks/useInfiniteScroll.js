@@ -66,6 +66,7 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
         console.log(ex);
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pathToGet, axiosParams, onPageFetch, shouldFetchMore, ...resetDeps]
   );
 
@@ -74,7 +75,7 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
     setItems([]);
     setHasMoreItems(true);
     setNextPageNumber(1);
-  }, [...resetDeps]);
+  }, [...resetDeps]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // if nextPageNumber is 1 (due to first load or due to reset via the useEffect above),
   // then fetch the first page
