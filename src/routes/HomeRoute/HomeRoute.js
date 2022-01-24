@@ -4,7 +4,7 @@ import styles from './HomeRoute.module.css'
 
 const HomeRoute = () => {
   return (
-    <div className={styles.home}>
+    <div className={styles.route}>
       <Helmet>
         <title>Słownik Biologiczny</title>
       </Helmet>

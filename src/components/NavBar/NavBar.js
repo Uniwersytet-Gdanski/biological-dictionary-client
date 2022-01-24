@@ -12,11 +12,11 @@ const NavBar = () => {
       {user && (
         <div>
           <NavLink to="/dashboard">
-            < IoPersonCircle className={styles.icon} />
+            <IoPersonCircle className={styles.icon} />
             {user.username}
           </NavLink>
           <NavLink to="/dashboard">
-            < IoLogOut className={styles.icon} />
+            <IoLogOut className={styles.icon} />
             Wyloguj
           </NavLink>
         </div>

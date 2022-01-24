@@ -1,11 +1,7 @@
 @import '../../colors.css';
 
 .route {
-
-}
-
-.mainContainer {
-  padding: 0.5em;
+  composes: route from '../../common.css';
 }
 
 .main {

@@ -20,17 +20,15 @@ const IndexRoute = () => {
   }, [letter, navigate]);
 
   return (
-    <div className={styles.index}>
+    <div className={styles.route}>
       <Helmet>
         <title>{letter} - indeks - Słownik Biologiczny</title>
       </Helmet>
       <Header currentLetter={letter} />
-      <div className={styles.mainContainer}>
-        <main className={styles.main}>
-          <h1>Hasła na literę {letter}</h1>
-          <Index letter={letter} />
-        </main>
-      </div>
+      <main className={styles.main}>
+        <h1>Hasła na literę {letter}</h1>
+        <Index letter={letter} />
+      </main>
     </div>
   );
 };

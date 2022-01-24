@@ -1,1 +1,5 @@
 @import '../../colors.css';
+
+.route {
+  composes: route from '../../common.css';
+}

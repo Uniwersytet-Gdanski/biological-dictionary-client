@@ -61,16 +61,14 @@ const TermRoute = () => {
         </title>
       </Helmet>
       <Header initialQuery={savedQuery} />
-      <div className={styles.mainContainer}>
-        <main className={styles.main}>
-          {term && (
-            <Term term={term} />
-          )}
-          {term === null && !error && 'Nie ma takiego słówka'}
-          {term === undefined && !error && 'Ładowanie...'}
-          {error && 'Błąd:' + error}
-        </main>
-      </div>
+      <main className={styles.main}>
+        {term && (
+          <Term term={term} />
+        )}
+        {term === null && !error && 'Nie ma takiego słówka'}
+        {term === undefined && !error && 'Ładowanie...'}
+        {error && 'Błąd:' + error}
+      </main>
     </div>
   );
 };
