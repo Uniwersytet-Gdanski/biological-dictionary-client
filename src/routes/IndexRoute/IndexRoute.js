@@ -11,11 +11,11 @@ const IndexRoute = () => {
   const { letter } = useParams();
   useEffect(() => {
     if (letter.length !== 1) {
-      navigate("/", true);
+      navigate("/", { replace: true });
       return;
     }
     if (letter.toLowerCase() !== letter) {
-      navigate(`/index/${letter.toLowerCase()}`, true);
+      navigate(`/index/${letter.toLowerCase()}`, { replace: true });
     }
   }, [letter, navigate]);
 

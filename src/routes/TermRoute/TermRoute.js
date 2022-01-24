@@ -27,7 +27,7 @@ const TermRoute = () => {
     if (queryParam) {
       setSavedQuery(queryParam);
       // navigate to the same URL without the query ?q=...
-      navigate(document.location.pathname, true);
+      navigate(document.location.pathname, { replace: true });
     } else if (!savedQuery && term) {
       setSavedQuery(term.names[0]);
     }
