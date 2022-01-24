@@ -26,7 +26,8 @@ const TermRoute = () => {
   useEffect(() => {
     if (queryParam) {
       setSavedQuery(queryParam);
-      navigate(document.location.pathname); // navigate to the same URL without the query ?q=...
+      // navigate to the same URL without the query ?q=...
+      navigate(document.location.pathname, true);
     } else if (!savedQuery && term) {
       setSavedQuery(term.names[0]);
     }
