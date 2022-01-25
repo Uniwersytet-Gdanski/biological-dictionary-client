@@ -1,0 +1,76 @@
+.languageGrid {
+  composes: languageGrid from '../term.css';
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.cleanButton {
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+  border: none;
+  background: none;
+}
+
+.plurality {
+  margin: 0 0.5em;
+}
+
+.termSingularText {
+  flex-grow: 1;
+  composes: termSingularText from '../term.css';
+}
+
+.termPluralText {
+  flex-grow: 1;
+  composes: termPluralText from '../term.css';
+}
+
+.termPluralTextContainer {
+  flex-grow: 1;
+}
+
+.languageSection {
+  composes: languageSection from '../term.css';
+}
+
+.polishSection {
+  composes: polishSection from '../term.css';
+}
+
+.englishSection {
+  composes: englishSection from '../term.css';
+}
+
+.definition {
+  display: flex;
+  composes: definition from '../term.css';
+}
+
+.definition input {
+  flex-grow: 1;
+}
+
+.summarySection {
+  padding: 0.125em 1em;
+}
+
+.summarySection button {
+  font-size: inherit;
+  padding: 0.5em;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--dark-gray-color);
+  border: none;
+  border-radius: 0.75em / 0.75em;
+  background: var(--white-color);
+}

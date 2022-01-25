@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
-import poland from '../../img/poland.png';
-import uk from '../../img/uk.png';
-import styles from './Term.module.css'
+import poland from '../../../img/poland.png';
+import uk from '../../../img/uk.png';
+import styles from './TermView.module.css'
 
-const Term = ({ term }) => {
+const TermView = ({ term }) => {
   return (
     <>
       <div className={styles.languageGrid}>
@@ -44,4 +44,4 @@ const Term = ({ term }) => {
   )
 };
 
-export default Term;
+export default TermView;

@@ -117,18 +117,16 @@ const Search = ({ initialQuery }) => {
       if (isTypingPassword) {
         setLogin(null);
         setQueryText("");
-        dispatch(setUser({ username: login }));
-        // axiosClient.post(`/login`, {
-        //   login: login,
-        //   password: text,
-        // }).then(_ => {
-        //   console.log("login successful");
-        //   dispatch(setUser({username: login}));
-        // }).catch(ex => {
-        //   console.error(ex);
-        //   alert("Login failed");  // TODO: better error handling
-        // });
-
+        axiosClient.post(`/login`, {
+          login: login,
+          password: text,
+        }).then(response => {
+          console.log("login successful");
+          dispatch(setUser(response.data));
+        }).catch(ex => {
+          console.error(ex);
+          alert("Login failed");  // TODO: better error handling
+        });
       }
       updateSelectedIndex(-1, true);
       setIsExpandPaused(true);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import useFetchProfileOnFirstLoad from './hooks/useFetchProfileOnFirstLoad';
 import AddTermRoute from './routes/AddTermRoute/AddTermRoute';
 import HomeRoute from './routes/HomeRoute/HomeRoute';
 import IndexRoute from './routes/IndexRoute/IndexRoute';
@@ -9,15 +10,24 @@ import AuthorsRoute from './routes/info/AuthorsRoute/AuthorsRoute';
 import ContactRoute from './routes/info/ContactRoute/ContactRoute';
 import NotFoundRoute from './routes/NotFoundRoute/NotFoundRoute';
 import SearchRoute from './routes/SearchRoute/SearchRoute';
+import TermEditRoute from './routes/TermRoute/TermEditRoute/TermEditRoute';
 import TermRoute from './routes/TermRoute/TermRoute';
+import TermViewRoute from './routes/TermRoute/TermViewRoute/TermViewRoute';
 
 function App() {
+  useFetchProfileOnFirstLoad();
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomeRoute />} />
         <Route path="index/:letter" element={<IndexRoute />} />
-        <Route path="term/:termId" element={<TermRoute />} />
+        <Route path="term/:termId" element={<TermViewRoute />} />
+        <Route path="term/:termId" element={<TermRoute />}>
+          <Route path="" element={<TermViewRoute />} />
+          <Route path="edit" element={<TermEditRoute />} />
+        </Route>
+        <Route path="term/:termId/edit" element={<TermEditRoute />} />
         <Route path="search" element={<SearchRoute />} />
         <Route path="terms/add" element={<AddTermRoute />} />
         <Route path="about" element={<AboutRoute />} />

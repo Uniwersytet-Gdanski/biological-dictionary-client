@@ -1,0 +1,28 @@
+.languageGrid {
+  composes: languageGrid from '../term.css';
+}
+
+.termSingularText {
+  text-transform: uppercase;
+  composes: termSingularText from '../term.css';
+}
+
+.termPluralText {
+  composes: termPluralText from '../term.css';
+}
+
+.languageSection {
+  composes: languageSection from '../term.css';
+}
+
+.polishSection {
+  composes: polishSection from '../term.css';
+}
+
+.englishSection {
+  composes: englishSection from '../term.css';
+}
+
+.definition {
+  composes: definition from '../term.css';
+}

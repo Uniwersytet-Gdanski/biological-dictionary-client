@@ -1,24 +1,24 @@
-import { IoLogOut, IoPersonCircle, IoAddCircleSharp } from 'react-icons/io5';
-import { useSelector } from 'react-redux';
+import { IoAddCircleSharp, IoLogOut, IoPersonCircle } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getUser } from '../../redux/slices/user';
-// import axiosClient from '../../axiosClient';
-// import { setUser } from '../../redux/slices/user';
-
+import axiosClient from '../../axiosClient';
+import { getUser, setUser } from '../../redux/slices/user';
 import styles from './NavBar.module.css'
 
 const NavBar = () => {
-  const user = useSelector(getUser);  
+  const dispatch = useDispatch();
+
+  const user = useSelector(getUser);
 
   const logOut = () => {
-    // axiosClient.post(`/logout`)
-    // .then(_ => {
-    //   console.log("logout successful");
-    //   dispatch(setUser(null));
-    // }).catch(ex => {
-    //   console.error(ex);
-    //   alert("Logout failed");  // TODO: better error handling
-    // });
+    axiosClient.post(`/logout`)
+      .then(_ => {
+        console.log("logout successful");
+        dispatch(setUser(null));
+      }).catch(ex => {
+      console.error(ex);
+      alert("Logout failed");  // TODO: better error handling
+    });
   };
 
   return (
@@ -26,7 +26,7 @@ const NavBar = () => {
       {user && (
         <div>
           <IoPersonCircle className={styles.icon} />
-          {user.username}
+          {user.login}
           <NavLink onClick={logOut} to="/">
             <IoLogOut className={styles.icon} />
             Wyloguj

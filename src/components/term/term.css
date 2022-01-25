@@ -8,7 +8,11 @@
   font-size: 1.25em;
   font-weight: bold;
   margin: 0.25em 0;
-  text-transform: uppercase;
+}
+
+.termPluralText {
+  font-size: 1.25em;
+  margin: 0.25em 0;
 }
 
 .languageSection {
@@ -24,11 +28,6 @@
 .englishSection {
   composes: languageSection;
   grid-template-columns: 1fr 1fr;
-}
-
-.termPluralText {
-  font-size: 1.25em;
-  margin: 0.25em 0;
 }
 
 .languageGrid img {

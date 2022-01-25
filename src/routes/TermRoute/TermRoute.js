@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
-import Term from '../../components/Term/Term';
 import { addTerm, getTermById, markTermIdAsNonexistent } from '../../redux/slices/terms';
 import styles from './TermRoute.module.css';
 
@@ -53,6 +52,8 @@ const TermRoute = () => {
     });
   }, [dispatch, termId]);
 
+  console.log("AAAAAA");
+
   return (
     <div className={styles.route}>
       <Helmet>
@@ -63,7 +64,7 @@ const TermRoute = () => {
       <HeaderWithSearch initialQuery={savedQuery} />
       <main className={styles.main}>
         {term && (
-          <Term term={term} />
+          <Outlet context={[termId, term, savedQuery, error]} />
         )}
         {term === null && !error && 'Nie ma takiego słówka'}
         {term === undefined && !error && 'Ładowanie...'}

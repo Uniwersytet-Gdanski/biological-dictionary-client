@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
-import Term from '../../components/Term/Term';
+import TermView from '../../components/term/TermView/TermView';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addTerms } from '../../redux/slices/terms';
 import styles from './SearchRoute.module.css';
@@ -80,7 +80,7 @@ const SearchRoute = () => {
               className={styles.termContainer}
             >
               {/* note: .id is not unique, .uuid is */}
-              <Term term={term} />
+              <TermView term={term} />
             </div>
           ))}
         </InfiniteScroll>
