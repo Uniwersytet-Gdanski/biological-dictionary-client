@@ -38,7 +38,7 @@ const SearchRoute = () => {
     lastElementRef,
     error
   } = useInfiniteScroll(
-    '/terms-by-prefix',
+    '/search-entries',
     axiosParams,
     onPageFetch,
     resetDeps
