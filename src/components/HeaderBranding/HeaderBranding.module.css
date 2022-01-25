@@ -1,12 +1,11 @@
-@import '../../colors.css';
+.branding {
 
-.about > * + * {
-  margin: 1em auto;
 }
 
-.title {
+.branding h1 {
   font-family: 'Ubuntu Condensed', sans-serif;
   font-weight: lighter;
+  margin-bottom: 1em;
   text-align: center;
   color: var(--white-color);
 }
@@ -17,12 +16,13 @@
   justify-content: center;
   width: 10em;
   height: 10em;
+  margin: 2em auto;
   border-radius: 50%;
   background: var(--white-color);
 }
 
 .logoContainer img {
   /* The dimensions need to be set here precisely so that Lighthouse is satisfied */
-  width: 7em;
-  height: 7em;
+  /* width: 6em; */
+  height: 6em;
 }

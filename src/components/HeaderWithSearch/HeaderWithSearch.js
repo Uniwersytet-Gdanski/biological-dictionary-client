@@ -3,17 +3,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
-import logo from '../../img/logo.png'
 import {
   getTermsFirstLettersState,
   setErrorTermsFirstLetters,
   setTermsFirstLetters
 } from '../../redux/slices/termsFirstLetters';
+import HeaderBranding from '../HeaderBranding/HeaderBranding';
 import NavBar from '../NavBar/NavBar';
 import Search from '../Search/Search';
-import styles from './Header.module.css'
+import styles from './HeaderWithSearch.module.css'
 
-const Header = ({ currentLetter, initialQuery }) => {
+const HeaderWithSearch = ({ currentLetter, initialQuery }) => {
   const dispatch = useDispatch();
   const {
     data: letters,
@@ -32,10 +32,7 @@ const Header = ({ currentLetter, initialQuery }) => {
   return (
     <header className={styles.header}>
       <NavBar />
-      <h1 className={styles.title}>Polsko-Angielski Słownik Biologiczny</h1>
-      <Link to="/" className={styles.logoContainer}>
-        <img src={logo} alt="Logo" />
-      </Link>
+      <HeaderBranding />
       <div className={styles.searchContainer}>
         <Search initialQuery={initialQuery} />
       </div>
@@ -58,4 +55,4 @@ const Header = ({ currentLetter, initialQuery }) => {
   )
 };
 
-export default Header;
+export default HeaderWithSearch;

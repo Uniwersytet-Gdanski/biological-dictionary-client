@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import About from '../../components/About/About';
-import styles from './AboutRoute.module.css'
+import Authors from '../../../components/Authors/Authors';
+import styles from './AuthorsRoute.module.css'
 
-const AboutRoute = () => {
+const AuthorsRoute = () => {
   return (
     <div className={styles.route}>
       <Helmet>
         <title> O słowniku - Słownik Biologiczny </title>
       </Helmet>
-      <About />
+      <Authors />
     </div>
   );
 };
 
-export default AboutRoute;
+export default AuthorsRoute;

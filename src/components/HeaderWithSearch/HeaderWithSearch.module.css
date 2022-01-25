@@ -4,29 +4,6 @@
   margin: 1em auto;
 }
 
-.title {
-  font-family: 'Ubuntu Condensed', sans-serif;
-  font-weight: lighter;
-  text-align: center;
-  color: var(--white-color);
-}
-
-.logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 10em;
-  height: 10em;
-  border-radius: 50%;
-  background: var(--white-color);
-}
-
-.logoContainer img {
-  /* The dimensions need to be set here precisely so that Lighthouse is satisfied */
-  /* width: 6em; */
-  height: 6em;
-}
-
 .searchContainer {
   margin: auto;
   padding: 0 0.5em;

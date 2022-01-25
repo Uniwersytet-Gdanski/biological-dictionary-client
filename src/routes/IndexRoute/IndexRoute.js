@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
-import Header from '../../components/Header/Header';
+import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
 import Index from '../../components/Index/Index';
 import styles from './IndexRoute.module.css';
 
@@ -24,7 +24,7 @@ const IndexRoute = () => {
       <Helmet>
         <title>{letter} - indeks - Słownik Biologiczny</title>
       </Helmet>
-      <Header currentLetter={letter} />
+      <HeaderWithSearch currentLetter={letter} />
       <main className={styles.main}>
         <h1>Hasła na literę {letter}</h1>
         <Index letter={letter} />

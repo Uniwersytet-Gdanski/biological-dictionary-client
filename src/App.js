@@ -4,12 +4,12 @@ import './App.css';
 import AddTermRoute from './routes/AddTermRoute/AddTermRoute';
 import HomeRoute from './routes/HomeRoute/HomeRoute';
 import IndexRoute from './routes/IndexRoute/IndexRoute';
+import AboutRoute from './routes/info/AboutRoute/AboutRoute';
+import AuthorsRoute from './routes/info/AuthorsRoute/AuthorsRoute';
+import ContactRoute from './routes/info/ContactRoute/ContactRoute';
 import NotFoundRoute from './routes/NotFoundRoute/NotFoundRoute';
 import SearchRoute from './routes/SearchRoute/SearchRoute';
 import TermRoute from './routes/TermRoute/TermRoute';
-import AboutRoute from './routes/AboutRoute/AboutRoute';
-import AuthorsRoute from './routes/AuthorsRoute/AuthorsRoute';
-import ContactRoute from './routes/ContactRoute/ContactRoute';
 
 function App() {
   return (

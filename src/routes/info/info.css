@@ -1,0 +1,47 @@
+.title {
+  font-family: 'Ubuntu Condensed', sans-serif;
+  font-weight: lighter;
+  text-align: center;
+  color: var(--white-color);
+}
+
+.main {
+  max-width: 50em;
+  margin: 0 auto;
+  color: var(--white-color);
+  border-top: 1px transparent solid;
+  border-radius: 1em;
+  background: var(--dark-blue-color);
+}
+
+.main p {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 0 1.5em 1em;
+  text-align: center;
+  text-decoration: none;
+  color: var(--white-color);
+}
+
+.main .email {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 0.5em 1em;
+  text-align: left;
+  text-decoration: none;
+  color: var(--white-color);
+}
+
+.main .email:hover {
+  color: var(--light-gray-color);
+}
+
+.main a {
+  font-size: 1.25em;
+  text-decoration: underline;
+  color: var(--white-color);
+}
+
+.main a:hover {
+  color: var(--light-gray-color);
+}

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/Header/Header';
+import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
 import styles from './HomeRoute.module.css'
 
 const HomeRoute = () => {
@@ -8,7 +8,7 @@ const HomeRoute = () => {
       <Helmet>
         <title>Słownik Biologiczny</title>
       </Helmet>
-      <Header />
+      <HeaderWithSearch />
     </div>
   );
 };

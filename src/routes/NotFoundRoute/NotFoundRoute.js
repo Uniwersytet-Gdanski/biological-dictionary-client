@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
-import Header from '../../components/Header/Header';
+import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
 import styles from './NotFoundRoute.module.css';
 
 const NotFoundRoute = () => {
@@ -11,15 +11,15 @@ const NotFoundRoute = () => {
       <Helmet>
         <title>404 Nie znaleziono - Słownik Biologiczny</title> {/* TODO replace with name */}
       </Helmet>
-      <Header />
+      <HeaderWithSearch />
       <main className={styles.main}>
         <h1>404 Nie ma takiej strony - {location.pathname}</h1>
         <p>
           <Link to="/">
             Przejdź do strony głównej
           </Link> lub wyszukaj w polu wyżej
-          </p>
-        </main>
+        </p>
+      </main>
     </div>
   );
 };

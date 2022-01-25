@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import Header from '../../components/Header/Header';
+import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
 import Term from '../../components/Term/Term';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addTerms } from '../../redux/slices/terms';
@@ -53,7 +53,7 @@ const SearchRoute = () => {
           123 - wyszukaj - Słownik Biologiczny
         </title>
       </Helmet>
-      <Header initialQuery={query} />
+      <HeaderWithSearch initialQuery={query} />
       <main className={styles.main}>
         <h1>"{query}" po angielsku</h1>
         <InfiniteScroll

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
-import Header from '../../components/Header/Header';
+import HeaderWithSearch from '../../components/HeaderWithSearch/HeaderWithSearch';
 import Term from '../../components/Term/Term';
 import { addTerm, getTermById, markTermIdAsNonexistent } from '../../redux/slices/terms';
 import styles from './TermRoute.module.css';
@@ -60,7 +60,7 @@ const TermRoute = () => {
           {term?.names[0] || savedQuery || termId} - Słownik Biologiczny
         </title>
       </Helmet>
-      <Header initialQuery={savedQuery} />
+      <HeaderWithSearch initialQuery={savedQuery} />
       <main className={styles.main}>
         {term && (
           <Term term={term} />
