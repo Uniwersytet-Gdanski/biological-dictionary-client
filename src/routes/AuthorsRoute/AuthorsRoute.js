@@ -4,7 +4,7 @@ import styles from './AuthorsRoute.module.css'
 
 const AuthorsRoute = () => {
   return (
-    <div className={styles.authors}>
+    <div className={styles.route}>
       <Helmet>
         <title> O słowniku - Słownik Biologiczny </title>
       </Helmet>
