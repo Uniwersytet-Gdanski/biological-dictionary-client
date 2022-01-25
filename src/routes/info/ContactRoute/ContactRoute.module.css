@@ -3,3 +3,19 @@
 .route {
   composes: route from '../../../common.css';
 }
+
+.title {
+  composes: title from '../info.css';
+}
+
+.main {
+  composes: main from '../info.css';
+}
+
+.email {
+  composes: email from '../info.css';
+}
+
+.contact {
+  composes: contact from '../info.css';
+}

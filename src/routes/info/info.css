@@ -16,7 +16,6 @@
 
 .main p {
   font-size: 1.25em;
-  font-weight: bold;
   padding: 0 1.5em 1em;
   text-align: center;
   text-decoration: none;
@@ -44,4 +43,14 @@
 
 .main a:hover {
   color: var(--light-gray-color);
+}
+
+.contact {
+  font-weight: bold;
+}
+
+ul{
+  padding: 0em;
+  list-style-position: inside;
+  font-weight: bold;
 }
