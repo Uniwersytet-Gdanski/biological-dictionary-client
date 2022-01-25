@@ -13,21 +13,19 @@ import ContactRoute from './routes/ContactRoute/ContactRoute';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomeRoute />} />
-          <Route path="index/:letter" element={<IndexRoute />} />
-          <Route path="term/:termId" element={<TermRoute />} />
-          <Route path="search" element={<SearchRoute />} />
-          <Route path="terms/add" element={<AddTermRoute />} />
-          <Route path="about" element={<AboutRoute />} />
-          <Route path="authors" element={<AuthorsRoute />} />
-          <Route path="contact" element={<ContactRoute />} />
-          <Route path="*" element={<NotFoundRoute />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomeRoute />} />
+        <Route path="index/:letter" element={<IndexRoute />} />
+        <Route path="term/:termId" element={<TermRoute />} />
+        <Route path="search" element={<SearchRoute />} />
+        <Route path="terms/add" element={<AddTermRoute />} />
+        <Route path="about" element={<AboutRoute />} />
+        <Route path="authors" element={<AuthorsRoute />} />
+        <Route path="contact" element={<ContactRoute />} />
+        <Route path="*" element={<NotFoundRoute />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
