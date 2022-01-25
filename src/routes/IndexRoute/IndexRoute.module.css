@@ -1,11 +1,7 @@
 @import '../../colors.css';
 
-.index {
-  min-height: 100vh;
-}
-
-.mainContainer {
-  padding: 0.5em;
+.route {
+  composes: route from '../../common.css';
 }
 
 .main {

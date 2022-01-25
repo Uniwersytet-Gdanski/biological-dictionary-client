@@ -3,17 +3,20 @@
 .bar {
   display: flex;
   justify-content: flex-end;
-  padding: 1.5em;
+  color: var(--white-color);
+  font-weight: bold;
+  /*padding: 1.5em;*/
 }
-
-.bar > * + * {
-  margin-left: 1.5em;
+.bar div{
+  display: flex;
 }
 
 .bar a {
+  display: inline-block;
   font-weight: bold;
   text-decoration: none;
   color: var(--white-color);
+  margin-left: 1.5em;
 }
 
 .bar a:hover {
@@ -21,9 +24,8 @@
 }
 
 .bar .icon {
-  width: 1.3em;
-  height: 1.3em;
-  margin-left: 1.5em;
+  width: 1.25em;
+  height: 1.25em;
   vertical-align: middle;
   fill: var(--white-color);
 }

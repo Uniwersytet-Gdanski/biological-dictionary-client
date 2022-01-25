@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { ImKey } from 'react-icons/im';
-import { IoHome } from 'react-icons/io5';
+import { IoHome, IoPerson } from 'react-icons/io5';
 import { VscChromeClose } from 'react-icons/vsc';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { setUser } from '../../redux/slices/user';
 import styles from './Search.module.css';
 
 const COMMAND_PREFIX = "/";
-const LOGIN_COMMAND_PREFIX = "/login ";
+const LOGIN_COMMAND = "/login";
 
 const Search = ({ initialQuery }) => {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ const Search = ({ initialQuery }) => {
   // a toggle for development purposes
   const forceExpanded = false;
 
+  const [isTypingLogin, setIsTypingLogin] = useState(false);
   const [login, setLogin] = useState(null);
 
   const isTypingPassword = login !== null;
@@ -65,14 +66,12 @@ const Search = ({ initialQuery }) => {
       setSuggestions(suggestionsWithKeys);
     };
 
-    if (queryText && !isTypingPassword) {
+    if (queryText && !isTypingPassword && !isTypingLogin) {
       if (isCommand) {
-        if (LOGIN_COMMAND_PREFIX.startsWith(queryText) || queryText.startsWith(LOGIN_COMMAND_PREFIX)) {
-          if (queryText.length > LOGIN_COMMAND_PREFIX.length) {
-            suggestionsReceived([getFakeSuggestion(queryText)]);
-          } else {
-            suggestionsReceived([getFakeSuggestion(LOGIN_COMMAND_PREFIX)]);
-          }
+        if (LOGIN_COMMAND.startsWith(queryText) && queryText.length <= LOGIN_COMMAND.length) {
+          suggestionsReceived([getFakeSuggestion(LOGIN_COMMAND)]);
+        } else {
+          suggestionsReceived([]);
         }
       } else {
         axiosClient.get(`/search-terms`, {
@@ -91,7 +90,7 @@ const Search = ({ initialQuery }) => {
     } else {
       suggestionsReceived([]);
     }
-  }, [queryText, isCommand, isTypingPassword]);
+  }, [queryText, isCommand, isTypingPassword, isTypingLogin]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -104,13 +103,20 @@ const Search = ({ initialQuery }) => {
         setQueryText(text);
       }
       if (isCommand) {
-        if (text.startsWith(LOGIN_COMMAND_PREFIX)) {
+        if (text === LOGIN_COMMAND) {
           setQueryText("");
-          setLogin(text.slice(LOGIN_COMMAND_PREFIX.length));
+          setIsTypingLogin(true);
         }
+      }
+      if (isTypingLogin) {
+        setQueryText("");
+        setLogin(text);
+        setIsTypingLogin(false);
       }
       // password got submitted, perform login
       if (isTypingPassword) {
+        setLogin(null);
+        setQueryText("");
         dispatch(setUser({ username: login }));
         // axiosClient.post(`/login`, {
         //   login: login,
@@ -126,7 +132,7 @@ const Search = ({ initialQuery }) => {
       }
       updateSelectedIndex(-1, true);
       setIsExpandPaused(true);
-      if (!isCommand && !isTypingPassword) {
+      if (!isCommand && !isTypingLogin && !isTypingPassword) {
         if (suggestionId) {
           navigate(`/term/${suggestionId}?q=${encodeURIComponent(text)}`);
         } else {
@@ -227,7 +233,7 @@ const Search = ({ initialQuery }) => {
         className={classNames(styles.queryInput, { [styles.queryInputExpanded]: isExpanded })}
         autoComplete="off"
         type={isTypingPassword ? "password" : "text"}
-        placeholder={isTypingPassword ? "Podaj swoje hasło" : "Wpisz szukane słowo"}
+        placeholder={isTypingPassword ? "Podaj swoje hasło" : isTypingLogin ? "Podaj swój login" : "Wpisz szukane słowo"}
         autoFocus
         value={displayedQueryText}
         onChange={onQueryChange}
@@ -246,10 +252,12 @@ const Search = ({ initialQuery }) => {
         type="submit"
       >
         {isCommand ?
-          < IoHome className={styles.icon} /> /* home */ :
-          isTypingPassword ?
-            < ImKey className={styles.icon} /> /* key */ :
-            <img src={magnifyingGlass} alt='' />
+          <IoHome className={styles.icon} /> :
+          isTypingLogin ?
+            <IoPerson className={styles.icon} /> :
+            isTypingPassword ?
+              <ImKey className={styles.icon} /> :
+              <img src={magnifyingGlass} alt='' />
         }
       </button>
       <div

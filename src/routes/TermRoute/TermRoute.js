@@ -27,13 +27,13 @@ const TermRoute = () => {
     if (queryParam) {
       setSavedQuery(queryParam);
       // navigate to the same URL without the query ?q=...
-      navigate(document.location.pathname, true);
+      navigate(document.location.pathname, { replace: true });
     } else if (!savedQuery && term) {
       setSavedQuery(term.names[0]);
     }
   }, [queryParam, term, navigate, savedQuery]);
 
-  const [error, setError] = useState(undefined);
+  const [error, setError] = useState(null);
 
 
   useEffect(() => {
@@ -61,16 +61,14 @@ const TermRoute = () => {
         </title>
       </Helmet>
       <Header initialQuery={savedQuery} />
-      <div className={styles.mainContainer}>
-        <main className={styles.main}>
-          {term && (
-            <Term term={term} />
-          )}
-          {term === null && !error && 'Nie ma takiego słówka'}
-          {term === undefined && !error && 'Ładowanie...'}
-          {error && 'Błąd:' + error}
-        </main>
-      </div>
+      <main className={styles.main}>
+        {term && (
+          <Term term={term} />
+        )}
+        {term === null && !error && 'Nie ma takiego słówka'}
+        {term === undefined && !error && 'Ładowanie...'}
+        {error && 'Błąd:' + error}
+      </main>
     </div>
   );
 };

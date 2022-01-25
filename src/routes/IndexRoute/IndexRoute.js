@@ -11,26 +11,24 @@ const IndexRoute = () => {
   const { letter } = useParams();
   useEffect(() => {
     if (letter.length !== 1) {
-      navigate("/", true);
+      navigate("/", { replace: true });
       return;
     }
     if (letter.toLowerCase() !== letter) {
-      navigate(`/index/${letter.toLowerCase()}`, true);
+      navigate(`/index/${letter.toLowerCase()}`, { replace: true });
     }
   }, [letter, navigate]);
 
   return (
-    <div className={styles.index}>
+    <div className={styles.route}>
       <Helmet>
         <title>{letter} - indeks - Słownik Biologiczny</title>
       </Helmet>
       <Header currentLetter={letter} />
-      <div className={styles.mainContainer}>
-        <main className={styles.main}>
-          <h1>Hasła na literę {letter}</h1>
-          <Index letter={letter} />
-        </main>
-      </div>
+      <main className={styles.main}>
+        <h1>Hasła na literę {letter}</h1>
+        <Index letter={letter} />
+      </main>
     </div>
   );
 };
