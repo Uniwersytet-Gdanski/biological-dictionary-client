@@ -23,8 +23,8 @@
 
 .logoContainer img {
   /* The dimensions need to be set here precisely so that Lighthouse is satisfied */
-  width: 7em;
-  height: 7em;
+  /* width: 6em; */
+  height: 6em;
 }
 
 .searchContainer {
