@@ -30,7 +30,7 @@ const HeaderWithSearch = ({ currentLetter, initialQuery }) => {
   }, [dispatch]);
 
   return (
-    <header className={styles.header}>
+    <header>
       <NavBar />
       <HeaderBranding />
       <div className={styles.searchContainer}>
