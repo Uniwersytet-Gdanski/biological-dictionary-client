@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
@@ -16,6 +17,20 @@ const SearchRoute = () => {
 
   const dispatch = useDispatch();
 
+  const axiosParams = useMemo(() => {
+    return { query, withFullTerms: true, withoutDuplicates: true, pageSize: 10 }
+  }, [query]);
+
+  const onPageFetch = useCallback(
+    (page) => {
+      const termsForRedux = page.data.map(it => it.term);
+      dispatch(addTerms(termsForRedux));
+    },
+    [dispatch],
+  );
+
+  const resetDeps = useMemo(() => [query], [query]);
+
   const {
     items,
     hasMoreItems,
@@ -25,15 +40,12 @@ const SearchRoute = () => {
     error
   } = useInfiniteScroll(
     '/terms-by-prefix',
-    { query, withFullTerms: true, withoutDuplicates: true, pageSize: 10 },
-    (page) => {
-      const termsForRedux = page.data.map(it => it.term);
-      dispatch(addTerms(termsForRedux));
-    },
-    [query]
+    axiosParams,
+    onPageFetch,
+    resetDeps
   );
 
-  const terms = items.map(item => item.term);
+  const terms = items.map(item => ({...item.term, uuid: item.uuid}));
 
   return (
     <div className={styles.route}>
@@ -73,7 +85,7 @@ const SearchRoute = () => {
             </div>
           ))}
         </InfiniteScroll>
-        {error}
+        {error && 'Błąd:' + error}
       </main>
     </div>
   );

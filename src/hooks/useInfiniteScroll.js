@@ -19,6 +19,8 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
   const [items, setItems] = useState([]);
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const [nextPageNumber, setNextPageNumber] = useState(1);
+  const [isFetchRequested, setIsFetchRequested] = useState(false);
+  const [shouldSudoFetchAll, setShouldSudoFetchAll] = useState(false);
   const [error, setError] = useState(null);
   const lastElementRef = useRef();
 
@@ -35,11 +37,16 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
   }
 
   const fetchMoreItems = useCallback(
-    (pageNumberToFetch, lastItemSlice = null) => {
+    () => {
+      setNextPageNumber(nextPageNumber + 1);
       axiosClient.get(pathToGet, {
         params: {
-          pageNumber: pageNumberToFetch,
-          ...axiosParams
+          pageNumber: nextPageNumber,
+          ...axiosParams,
+          // this won't work because we use pages and not offsets
+          // so changing the pageSize when we already fetched a different one
+          // would break everything
+          // pageSize: shouldSudoFetchAll ? 300 : axiosParams.pageSize
         },
       }).then(response => {
         const page = response.data;
@@ -47,16 +54,17 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
         const pageItems = page.data;
         const pageItemsWithUuids = pageItems.map(it => ({ ...it, uuid: uuidv4() }));
         setItems(value => [...value, ...pageItemsWithUuids]);
-        setNextPageNumber(value => value + 1);
         const hasMorePages = parseInt(page.pageNumber) < parseInt(page.pagesCount);
         setHasMoreItems(hasMorePages);
-        if (
-          hasMorePages && (
-            (shouldFetchMore && shouldFetchMore(lastItemSlice, pageItems))
-            ||
-            (lastElementRef.current && isElementInViewport(lastElementRef.current)))
-        ) {
-          fetchMoreItems(pageNumberToFetch + 1, pageItems);
+        const shouldFetchMoreSucceeded = shouldFetchMore && shouldFetchMore(pageItems);
+        const isLibraryBroken = lastElementRef.current && isElementInViewport(lastElementRef.current) && !shouldFetchMoreSucceeded;
+
+        if (hasMorePages && (shouldFetchMoreSucceeded || isLibraryBroken || shouldSudoFetchAll)) {
+          if (isLibraryBroken) {
+            console.log(`Applying fix to broken endless scroll library (page ${page.pageNumber}) on route ${window.location.pathname}`);
+            setShouldSudoFetchAll(true);
+          }
+          setIsFetchRequested(true);
         }
       }).catch(ex => {
         // if (ex.isAxiosError) {
@@ -67,23 +75,24 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pathToGet, axiosParams, onPageFetch, shouldFetchMore, ...resetDeps]
+    [pathToGet, axiosParams, onPageFetch, isFetchRequested, shouldSudoFetchAll, nextPageNumber, ...resetDeps]
   );
+
+  useEffect(() => {
+    if (isFetchRequested) {
+      fetchMoreItems();
+      setIsFetchRequested(false);
+    }
+  }, [isFetchRequested]);
 
   // if any of resetDeps resets then reset everything to default values and start from scratch
   useEffect(() => {
     setItems([]);
     setHasMoreItems(true);
     setNextPageNumber(1);
+    setIsFetchRequested(true);
+    setShouldSudoFetchAll(false);
   }, [...resetDeps]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // if nextPageNumber is 1 (due to first load or due to reset via the useEffect above),
-  // then fetch the first page
-  useEffect(() => {
-    if (nextPageNumber === 1) {
-      fetchMoreItems(nextPageNumber, []);
-    }
-  }, [nextPageNumber, fetchMoreItems]);
 
   return { items, hasMoreItems, nextPageNumber, fetchMoreItems, lastElementRef, error }
 };

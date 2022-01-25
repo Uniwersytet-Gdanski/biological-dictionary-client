@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,27 @@ import styles from './Index.module.css';
 const Index = ({ letter }) => {
   const dispatch = useDispatch();
 
+  const axiosParams = useMemo(() => {
+    return { prefix: letter, withFullTerms: true, pageSize: 50 }
+  }, [letter]);
+
+  const onPageFetch = useCallback(
+    (page) => {
+      const termsForRedux = page.data.map(it => it.term);
+      dispatch(addTerms(termsForRedux));
+    },
+    [dispatch],
+  );
+
+  const resetDeps = useMemo(() => [letter], [letter]);
+
+  const shouldFetchMore = useCallback(
+    (pageItems) => {
+      return pageItems.every(it => it.name[1] === pageItems[0].name[1]);
+    },
+    [],
+  );
+
   const {
     items,
     hasMoreItems,
@@ -19,19 +40,11 @@ const Index = ({ letter }) => {
     error
   } = useInfiniteScroll(
     '/terms-by-prefix',
-    { prefix: letter, withFullTerms: true, pageSize: 20 },
-    (page) => {
-      const termsForRedux = page.data.map(it => it.term);
-      dispatch(addTerms(termsForRedux));
-    },
-    [letter],
-    (items, pageItems) => {
-      if (items.length) {
-        return pageItems.every(it => it.name[1] === items[items.length - 1].name[1]);
-      } else {
-        return pageItems.every(it => it.name[1] === pageItems[0].name[1]);
-      }
-    });
+    axiosParams,
+    onPageFetch,
+    resetDeps,
+    shouldFetchMore
+  );
 
   // when there is only one letter in a word it SOMEHOW works
   // hopefully it continues working!
@@ -64,11 +77,11 @@ const Index = ({ letter }) => {
     <div className={classNames({[styles.hasMoreItems]: hasMoreItems})}>
       <InfiniteScroll
         dataLength={termsBySecondLetter.length}
-        next={() => fetchMoreItems(nextPageNumber, items)}
+        next={fetchMoreItems}
         hasMore={hasMoreItems}
         loader={
           <section>
-            <h2 className={styles.sectionTitle}>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+            {!items.length && <h2 className={styles.sectionTitle}>&nbsp;&nbsp;&nbsp;&nbsp;</h2>}
             <p>Wczytywanie...</p>
           </section>
         }
@@ -99,7 +112,7 @@ const Index = ({ letter }) => {
           </section>
         ))}
       </InfiniteScroll>
-      {error}
+      {error && 'Błąd:' + error}
     </div>
   );
 };
