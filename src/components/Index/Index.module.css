@@ -20,7 +20,7 @@
   grid-auto-flow: column;
 }
 
-.loading {
+.hasMoreItems {
   min-height: 100vh;
 }
 

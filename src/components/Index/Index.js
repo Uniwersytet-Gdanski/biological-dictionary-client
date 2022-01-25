@@ -1,3 +1,4 @@
+import classNames from 'classnames/bind';
 import { useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
@@ -60,7 +61,7 @@ const Index = ({ letter }) => {
   }, [items, hasMoreItems]);
 
   return (
-    <div>
+    <div className={classNames({[styles.hasMoreItems]: hasMoreItems})}>
       <InfiniteScroll
         dataLength={termsBySecondLetter.length}
         next={() => fetchMoreItems(nextPageNumber, items)}
@@ -68,7 +69,7 @@ const Index = ({ letter }) => {
         loader={
           <section>
             <h2 className={styles.sectionTitle}>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-            <p className={styles.loading}>Wczytywanie...</p>
+            <p>Wczytywanie...</p>
           </section>
         }
         endMessage={
