@@ -26,3 +26,50 @@
   width: 7em;
   height: 7em;
 }
+
+.mainContainer {
+  padding: 0.5em;
+}
+
+.main {
+  max-width: 50em;
+  margin: 0 auto;
+  color: var(--white-color);
+  border-top: 1px transparent solid;
+  border-radius: 1em;
+  background: var(--dark-blue-color);
+}
+
+.main p {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 0 1.5em 1em;
+  text-align: center;
+  color: var(--white-color);
+  text-decoration: none;
+}
+
+.main .email {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 0.5em 1em;
+  text-align: left;
+  color: var(--white-color);
+  text-decoration: none;
+}
+
+.main .email:hover {
+  color: var(--light-gray-color);
+}
+
+
+.main a {
+  font-size: 1.25em;
+  color: var(--white-color);
+  text-decoration: underline;
+}
+
+.main a:hover {
+  color: var(--light-gray-color);
+}
+
