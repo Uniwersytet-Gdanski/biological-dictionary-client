@@ -1,4 +1,3 @@
-import classNames from 'classnames/bind';
 import { useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
@@ -67,9 +66,10 @@ const Index = ({ letter }) => {
         next={() => fetchMoreItems(nextPageNumber, items)}
         hasMore={hasMoreItems}
         loader={
-          <p className={classNames(styles.end, styles.loading)}>
-            Wczytywanie...
-          </p>
+          <section>
+            <h2 className={styles.sectionTitle}>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+            <p className={styles.loading}>Wczytywanie...</p>
+          </section>
         }
         endMessage={
           <p className={styles.end}>
