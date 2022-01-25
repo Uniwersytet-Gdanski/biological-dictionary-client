@@ -5,7 +5,9 @@ import styles from './HeaderBranding.module.css';
 const HeaderBranding = () => {
   return (
     <div className={styles.branding}>
-      <h1>Polsko-Angielski Słownik Biologiczny</h1>
+      <Link to="/" className={styles.title}>
+        Polsko-Angielski Słownik Biologiczny
+      </Link>
       <Link to="/" className={styles.logoContainer}>
         <img src={logo} alt="Logo" />
       </Link>

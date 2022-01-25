@@ -2,12 +2,19 @@
 
 }
 
-.branding h1 {
+.title {
+  display: block;
+  font-size: 2em;
   font-family: 'Ubuntu Condensed', sans-serif;
   font-weight: lighter;
   margin-bottom: 1em;
   text-align: center;
+  text-decoration: none;
   color: var(--white-color);
+}
+
+.branding a:hover {
+  text-decoration: underline;
 }
 
 .logoContainer {
