@@ -34,7 +34,6 @@ const SearchRoute = () => {
   const {
     items,
     hasMoreItems,
-    nextPageNumber,
     fetchMoreItems,
     lastElementRef,
     error
@@ -59,7 +58,7 @@ const SearchRoute = () => {
         <h1>"{query}" po angielsku</h1>
         <InfiniteScroll
           dataLength={items.length}
-          next={() => fetchMoreItems(nextPageNumber)}
+          next={fetchMoreItems}
           hasMore={hasMoreItems}
           loader={
             <p className={classNames(styles.end, { [styles.empty]: !items.length })}>

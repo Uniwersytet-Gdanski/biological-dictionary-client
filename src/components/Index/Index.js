@@ -34,7 +34,6 @@ const Index = ({ letter }) => {
   const {
     items,
     hasMoreItems,
-    nextPageNumber,
     fetchMoreItems,
     lastElementRef,
     error

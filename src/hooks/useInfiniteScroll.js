@@ -83,7 +83,7 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
       fetchMoreItems();
       setIsFetchRequested(false);
     }
-  }, [isFetchRequested]);
+  }, [isFetchRequested, fetchMoreItems]);
 
   // if any of resetDeps resets then reset everything to default values and start from scratch
   useEffect(() => {
