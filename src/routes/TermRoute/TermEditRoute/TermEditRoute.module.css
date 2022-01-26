@@ -12,3 +12,11 @@
   border-radius: 1em;
   background: var(--dark-blue-color);
 }
+
+.warning {
+  margin: 0;
+  padding: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
