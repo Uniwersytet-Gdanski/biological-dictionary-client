@@ -1,5 +1,10 @@
 .branding {
+}
 
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {
@@ -7,7 +12,6 @@
   font-size: 2em;
   font-family: 'Ubuntu Condensed', sans-serif;
   font-weight: lighter;
-  margin-bottom: 1em;
   text-align: center;
   text-decoration: none;
   color: var(--white-color);
