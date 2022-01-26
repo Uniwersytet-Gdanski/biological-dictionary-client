@@ -12,7 +12,7 @@ const TermForm = ({ term }) => {
     if (!firstName) {
       return firstName;
     }
-    return firstName.replaceAll(" ", "-")
+    return firstName.trim().replace(/\s+/g, ' ').replaceAll(" ", "-")
   };
 
   return (
