@@ -7,16 +7,29 @@
   font-weight: bold;
   /*padding: 1.5em;*/
 }
-.bar div{
+.bar div {
   display: flex;
 }
 
 .bar a {
+  position: relative;
   display: inline-block;
   font-weight: bold;
   text-decoration: none;
   color: var(--white-color);
-  margin-left: 1.5em;
+  margin-left: 2em;
+}
+
+.bar a.activeNavLink::after {
+  position: absolute;
+  --padding: -0.375em;
+  right: var(--padding);
+  bottom: var(--padding);
+  left: var(--padding);
+  top: var(--padding);
+  box-shadow: 0 0 3pt 2pt var(--white-color);
+  border-radius: 2em; /* arbitrarily large value that works */
+  content: '';
 }
 
 .bar a:hover {
