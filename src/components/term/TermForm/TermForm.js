@@ -18,10 +18,10 @@ const TermForm = ({ term }) => {
   return (
     <Formik
       initialValues={{
-        names: term.names,
-        englishTranslationsSingular: term.englishTranslations.map(it => it.singular),
-        englishTranslationsPlural: term.englishTranslations.map(it => it.plural),
-        definition: term.definition
+        names: term?.names ?? [""],
+        englishTranslationsSingular: term?.englishTranslations?.map(it => it.singular) ?? [""],
+        englishTranslationsPlural: term?.englishTranslations?.map(it => it.plural) ?? [""],
+        definition: term?.definition ?? ""
       }}
       onSubmit={(values, { setSubmitting }) => {
         const newTerm = {
