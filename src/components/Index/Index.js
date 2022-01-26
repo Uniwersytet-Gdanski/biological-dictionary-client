@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { useCallback, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { addTerms } from '../../redux/slices/terms';
@@ -80,8 +81,8 @@ const Index = ({ letter }) => {
         hasMore={hasMoreItems}
         loader={
           <section>
-            {!items.length && <h2 className={styles.sectionTitle}>&nbsp;&nbsp;&nbsp;&nbsp;</h2>}
-            <p>Wczytywanie...</p>
+            {!items.length && <h2 className={styles.sectionTitle}><AiOutlineLoading3Quarters className={styles.icon} /></h2>}
+            <p className={styles.warning} >Wczytywanie...</p>
           </section>
         }
         endMessage={
@@ -111,7 +112,7 @@ const Index = ({ letter }) => {
           </section>
         ))}
       </InfiniteScroll>
-      {error && 'Błąd:' + error}
+      {error && '' + error}
     </div>
   );
 };

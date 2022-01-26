@@ -7,6 +7,7 @@
   color: var(--white-color);
   border-radius: 0.75em / 0.75em;
   background: var(--orange-color);
+  line-height: 100%;
 }
 
 .sectionGrid {
@@ -34,4 +35,14 @@
     grid-template-rows: initial;
     grid-auto-flow: row;
   }
+}
+
+.warning {
+  font-weight: bold;
+}
+
+.icon{
+  width: 1em;
+  height: 1em;
+  fill: var(--white-color);
 }

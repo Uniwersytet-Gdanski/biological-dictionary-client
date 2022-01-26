@@ -64,9 +64,9 @@ const TermRoute = () => {
         {term && (
           <Outlet context={[termId, term, savedQuery]} />
         )}
-        {term === null && !error && 'Nie ma takiego słówka'}
-        {term === undefined && !error && 'Ładowanie...'}
-        {error && 'Błąd:' + error}
+        {term === null && !error && <div className={styles.warning}>Nie ma takiego słówka</div>}
+        {term === undefined && !error && <div className={styles.warning}>Ładowanie...</div>}
+        {error && '' + error}
       </main>
     </div>
   );

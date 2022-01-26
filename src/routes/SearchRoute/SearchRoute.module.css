@@ -46,3 +46,7 @@
 .termContainer + .termContainer {
   margin-top: 1em;
 }
+
+.warning {
+  font-weight: bold;
+}

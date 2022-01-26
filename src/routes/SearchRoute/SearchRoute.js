@@ -61,7 +61,7 @@ const SearchRoute = () => {
           next={fetchMoreItems}
           hasMore={hasMoreItems}
           loader={
-            <p className={classNames(styles.end, { [styles.empty]: !items.length })}>
+            <p className={classNames(styles.end, { [styles.empty]: !items.length }, styles.warning)}>
               Wczytywanie...
             </p>
           }
@@ -84,7 +84,7 @@ const SearchRoute = () => {
             </div>
           ))}
         </InfiniteScroll>
-        {error && 'Błąd:' + error}
+        {error && '' + error}
       </main>
     </div>
   );
