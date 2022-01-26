@@ -64,7 +64,7 @@ const TermRoute = () => {
       <HeaderWithSearch initialQuery={savedQuery} />
       <main className={styles.main}>
         {term && (
-          <Outlet context={[termId, term, savedQuery, error]} />
+          <Outlet context={[termId, term, savedQuery]} />
         )}
         {term === null && !error && 'Nie ma takiego słówka'}
         {term === undefined && !error && 'Ładowanie...'}

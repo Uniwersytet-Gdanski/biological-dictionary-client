@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import TermForm from '../../../components/term/TermForm/TermForm';
 
 const TermEditRoute = () => {
-  const [termId, term, savedQuery, error] = useOutletContext();
+  const [termId, term, savedQuery] = useOutletContext();
 
   return (
     <>

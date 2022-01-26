@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import TermView from '../../../components/term/TermView/TermView';
 
 const TermViewRoute = () => {
-  const [termId, term, savedQuery, error] = useOutletContext();
+  const [termId, term, savedQuery] = useOutletContext();
 
   return (
     <>
