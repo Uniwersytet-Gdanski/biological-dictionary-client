@@ -15,6 +15,7 @@
   text-align: center;
   text-decoration: none;
   color: var(--white-color);
+  margin-top: 0.5em;
 }
 
 .branding a:hover {
