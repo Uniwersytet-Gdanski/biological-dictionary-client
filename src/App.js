@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeRoute />} />
         <Route path="index/:letter" element={<IndexRoute />} />
-        <Route path="term/:termId" element={<TermViewRoute />} />
+        <Route path="add-term" element={<AddTermRoute />} />
         <Route path="term/:termId" element={<TermRoute />}>
           <Route path="" element={<TermViewRoute />} />
           <Route path="edit" element={<TermEditRoute />} />

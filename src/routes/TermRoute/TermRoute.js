@@ -52,8 +52,6 @@ const TermRoute = () => {
     });
   }, [dispatch, termId]);
 
-  console.log("AAAAAA");
-
   return (
     <div className={styles.route}>
       <Helmet>
