@@ -5,6 +5,7 @@ import { IoAddSharp, IoCloseSharp } from 'react-icons/all';
 import poland from '../../../img/poland.png';
 import uk from '../../../img/uk.png';
 import styles from './TermForm.module.css'
+import termSchema from './termSchema';
 
 const TermForm = ({ term }) => {
   const getNewId = (firstName) => {
@@ -31,7 +32,11 @@ const TermForm = ({ term }) => {
           )),
           definition: values.definition
         };
-        alert(JSON.stringify(newTerm, null, 2));
+        termSchema.validate(newTerm).then((value) => {
+          alert(JSON.stringify(value, null, 2));
+        }).catch(ex => {
+          alert(ex.message);
+        });
         setSubmitting(false);
       }}
     >
