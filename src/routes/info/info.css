@@ -22,6 +22,14 @@
   color: var(--white-color);
 }
 
+.main div {
+  font-size: 1.25em;
+  padding: 0 1.5em 1em;
+  text-align: center;
+  text-decoration: none;
+  color: var(--white-color);
+}
+
 .main .email {
   font-size: 1em;
   font-weight: bold;
