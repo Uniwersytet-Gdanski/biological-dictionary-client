@@ -1,54 +1,50 @@
 @import '../../colors.css';
 
 .bar {
-	margin: 0.5em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  color: var(--white-color);
-  font-weight: bold;
-  /* justify-content: center; */
-  gap: 2em;
-  margin-bottom: 2em;
-  /* width: min-content; */
-  
-  /*padding: 1.5em;*/
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin: 0.5em 0.5em 2em 0.5em;
+    color: var(--white-color);
+    gap: 2em;
 }
+
 .bar > * {
-  display: flex;
-  word-break: keep-all;
-  white-space:nowrap;
-  text-align: center;
-  font-weight: bold;
-  color: var(--white-color);
-  align-items: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    word-break: keep-all;
+    color: var(--white-color);
 }
 
 .bar a {
 
-  text-decoration: none;
-  
+    text-decoration: none;
+
 }
 
 .bar a.activeNavLink::after {
-  position: absolute;
-  --padding: -0.375em;
-  right: var(--padding);
-  bottom: var(--padding);
-  left: var(--padding);
-  top: var(--padding);
-  box-shadow: 0 0 3pt 2pt var(--white-color);
-  border-radius: 2em; /* arbitrarily large value that works */
-  content: '';
+    position: absolute;
+    top: var(--padding);
+    right: var(--padding);
+    bottom: var(--padding);
+    left: var(--padding);
+    content: '';
+    border-radius: 2em; /* arbitrarily large value that works */
+    box-shadow: 0 0 3pt 2pt var(--white-color);
+    --padding: -0.375em;
 }
 
 .bar a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .bar .icon {
-  width: 1.25em;
-  height: 1.25em;
-  vertical-align: middle;
-  fill: var(--white-color);
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: middle;
+    fill: var(--white-color);
 }

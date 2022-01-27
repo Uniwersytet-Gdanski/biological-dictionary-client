@@ -31,7 +31,7 @@ const NavBar = () => {
   return (
     <nav className={styles.bar}>
       {user && (
-        <div>
+        <>
           <IoPersonCircle className={styles.icon} />
           {user.login}
           <Link onClick={handleLogout} to="/">
@@ -42,7 +42,7 @@ const NavBar = () => {
             <IoAddCircleSharp className={styles.icon} />
             Dodaj
           </TheNavLink>
-        </div>
+        </>
       )}
       <TheNavLink to="/about">O słowniku</TheNavLink>
       <TheNavLink to="/authors">Autorzy</TheNavLink>
