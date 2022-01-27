@@ -68,6 +68,8 @@ const TermForm = ({ term }) => {
         definition: term?.definition ?? ""
       }}
       onSubmit={(values, { setSubmitting }) => {
+        setError(null);
+        setValidationError(null);
         const newTerm = {
           // no id field on purpose
           names: values.names,
