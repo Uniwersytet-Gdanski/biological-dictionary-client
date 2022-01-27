@@ -14,7 +14,6 @@ import styles from './Search.module.css';
 const COMMAND_PREFIX = "/";
 
 const Search = ({ initialQuery }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryInputRef = useRef();
 
@@ -96,7 +95,7 @@ const Search = ({ initialQuery }) => {
     } else {
       suggestionsReceived([]);
     }
-  }, [queryText, isCommand, isTypingPassword, isTypingLogin]);
+  }, [commands, queryText, isCommand, isTypingPassword, isTypingLogin]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
