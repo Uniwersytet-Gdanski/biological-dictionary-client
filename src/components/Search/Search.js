@@ -48,6 +48,11 @@ const Search = ({ initialQuery }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const commands = useMemo(() => [loginCommand, logoutCommand], [loginCommand.name, logoutCommand.name]);
 
+  // hacky workaround to the fact that having autoFocus on an input automatically brings up the
+  // virtual keyboard on mobile devices, at least in mobile Chrome on Android
+  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+    .test(navigator.userAgent);
+
   const getFakeSuggestion = (text) => {
     return { id: text, name: text }
   };
@@ -235,7 +240,7 @@ const Search = ({ initialQuery }) => {
         autoComplete="off"
         type={isTypingPassword ? "password" : "text"}
         placeholder={isTypingPassword ? "Podaj swoje hasło" : isTypingLogin ? "Podaj swój login" : "Wpisz szukane słowo"}
-        autoFocus
+        autoFocus={!isMobileDevice}
         value={displayedQueryText}
         onChange={onQueryChange}
         onKeyDown={handleKeyDown}
