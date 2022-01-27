@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ImKey } from 'react-icons/im';
 import { IoHome, IoPerson } from 'react-icons/io5';
 import { VscChromeClose } from 'react-icons/vsc';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
 import useLoginCommand from '../../hooks/commands/useLoginCommand';
@@ -46,6 +45,7 @@ const Search = ({ initialQuery }) => {
 
   const loginCommand = useLoginCommand();
   const logoutCommand = useLogoutCommand();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const commands = useMemo(() => [loginCommand, logoutCommand], [loginCommand.name, logoutCommand.name]);
 
   const getFakeSuggestion = (text) => {
