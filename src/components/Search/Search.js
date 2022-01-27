@@ -96,6 +96,9 @@ const Search = ({ initialQuery }) => {
     event.preventDefault();
 
     const submitText = (text, suggestionId) => {
+      if (text === "") {
+        return;
+      }
       // graphically update the text in the query box;
       // but we don't use 'queryText' below because it's not updated yet,
       // we use 'text' instead
