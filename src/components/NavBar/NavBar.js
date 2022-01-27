@@ -2,8 +2,8 @@ import classNames from 'classnames/bind';
 import { IoAddCircleSharp, IoLogOut, IoPersonCircle } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import axiosClient from '../../axiosClient';
-import { getUser, setUser } from '../../redux/slices/user';
+import { performLogout } from '../../hooks/commands/useLogoutCommand';
+import { getUser} from '../../redux/slices/user';
 import styles from './NavBar.module.css'
 
 const NavBar = () => {
@@ -11,15 +11,8 @@ const NavBar = () => {
 
   const user = useSelector(getUser);
 
-  const logOut = () => {
-    axiosClient.post(`/logout`)
-      .then(_ => {
-        console.log("logout successful");
-        dispatch(setUser(null));
-      }).catch(ex => {
-      console.error(ex);
-      alert("Logout failed");  // TODO: better error handling
-    });
+  const handleLogout = () => {
+    performLogout(dispatch)
   };
 
   const TheNavLink = ({to, children}) => {
@@ -41,7 +34,7 @@ const NavBar = () => {
         <div>
           <IoPersonCircle className={styles.icon} />
           {user.login}
-          <Link onClick={logOut} to="/">
+          <Link onClick={handleLogout} to="/">
             <IoLogOut className={styles.icon} />
             Wyloguj
           </Link>

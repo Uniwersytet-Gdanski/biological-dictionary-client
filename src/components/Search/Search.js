@@ -6,12 +6,12 @@ import { VscChromeClose } from 'react-icons/vsc';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
+import useLoginCommand from '../../hooks/commands/useLoginCommand';
+import useLogoutCommand from '../../hooks/commands/useLogoutCommand';
 import magnifyingGlass from '../../img/magnifying-glass.png'
-import { setUser } from '../../redux/slices/user';
 import styles from './Search.module.css';
 
 const COMMAND_PREFIX = "/";
-const LOGIN_COMMAND = "/login";
 
 const Search = ({ initialQuery }) => {
   const dispatch = useDispatch();
@@ -45,6 +45,10 @@ const Search = ({ initialQuery }) => {
     ? suggestions[keyboardSelectedIndex].name
     : queryText;
 
+  const loginCommand = useLoginCommand();
+  const logoutCommand = useLogoutCommand();
+  const commands = [loginCommand, logoutCommand];
+
   const getFakeSuggestion = (text) => {
     return { id: text, name: text }
   };
@@ -68,11 +72,13 @@ const Search = ({ initialQuery }) => {
 
     if (queryText && !isTypingPassword && !isTypingLogin) {
       if (isCommand) {
-        if (LOGIN_COMMAND.startsWith(queryText) && queryText.length <= LOGIN_COMMAND.length) {
-          suggestionsReceived([getFakeSuggestion(LOGIN_COMMAND)]);
-        } else {
-          suggestionsReceived([]);
-        }
+        const commandSuggestions = [];
+        commands.forEach(command => {
+          if (command.name.startsWith(queryText.slice(COMMAND_PREFIX.length)) && queryText.length <= command.name.length && command.canBeRun) {
+            commandSuggestions.push(getFakeSuggestion(COMMAND_PREFIX + command.name));
+          }
+        });
+        suggestionsReceived(commandSuggestions);
       } else {
         axiosClient.get(`/search-terms`, {
           params: {
@@ -106,9 +112,13 @@ const Search = ({ initialQuery }) => {
         setQueryText(text);
       }
       if (isCommand) {
-        if (text === LOGIN_COMMAND) {
-          setQueryText("");
+        const isThatCommand = (command) => text.slice(COMMAND_PREFIX.length) === command.name;
+        if (isThatCommand(loginCommand)) {
           setIsTypingLogin(true);
+          setQueryText("");
+        } else if (isThatCommand(logoutCommand)) {
+          logoutCommand.handleExecute();
+          setQueryText("");
         }
       }
       if (isTypingLogin) {
@@ -120,16 +130,7 @@ const Search = ({ initialQuery }) => {
       if (isTypingPassword) {
         setLogin(null);
         setQueryText("");
-        axiosClient.post(`/login`, {
-          login: login,
-          password: text,
-        }).then(response => {
-          console.log("login successful");
-          dispatch(setUser(response.data));
-        }).catch(ex => {
-          console.error(ex);
-          alert("Login failed");  // TODO: better error handling
-        });
+        loginCommand.handleExecute(login, text);
       }
       updateSelectedIndex(-1, true);
       setIsExpandPaused(true);
