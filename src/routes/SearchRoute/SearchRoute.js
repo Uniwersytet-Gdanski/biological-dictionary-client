@@ -80,7 +80,7 @@ const SearchRoute = () => {
               className={styles.termContainer}
             >
               {/* note: .id is not unique, .uuid is */}
-              <TermView term={term} />
+              <TermView term={term} areNamesLinks={true} />
             </div>
           ))}
         </InfiniteScroll>

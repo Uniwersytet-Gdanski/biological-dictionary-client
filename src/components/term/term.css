@@ -25,6 +25,15 @@
   grid-template-columns: 1fr;
 }
 
+.polishSection a {
+  text-decoration: none;
+  color: var(--white-color);
+}
+
+.polishSection a:hover {
+  text-decoration: underline;
+}
+
 .englishSection {
   composes: languageSection;
   grid-template-columns: 1fr 1fr;

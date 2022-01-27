@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ImKey } from 'react-icons/im';
 import { IoHome, IoPerson } from 'react-icons/io5';
 import { VscChromeClose } from 'react-icons/vsc';
@@ -46,7 +46,7 @@ const Search = ({ initialQuery }) => {
 
   const loginCommand = useLoginCommand();
   const logoutCommand = useLogoutCommand();
-  const commands = [loginCommand, logoutCommand];
+  const commands = useMemo(() => [loginCommand, logoutCommand], [loginCommand.name, logoutCommand.name]);
 
   const getFakeSuggestion = (text) => {
     return { id: text, name: text }

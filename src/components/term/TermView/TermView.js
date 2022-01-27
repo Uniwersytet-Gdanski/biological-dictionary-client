@@ -8,7 +8,7 @@ import { markTermIdAsNonexistent } from '../../../redux/slices/terms';
 import { getUser } from '../../../redux/slices/user';
 import styles from './TermView.module.css'
 
-const TermView = ({ term }) => {
+const TermView = ({ term, areNamesLinks }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,18 +38,28 @@ const TermView = ({ term }) => {
     });
   };
 
+  const TermName = ({ children }) => {
+    return areNamesLinks ? (
+      <Link to={`/term/${term.id}`}>{children}</Link>
+    ) : (
+      children
+    );
+  };
+
   return (
     <>
       <div className={styles.languageGrid}>
         <img src={poland} alt={'polskie nazwy'} />
         <div className={styles.polishSection}>
-          <h1 className={styles.termSingularText}>{term.names[0]}</h1>
+          <h1 className={styles.termSingularText}>
+            <TermName>{term.names[0]}</TermName>
+          </h1>
           {term.names.slice(1).map(name => (
             <div
               key={name}
               className={styles.termSingularText}
             >
-              {name}
+              <TermName>{name}</TermName>
             </div>
           ))}
         </div>
