@@ -79,3 +79,12 @@
 .warning {
   composes: warning from '../term.css';
 }
+
+button:hover:enabled {
+  background: var(--light-gray-color);
+}
+
+:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
