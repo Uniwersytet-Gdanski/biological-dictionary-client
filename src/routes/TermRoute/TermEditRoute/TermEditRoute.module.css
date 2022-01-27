@@ -14,7 +14,8 @@
 }
 
 .warning {
-  margin: 0.5em;
+  margin: 0;
+  padding: 0.5em;
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
