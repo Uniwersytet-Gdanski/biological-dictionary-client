@@ -5,7 +5,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin: 0.5em 0.5em 2em 0.5em;
+    margin: 0.5em;
     color: var(--white-color);
     gap: 2em;
 }
@@ -48,4 +48,10 @@
     height: 1.25em;
     vertical-align: middle;
     fill: var(--white-color);
+}
+
+@media screen and (max-width: 45em) {
+  .bar {
+      justify-content: center;
+  }
 }

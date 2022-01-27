@@ -32,8 +32,10 @@ const NavBar = () => {
     <nav className={styles.bar}>
       {user && (
         <>
-          <IoPersonCircle className={styles.icon} />
-          {user.login}
+          <div>
+            <IoPersonCircle className={styles.icon} />
+            {user.login}
+          </div>
           <Link onClick={handleLogout} to="/">
             <IoLogOut className={styles.icon} />
             Wyloguj
