@@ -20,7 +20,9 @@ const TermView = ({ term, areNamesLinks }) => {
     axiosClient.delete(`/terms/${term.id}`).then(() => {
       dispatch(markTermIdAsNonexistent(term.id));
       setError(null);
-      navigate('/');
+      if (!areNamesLinks) {
+        navigate('/');
+      }
     }).catch((error) => {
       if (error.isAxiosError) {
         if (error.response.status === 401) {
