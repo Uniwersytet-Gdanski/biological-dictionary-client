@@ -84,7 +84,7 @@ const SearchRoute = () => {
             </div>
           ))}
         </InfiniteScroll>
-        {error && '' + error}
+        {error && <div className={classNames(styles.end, styles.warning)}>{error}</div>}
       </main>
     </div>
   );

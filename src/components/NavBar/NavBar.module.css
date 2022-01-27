@@ -50,8 +50,17 @@
     fill: var(--white-color);
 }
 
+.warning{
+    color: var(--white-color);
+    text-align: right;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 45em) {
   .bar {
       justify-content: center;
+  }
+  .warning{
+      text-align: center;
   }
 }

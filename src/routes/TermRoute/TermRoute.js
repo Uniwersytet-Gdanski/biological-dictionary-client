@@ -40,15 +40,20 @@ const TermRoute = () => {
       dispatch(addTerm(response.data));
       setError(null);
     }).catch((error) => {
-      if (error.isAxiosError && error.response.status === 404) {
-        setError(null);
-        dispatch(markTermIdAsNonexistent(termId));
-        console.log('term not found');
-        return;
+      if (error.isAxiosError) {
+        if (error.response && error.response.status === 404){
+          setError(null);
+          dispatch(markTermIdAsNonexistent(termId));
+          console.log(error);
+          return;
+        } else {
+          setError("Wystąpił błąd sieci")
+          console.log(error);
+        }
       } else {
+        setError("Wystąpił błąd");
         console.log(error);
       }
-      setError(error);
     });
   }, [dispatch, termId]);
 
@@ -66,7 +71,7 @@ const TermRoute = () => {
         )}
         {term === null && !error && <div className={styles.warning}>Nie ma takiego słówka</div>}
         {term === undefined && !error && <div className={styles.warning}>Ładowanie...</div>}
-        {error && '' + error}
+        {error && <div className={styles.warning}>{error}</div>}
       </main>
     </div>
   );

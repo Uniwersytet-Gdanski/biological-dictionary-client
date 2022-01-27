@@ -229,67 +229,72 @@ const Search = ({ initialQuery }) => {
   };
 
   return (
-    <form
-      className={styles.queryForm}
-      onSubmit={handleFormSubmit}
-      onFocus={handleFormFocus}
-      onBlur={handleFormBlur}
-    >
-      <input
-        className={classNames(styles.queryInput, { [styles.queryInputExpanded]: isExpanded })}
-        autoComplete="off"
-        type={isTypingPassword ? "password" : "text"}
-        placeholder={isTypingPassword ? "Podaj swoje hasło" : isTypingLogin ? "Podaj swój login" : "Wpisz szukane słowo"}
-        autoFocus={!isMobileDevice}
-        value={displayedQueryText}
-        onChange={onQueryChange}
-        onKeyDown={handleKeyDown}
-        ref={queryInputRef}
-      />
-      <button
-        className={styles.clearButton}
-        type="reset" // this doesn't reset automatically though :/
-        onClick={handleFormReset}
+    <>
+      <form
+        className={styles.queryForm}
+        onSubmit={handleFormSubmit}
+        onFocus={handleFormFocus}
+        onBlur={handleFormBlur}
       >
-        <VscChromeClose className={styles.icon} /> {/* cross mark (X) */}
-      </button>
-      <button
-        className={classNames(styles.searchButton, { [styles.runButtonExpanded]: isExpanded })}
-        type="submit"
-      >
-        {isCommand ?
-          <IoHome className={styles.icon} /> :
-          isTypingLogin ?
-            <IoPerson className={styles.icon} /> :
-            isTypingPassword ?
-              <ImKey className={styles.icon} /> :
-              <img src={magnifyingGlass} alt='' />
-        }
-      </button>
-      <div
-        className={classNames(styles.suggestions,
-          { [styles.suggestionsExpanded]: isExpanded })}
-      >
-        <section onMouseOut={handleMouseOutSuggestionList}>
-          {suggestions.map((suggestion, i) => (
-            <button
-              className={classNames({
-                [styles.hovered]: selectedIndex === i,
-                [styles.commandSuggestion]: isCommand
-              })}
-              type="submit"
-              key={suggestion.key}
-              data-id={suggestion.id}
-              data-name={suggestion.name}
-              data-index={i}
-              onMouseOver={handleMouseOverSuggestion}
-            >
-              {suggestion.name}
-            </button>
-          ))}
-        </section>
-      </div>
-    </form>
+        <input
+          className={classNames(styles.queryInput, { [styles.queryInputExpanded]: isExpanded })}
+          autoComplete="off"
+          type={isTypingPassword ? "password" : "text"}
+          placeholder={isTypingPassword ? "Podaj swoje hasło" : isTypingLogin ? "Podaj swój login" : "Wpisz szukane słowo"}
+          autoFocus={!isMobileDevice}
+          value={displayedQueryText}
+          onChange={onQueryChange}
+          onKeyDown={handleKeyDown}
+          ref={queryInputRef}
+        />
+        <button
+          className={styles.clearButton}
+          type="reset" // this doesn't reset automatically though :/
+          onClick={handleFormReset}
+        >
+          <VscChromeClose className={styles.icon} /> {/* cross mark (X) */}
+        </button>
+        <button
+          className={classNames(styles.searchButton, { [styles.runButtonExpanded]: isExpanded })}
+          type="submit"
+        >
+          {isCommand ?
+            <IoHome className={styles.icon} /> :
+            isTypingLogin ?
+              <IoPerson className={styles.icon} /> :
+              isTypingPassword ?
+                <ImKey className={styles.icon} /> :
+                <img src={magnifyingGlass} alt='' />
+          }
+        </button>
+        <div
+          className={classNames(styles.suggestions,
+            { [styles.suggestionsExpanded]: isExpanded })}
+        >
+          <section onMouseOut={handleMouseOutSuggestionList}>
+            {suggestions.map((suggestion, i) => (
+              <button
+                className={classNames({
+                  [styles.hovered]: selectedIndex === i,
+                  [styles.commandSuggestion]: isCommand
+                })}
+                type="submit"
+                key={suggestion.key}
+                data-id={suggestion.id}
+                data-name={suggestion.name}
+                data-index={i}
+                onMouseOver={handleMouseOverSuggestion}
+              >
+                {suggestion.name}
+              </button>
+            ))}
+          </section>
+        </div>
+        
+      </form>
+      {loginCommand.error && <div className={styles.warning}>{loginCommand.error}</div>}
+      {logoutCommand.error && <div className={styles.warning}>{logoutCommand.error}</div>}
+    </>
   );
 };
 

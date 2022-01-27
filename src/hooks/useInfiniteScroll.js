@@ -66,12 +66,14 @@ const useInfiniteScroll = (pathToGet, axiosParams, onPageFetch, resetDeps, shoul
           }
           setIsFetchRequested(true);
         }
-      }).catch(ex => {
-        // if (ex.isAxiosError) {
-        //
-        // }
-        setError(ex);
-        console.log(ex);
+      }).catch(error => {
+        if (error.isAxiosError) {
+          setError("Wystąpił błąd sieci");
+          console.log(error);
+        } else {
+          setError("Wystąpił błąd");
+          console.log(error);
+        }
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -41,15 +41,17 @@ const TermForm = ({ term }) => {
     }).catch((error) => {
       if (error.isAxiosError) {
         if (error.response.status === 401) {
-          setError("unauthorized aka somehow not logged in");
+          setError("Nie masz uprawnień do wykonania tej akcji");
         } else if (error.response.status === 409) {
-          setError("conflict - one of the names already exists - which one?");
+          setError("Jedna z nazw jest już w słowniku");
+        } else if (error.response.status === 404) {
+          setError("Nie znaleziono takiego terminu, być może został usunięty");
         } else {
-          setError("unknown network error");
+          setError("Wystąpił błąd sieci");
           console.log(error);
         }
       } else {
-        setError("unknown error");
+        setError("Wystąpił błąd");
         console.log(error);
       }
       setSubmitting(false);
@@ -196,7 +198,7 @@ const TermForm = ({ term }) => {
                 Zapisz
               </button>
             </p>
-            {error}
+            <div className={styles.warning}>{error}</div>
           </section>
         </Form>
       }
