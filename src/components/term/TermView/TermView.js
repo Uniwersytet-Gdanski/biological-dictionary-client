@@ -1,9 +1,43 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosClient from '../../../axiosClient';
 import poland from '../../../img/poland.png';
 import uk from '../../../img/uk.png';
+import { markTermIdAsNonexistent } from '../../../redux/slices/terms';
+import { getUser } from '../../../redux/slices/user';
 import styles from './TermView.module.css'
 
 const TermView = ({ term }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(null);
+
+  const user = useSelector(getUser);
+
+  const handleDeleteClick = () => {
+    axiosClient.delete(`/terms/${term.id}`).then(() => {
+      dispatch(markTermIdAsNonexistent(term.id));
+      setError(null);
+      navigate('/');
+    }).catch((error) => {
+      if (error.isAxiosError) {
+        if (error.response.status === 401) {
+          setError("unauthorized aka somehow not logged in");
+        } else if (error.response.status === 404) {
+          setError("word already doesn't exist");
+        } else {
+          setError("unknown network error");
+          console.log(error);
+        }
+      } else {
+        setError("unknown error");
+        console.log(error);
+      }
+    });
+  };
+
   return (
     <>
       <div className={styles.languageGrid}>
@@ -40,6 +74,19 @@ const TermView = ({ term }) => {
       <div className={styles.definition}>
         {term.definition}
       </div>
+      {user && (
+        <section className={styles.adminSection}>
+          <p>
+            <Link to={`/term/${term.id}/edit`}>
+              Edytuj
+            </Link>
+            <button onClick={handleDeleteClick}>
+              Usuń
+            </button>
+            {error}
+          </p>
+        </section>
+      )}
     </>
   )
 };

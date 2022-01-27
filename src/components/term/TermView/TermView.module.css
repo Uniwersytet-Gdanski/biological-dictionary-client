@@ -26,3 +26,19 @@
 .definition {
   composes: definition from '../term.css';
 }
+
+.adminSection {
+  padding: 0.125em 1em;
+}
+
+.adminSection :is(a, button) {
+  font-size: inherit;
+  margin-right: 1em;
+  padding: 0.5em;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--dark-gray-color);
+  border: none;
+  border-radius: 0.75em / 0.75em;
+  background: var(--white-color);
+}

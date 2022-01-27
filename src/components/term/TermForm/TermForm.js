@@ -1,13 +1,22 @@
 import classNames from 'classnames/bind';
 import { Field, FieldArray, Form, Formik } from 'formik';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { IoAddSharp, IoCloseSharp } from 'react-icons/all';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axiosClient from '../../../axiosClient';
 import poland from '../../../img/poland.png';
 import uk from '../../../img/uk.png';
+import { addTerm, markTermIdAsNonexistent } from '../../../redux/slices/terms';
 import styles from './TermForm.module.css'
 import termSchema from './termSchema';
 
 const TermForm = ({ term }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(null);
+
   const getNewId = (firstName) => {
     if (!firstName) {
       return firstName;
@@ -15,17 +24,49 @@ const TermForm = ({ term }) => {
     return firstName.trim().replace(/\s+/g, ' ').replaceAll(" ", "-")
   };
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
+  const handleValidatedSubmit = (newTerm, setSubmitting) => {
+    axiosClient[term ? "put" : "post"](`/terms/${term?.id ?? ""}`, newTerm).then(response => {
+      if (term) {
+        dispatch(markTermIdAsNonexistent(term.id))
+      }
+      const responseTerm = response.data;
+      dispatch(addTerm(responseTerm));
+      setError(null);
+      setSubmitting(false);
+      navigate(`/term/${responseTerm.id}`);
+    }).catch((error) => {
+      if (error.isAxiosError) {
+        if (error.response.status === 401) {
+          setError("unauthorized aka somehow not logged in");
+        } else if (error.response.status === 409) {
+          setError("conflict - one of the names already exists - which one?");
+        } else {
+          setError("unknown network error");
+          console.log(error);
+        }
+      } else {
+        setError("unknown error");
+        console.log(error);
+      }
+      setSubmitting(false);
+    });
+  };
+
   return (
     <Formik
       initialValues={{
         names: term?.names ?? [""],
-        englishTranslationsSingular: term?.englishTranslations?.map(it => it.singular) ?? [""],
-        englishTranslationsPlural: term?.englishTranslations?.map(it => it.plural) ?? [""],
+        englishTranslationsSingular: term?.englishTranslations?.map(it => it.singular || "") ?? [""],
+        englishTranslationsPlural: term?.englishTranslations?.map(it => it.plural || "") ?? [""],
         definition: term?.definition ?? ""
       }}
       onSubmit={(values, { setSubmitting }) => {
         const newTerm = {
-          id: getNewId(values.names[0]),
+          // no id field on purpose
           names: values.names,
           englishTranslations: values.englishTranslationsSingular.map((singular, i) => (
             { singular, plural: values.englishTranslationsPlural[i] }
@@ -33,7 +74,7 @@ const TermForm = ({ term }) => {
           definition: values.definition
         };
         termSchema.validate(newTerm).then((value) => {
-          alert(JSON.stringify(value, null, 2));
+          handleValidatedSubmit(value, setSubmitting);
         }).catch(ex => {
           alert(ex.message);
         });
@@ -143,14 +184,19 @@ const TermForm = ({ term }) => {
             />
           </div>
           <section className={styles.summarySection}>
-            <p>Słowo będzie dostępne pod
-              linkiem: {document.location.origin}/term/{getNewId(values.names[0])}</p>
-
             <p>
+              Słowo będzie dostępne pod
+              linkiem: {document.location.origin}/term/{getNewId(values.names[0])}
+            </p>
+            <p>
+              <button type='reset' onClick={handleCancel}>
+                Anuluj
+              </button>
               <button type='submit'>
                 Zapisz
               </button>
             </p>
+            {error}
           </section>
         </Form>
       }

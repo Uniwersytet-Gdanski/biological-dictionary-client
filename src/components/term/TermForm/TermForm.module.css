@@ -66,6 +66,7 @@
 
 .summarySection button {
   font-size: inherit;
+  margin-right: 1em;
   padding: 0.5em;
   cursor: pointer;
   text-decoration: none;
