@@ -18,12 +18,7 @@ const TermForm = ({ term }) => {
   const [error, setError] = useState(null);
   const [validationError, setValidationError] = useState(null);
 
-  const getNewId = (firstName) => {
-    if (!firstName) {
-      return firstName;
-    }
-    return firstName.trim().replace(/\s+/g, ' ').replaceAll(" ", "-")
-  };
+  const getNewId = (termName) => (termName.toLowerCase().replace(/[^[\p{L|Nd}]()]+/g, " ").trim().replace(/\s+/g, "_"));
 
   const handleCancel = () => {
     navigate(-1);
