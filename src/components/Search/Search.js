@@ -45,8 +45,6 @@ const Search = ({ initialQuery }) => {
 
   const loginCommand = useLoginCommand();
   const logoutCommand = useLogoutCommand();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const commands = useMemo(() => [loginCommand, logoutCommand], [loginCommand.name, logoutCommand.name]);
 
   // hacky workaround to the fact that having autoFocus on an input automatically brings up the
   // virtual keyboard on mobile devices, at least in mobile Chrome on Android
@@ -77,8 +75,12 @@ const Search = ({ initialQuery }) => {
     if (queryText && !isTypingPassword && !isTypingLogin) {
       if (isCommand) {
         const commandSuggestions = [];
+        const commands = [loginCommand, logoutCommand];
         commands.forEach(command => {
-          if (command.name.startsWith(queryText.slice(COMMAND_PREFIX.length)) && queryText.length <= command.name.length && command.canBeRun) {
+          if (command.name.startsWith(queryText.slice(COMMAND_PREFIX.length))
+              && queryText.length <= command.name.slice(COMMAND_PREFIX.length).length
+              && command.canBeRun
+          ) {
             commandSuggestions.push(getFakeSuggestion(COMMAND_PREFIX + command.name));
           }
         });
@@ -100,7 +102,7 @@ const Search = ({ initialQuery }) => {
     } else {
       suggestionsReceived([]);
     }
-  }, [commands, queryText, isCommand, isTypingPassword, isTypingLogin]);
+  }, [queryText, isCommand, isTypingPassword, isTypingLogin]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -116,7 +118,9 @@ const Search = ({ initialQuery }) => {
         setQueryText(text);
       }
       if (isCommand) {
-        const isThatCommand = (command) => text.slice(COMMAND_PREFIX.length) === command.name;
+        const isThatCommand = (command) =>
+            text.slice(COMMAND_PREFIX.length) === command.name
+            && command.canBeRun;
         if (isThatCommand(loginCommand)) {
           setIsTypingLogin(true);
           setQueryText("");
@@ -159,6 +163,7 @@ const Search = ({ initialQuery }) => {
   const handleFormReset = () => {
     setQueryText("");
     setLogin(null);
+    setIsTypingLogin(false);
     queryInputRef.current.focus();
   };
 
