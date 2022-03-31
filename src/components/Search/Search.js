@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ImKey } from 'react-icons/im';
 import { IoHome, IoPerson } from 'react-icons/io5';
 import { VscChromeClose } from 'react-icons/vsc';
@@ -102,6 +102,7 @@ const Search = ({ initialQuery }) => {
     } else {
       suggestionsReceived([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryText, isCommand, isTypingPassword, isTypingLogin]);
 
   const handleFormSubmit = (event) => {
@@ -295,7 +296,7 @@ const Search = ({ initialQuery }) => {
             ))}
           </section>
         </div>
-        
+
       </form>
       {loginCommand.error && <div className={styles.warning}>{loginCommand.error}</div>}
       {logoutCommand.error && <div className={styles.warning}>{logoutCommand.error}</div>}
