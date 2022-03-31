@@ -69,7 +69,7 @@ const SearchRoute = () => {
             <p className={classNames(styles.end, { [styles.empty]: !items.length })}>
               {items.length ? "To już koniec wyników." : "Brak wyników."} Jeśli uważasz,
               że twoje wyrażenie powinno się tu
-              znaleźć, <Link to="/contact">daj nam o tym znać!</Link>
+              znaleźć, <Link to="/contact">daj nam o tym znać</Link>!
             </p>
           }
         >

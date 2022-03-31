@@ -89,7 +89,7 @@ const Index = ({ letter }) => {
           <p className={styles.end}>
             To już koniec wyników. Jeśli uważasz,
             że twoje wyrażenie powinno się tu
-            znaleźć, <Link to="/contact">daj nam o tym znać!</Link>
+            znaleźć, <Link to="/contact">daj nam o tym znać</Link>!
           </p>
         }
       >
@@ -97,6 +97,7 @@ const Index = ({ letter }) => {
           <section
             key={secondLetter}
             aria-label={`Words starting with ${letter}${secondLetter}`}
+            className={styles.secondLetterSection}
             ref={lastElementRef}
           >
             <h2 className={styles.sectionTitle}>{letter}{secondLetter}</h2>

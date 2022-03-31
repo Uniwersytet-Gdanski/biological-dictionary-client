@@ -26,7 +26,24 @@
 }
 
 .end {
+  border-top: 1px solid var(--dark-gray-color);
+  margin-top: 1.5em;
+  padding-top: 1.25em;
   /* I guess we'll add something here */
+}
+
+.end a {
+  text-decoration: none;
+  color: var(--orange-color);
+}
+
+.secondLetterSection a {
+  text-decoration: none;
+  color: var(--dark-gray-color);
+}
+
+.secondLetterSection a:hover {
+  color: var(--darker-gray-color);
 }
 
 @media screen and (max-width: 35em) {
@@ -41,7 +58,7 @@
   font-weight: bold;
 }
 
-.icon{
+.icon {
   width: 1em;
   height: 1em;
   fill: var(--white-color);

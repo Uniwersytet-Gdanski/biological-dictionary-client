@@ -13,16 +13,3 @@
   border-radius: 1em;
   background: var(--almost-white-color);
 }
-
-.main a {
-  text-decoration: none;
-  color: var(--dark-gray-color);
-}
-
-.main a:hover {
-  color: var(--darker-gray-color);
-}
-
-.main p {
-  line-height: 2em;
-}
