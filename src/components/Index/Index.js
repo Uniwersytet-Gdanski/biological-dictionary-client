@@ -113,7 +113,7 @@ const Index = ({ letter }) => {
           </section>
         ))}
       </InfiniteScroll>
-      {error && '' + error}
+      <div className={styles.warning}>{error}</div>
     </div>
   );
 };

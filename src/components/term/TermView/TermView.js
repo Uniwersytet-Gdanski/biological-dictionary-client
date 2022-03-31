@@ -24,15 +24,15 @@ const TermView = ({ term, areNamesLinks }) => {
     }).catch((error) => {
       if (error.isAxiosError) {
         if (error.response.status === 401) {
-          setError("unauthorized aka somehow not logged in");
+          setError("Nie masz uprawnień do usuwania tego terminu");
         } else if (error.response.status === 404) {
-          setError("word already doesn't exist");
+          setError("Nie znaleziono takiego terminu, być może został już usunięty");
         } else {
-          setError("unknown network error");
+          setError("Wystąpił błąd sieci");
           console.log(error);
         }
       } else {
-        setError("unknown error");
+        setError("Wystąpił błąd");
         console.log(error);
       }
     });
@@ -93,8 +93,9 @@ const TermView = ({ term, areNamesLinks }) => {
             <button onClick={handleDeleteClick}>
               Usuń
             </button>
-            {error}
+            
           </p>
+          <div className={styles.warning}>{error}</div>
         </section>
       )}
     </>

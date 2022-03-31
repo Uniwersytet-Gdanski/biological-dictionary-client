@@ -1,44 +1,67 @@
 @import '../../colors.css';
 
 .bar {
-  display: flex;
-  justify-content: flex-end;
-  color: var(--white-color);
-  font-weight: bold;
-  /*padding: 1.5em;*/
+    font-weight: bold;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    /* margin: 0.5em 0.5em 2em 0; */
+	margin-bottom: 1em;
+    color: var(--white-color);
+    gap: 2em;
 }
-.bar div {
-  display: flex;
+
+.bar > * {
+    position: relative;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    word-break: keep-all;
+    color: var(--white-color);
 }
 
 .bar a {
-  position: relative;
-  display: inline-block;
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--white-color);
-  margin-left: 2em;
+
+    text-decoration: none;
+
 }
 
 .bar a.activeNavLink::after {
-  position: absolute;
-  --padding: -0.375em;
-  right: var(--padding);
-  bottom: var(--padding);
-  left: var(--padding);
-  top: var(--padding);
-  box-shadow: 0 0 3pt 2pt var(--white-color);
-  border-radius: 2em; /* arbitrarily large value that works */
-  content: '';
+    position: absolute;
+    top: var(--padding);
+    right: var(--padding);
+    bottom: var(--padding);
+    left: var(--padding);
+    content: '';
+    border-radius: 2em; /* arbitrarily large value that works */
+    box-shadow: 0 0 3pt 2pt var(--white-color);
+    --padding: -0.375em;
 }
 
 .bar a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .bar .icon {
-  width: 1.25em;
-  height: 1.25em;
-  vertical-align: middle;
-  fill: var(--white-color);
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: middle;
+    fill: var(--white-color);
+}
+
+.warning{
+    color: var(--white-color);
+    text-align: right;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 45em) {
+  .bar {
+      justify-content: center;
+  }
+  .warning{
+      text-align: center;
+  }
 }

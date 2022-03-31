@@ -16,13 +16,9 @@ const TermForm = ({ term }) => {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
+  const [validationError, setValidationError] = useState(null);
 
-  const getNewId = (firstName) => {
-    if (!firstName) {
-      return firstName;
-    }
-    return firstName.trim().replace(/\s+/g, ' ').replaceAll(" ", "-")
-  };
+  const getNewId = (termName) => (termName.toLowerCase().replace(/[^[\p{L|Nd}]()]+/g, " ").trim().replace(/\s+/g, "_"));
 
   const handleCancel = () => {
     navigate(-1);
@@ -35,23 +31,25 @@ const TermForm = ({ term }) => {
       }
       const responseTerm = response.data;
       dispatch(addTerm(responseTerm));
-      setError(null);
       setSubmitting(false);
       navigate(`/term/${responseTerm.id}`);
     }).catch((error) => {
       if (error.isAxiosError) {
         if (error.response.status === 401) {
-          setError("unauthorized aka somehow not logged in");
+          setError("Nie masz uprawnień do wykonania tej akcji");
         } else if (error.response.status === 409) {
-          setError("conflict - one of the names already exists - which one?");
+          setError("Jedna z nazw jest już w słowniku");
+        } else if (error.response.status === 404) {
+          setError("Nie znaleziono takiego terminu, być może został usunięty");
         } else {
-          setError("unknown network error");
+          setError("Wystąpił błąd sieci");
           console.log(error);
         }
       } else {
-        setError("unknown error");
+        setError("Wystąpił błąd");
         console.log(error);
       }
+      setValidationError(null)
       setSubmitting(false);
     });
   };
@@ -65,6 +63,8 @@ const TermForm = ({ term }) => {
         definition: term?.definition ?? ""
       }}
       onSubmit={(values, { setSubmitting }) => {
+        setError(null);
+        setValidationError(null);
         const newTerm = {
           // no id field on purpose
           names: values.names,
@@ -76,12 +76,14 @@ const TermForm = ({ term }) => {
         termSchema.validate(newTerm).then((value) => {
           handleValidatedSubmit(value, setSubmitting);
         }).catch(ex => {
-          alert(ex.message);
+          setValidationError(ex.message);
+          console.log(ex);
+          setSubmitting(false);
+          setError(null)
         });
-        setSubmitting(false);
       }}
     >
-      {({ values }) =>
+      {({ values, isSubmitting }) =>
         <Form>
           <div className={styles.languageGrid}>
             <img src={poland} alt={'polskie nazwy'} />
@@ -189,14 +191,16 @@ const TermForm = ({ term }) => {
               linkiem: {document.location.origin}/term/{getNewId(values.names[0])}
             </p>
             <p>
-              <button type='reset' onClick={handleCancel}>
+              <button type='reset' disabled={isSubmitting} onClick={handleCancel}>
                 Anuluj
               </button>
-              <button type='submit'>
+              <button type='submit' disabled={isSubmitting}>
                 Zapisz
               </button>
             </p>
-            {error}
+            {isSubmitting && <div className={styles.warning}>Trwa zapisywanie...</div>}
+            {error && <div className={styles.warning}>{error}</div>}
+            {validationError && <div className={styles.warning}>{validationError}</div>}
           </section>
         </Form>
       }

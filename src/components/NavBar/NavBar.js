@@ -5,14 +5,16 @@ import { Link, NavLink } from 'react-router-dom';
 import { performLogout } from '../../hooks/commands/useLogoutCommand';
 import { getUser} from '../../redux/slices/user';
 import styles from './NavBar.module.css'
+import { useState } from 'react';
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
 
   const user = useSelector(getUser);
 
   const handleLogout = () => {
-    performLogout(dispatch)
+    performLogout(dispatch, setError);
   };
 
   const TheNavLink = ({to, children}) => {
@@ -29,11 +31,14 @@ const NavBar = () => {
   };
 
   return (
+    <>
     <nav className={styles.bar}>
       {user && (
-        <div>
-          <IoPersonCircle className={styles.icon} />
-          {user.login}
+        <>
+          <div>
+            <IoPersonCircle className={styles.icon} />
+            {user.login}
+          </div>
           <Link onClick={handleLogout} to="/">
             <IoLogOut className={styles.icon} />
             Wyloguj
@@ -42,12 +47,14 @@ const NavBar = () => {
             <IoAddCircleSharp className={styles.icon} />
             Dodaj
           </TheNavLink>
-        </div>
+        </>
       )}
       <TheNavLink to="/about">O słowniku</TheNavLink>
       <TheNavLink to="/authors">Autorzy</TheNavLink>
       <TheNavLink to="/contact">Kontakt</TheNavLink>
     </nav>
+    {error && <div className={styles.warning}>{error}</div>}
+    </>
   )
 };
 

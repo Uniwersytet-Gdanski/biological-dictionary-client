@@ -33,3 +33,10 @@
   border-radius: 0.375em;
   background: var(--orange-color);
 }
+
+.warning {
+  color: var(--white-color);
+  text-align: center;
+  padding: 1em;
+  font-weight: bold;
+}

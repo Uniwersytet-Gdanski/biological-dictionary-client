@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../axiosClient';
@@ -15,6 +15,7 @@ import styles from './HeaderWithSearch.module.css'
 
 const HeaderWithSearch = ({ currentLetter, initialQuery }) => {
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
   const {
     data: letters,
     // error,  // todo: error handling
@@ -25,6 +26,7 @@ const HeaderWithSearch = ({ currentLetter, initialQuery }) => {
       dispatch(setTermsFirstLetters(response.data));
     }).catch(ex => {
       console.log(ex);
+      setError("Wystąpił błąd sieci");
       dispatch(setErrorTermsFirstLetters(ex));
     });
   }, [dispatch]);
@@ -36,7 +38,7 @@ const HeaderWithSearch = ({ currentLetter, initialQuery }) => {
       <div className={styles.searchContainer}>
         <Search initialQuery={initialQuery} />
       </div>
-      <section className={styles.letters}>
+      {!error && <section className={styles.letters}>
         {letters?.map(letter => (
           <Link
             to={`/index/${letter}`}
@@ -50,7 +52,8 @@ const HeaderWithSearch = ({ currentLetter, initialQuery }) => {
         )) || Array(30).fill().map((_, i) => (
           <div key={i} className={classNames({ [styles.letter]: true })}>&nbsp;</div>
         ))}
-      </section>
+      </section>}
+      {error && <div className={styles.warning}>{error}</div>}
     </header>
   )
 };

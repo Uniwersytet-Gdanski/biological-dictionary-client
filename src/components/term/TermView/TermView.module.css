@@ -42,3 +42,11 @@
   border-radius: 0.75em / 0.75em;
   background: var(--white-color);
 }
+
+.adminSection :is(a, button):hover {
+  background: var(--light-gray-color);
+}
+
+.warning {
+  composes: warning from '../term.css';
+}
