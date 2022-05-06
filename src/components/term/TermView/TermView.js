@@ -7,6 +7,7 @@ import uk from '../../../img/uk.png';
 import { markTermIdAsNonexistent } from '../../../redux/slices/terms';
 import { getUser } from '../../../redux/slices/user';
 import styles from './TermView.module.css'
+import ReactMarkdown from 'react-markdown';
 
 const TermView = ({ term, areNamesLinks }) => {
   const dispatch = useDispatch();
@@ -82,7 +83,11 @@ const TermView = ({ term, areNamesLinks }) => {
         </div>
       </div>
       <div className={styles.definition}>
-        {term.definition}
+        <ReactMarkdown
+            allowedElements={["p", "em", "strong"]}
+        >
+          {term.definition}
+        </ReactMarkdown>
       </div>
       {user && (
         <section className={styles.adminSection}>
@@ -93,7 +98,7 @@ const TermView = ({ term, areNamesLinks }) => {
             <button onClick={handleDeleteClick}>
               Usuń
             </button>
-            
+
           </p>
           <div className={styles.warning}>{error}</div>
         </section>
