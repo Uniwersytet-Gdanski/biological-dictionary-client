@@ -50,7 +50,7 @@ const SearchRoute = () => {
     <div className={styles.route}>
       <Helmet>
         <title>
-          123 - wyszukaj - Słownik Biologiczny
+          {query} - wyszukaj - Słownik Biologiczny
         </title>
       </Helmet>
       <HeaderWithSearch initialQuery={query} />
