@@ -14,7 +14,7 @@ const AboutRoute = () => {
         <h1 className={styles.title}>O słowniku</h1>
         <p>
           Niniejszy słownik zawiera tłumaczenia polskich terminów z zakresu szeroko pojętej
-          biologii – (od biochemii po ekologię) -
+          biologii – od biochemii po ekologię -
           na język angielski. Obejmuje to zarówno liczbę pojedynczą, jak i mnogą, zarówno formy
           regularne i nieregularne. Zaznaczona
           jest też niepoliczalność. W przypadku wielu tłumaczeń, uwzględniono angielskie
