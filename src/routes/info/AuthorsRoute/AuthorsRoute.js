@@ -13,27 +13,27 @@ const AuthorsRoute = () => {
       <div className={styles.main}>
         <h1 className={styles.title}>Autorzy</h1>
         <div>
-          Polsko-angielski słownik terminów biologicznych, pierwszy tego typu słownik w Polsce, został przygotowany przez 
+          Polsko-angielski słownik terminów biologicznych, pierwszy tego typu słownik w Polsce, został przygotowany przez
           następujących studentów Genetyki i Biologii Eksperymentalnej z Wydziału Biologii Uniwersytetu Gdańskiego:
           <ul>
+            <li>Marcina Banackiego</li>
+            <li>Annę Barczak</li>
             <li>Kacpra Boguszewskiego</li>
             <li>Katarzynę Bryszkowską</li>
-            <li>Aleksandrę Kujałowicz</li>
-            <li>Marcina Banackiego</li>
             <li>Huberta Czyża</li>
-            <li>Annę Barczak</li>
+            <li>Aleksandrę Kujałowicz</li>
           </ul>
           Pod opieką mgr Barbary Kubicy-Daniel z Centrum Języków Obcych Uniwersytetu Gdańskiego.
         </div>
         <div>
-          Za przygotowanie strony internetowej odpowiedzialny jest zespół studentów Wydziału Matematyki, Fizyki i Informatyki 
+          Za przygotowanie strony internetowej odpowiedzialny jest zespół studentów Wydziału Matematyki, Fizyki i Informatyki
           pod opieką dr Hanny Furmańskiej i mgr Wojciecha Łojkowskiego w składzie:
           <ul>
-            <li>Rafał Majewski</li>
-            <li>Mikołaj Lomiak</li>
             <li>Sandra Leman</li>
+            <li>Mikołaj Lomiak</li>
+            <li>Rafał Majewski</li>
           </ul>
-          Za opracowanie interfejsu odpowiedzialna jest Joanna Jaworska, studentka studiów magisterskich 
+          Za opracowanie interfejsu odpowiedzialna jest Joanna Jaworska, studentka studiów magisterskich
           z Wydziału Nauk Społecznych Uniwersytetu Gdańskiego.
         </div>
       </div>
