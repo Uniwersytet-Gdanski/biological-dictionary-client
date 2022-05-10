@@ -1,0 +1,19 @@
+@import '../../colors.css';
+
+.button {
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+    background: var(--white-color);
+    border: none;
+    width: 4em;
+    height: 4em;
+    border-radius: 2em;
+    box-shadow: 0 0 0.50em 0.25em rgba(0, 0, 0, 0.25);
+    transition: opacity 0.5s ease-out;
+}
+
+.hidden {
+    pointer-events: none;
+    opacity: 0;
+}
