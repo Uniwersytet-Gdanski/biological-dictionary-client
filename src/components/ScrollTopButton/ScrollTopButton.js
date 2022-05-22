@@ -12,7 +12,6 @@ const ScrollTopButton = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log('hi');
       setIsHidden(window.scrollY < 500);
     };
 
