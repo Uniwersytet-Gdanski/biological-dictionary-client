@@ -11,3 +11,9 @@
 .main {
   composes: main from '../info.css';
 }
+
+.authorsImg {
+	width: 100%;
+	border-radius: 1em;
+	margin-bottom: 0.5em;
+}

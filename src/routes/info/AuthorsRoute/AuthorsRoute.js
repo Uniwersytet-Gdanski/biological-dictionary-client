@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import HeaderWithoutSearch from '../../../components/HeaderWithoutSearch/HeaderWithoutSearch';
 import styles from './AuthorsRoute.module.css'
+import authorsImg from '../../../img/authors.png'
+
 
 const AuthorsRoute = () => {
   return (
@@ -13,6 +15,7 @@ const AuthorsRoute = () => {
       <div className={styles.main}>
         <h1 className={styles.title}>Autorzy</h1>
         <div>
+			<img src={authorsImg} alt="Autorzy" className={styles.authorsImg} />
           Polsko-angielski słownik terminów biologicznych, pierwszy tego typu słownik w Polsce, został przygotowany przez
           następujących studentów Genetyki i Biologii Eksperymentalnej z Wydziału Biologii Uniwersytetu Gdańskiego:
           <ul>
