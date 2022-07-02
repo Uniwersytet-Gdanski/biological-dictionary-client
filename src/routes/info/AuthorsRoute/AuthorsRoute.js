@@ -30,7 +30,7 @@ const AuthorsRoute = () => {
         </div>
         <div>
           Za przygotowanie strony internetowej odpowiedzialny jest zespół studentów Wydziału Matematyki, Fizyki i Informatyki
-          pod opieką dr Hanny Furmańskiej i mgr Wojciecha Łojkowskiego w składzie:
+          pod opieką dr Hanny Furmańczyk i mgr Wojciecha Łojkowskiego w składzie:
           <ul>
             <li>Sandra Leman</li>
             <li>Mikołaj Lomiak</li>
